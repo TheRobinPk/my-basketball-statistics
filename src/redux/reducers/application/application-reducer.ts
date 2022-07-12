@@ -1,9 +1,9 @@
 import {createAction, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {Database} from 'expo-sqlite';
+import {WebSQLDatabase} from 'expo-sqlite';
 
 export interface ApplicationState {
     applicationInitialized: boolean;
-    database?: Database;
+    database?: WebSQLDatabase;
 }
 
 export const initialState: ApplicationState = {
@@ -18,7 +18,7 @@ const applicationSlice = createSlice({
         initializeApplication: (state) => {
             state.applicationInitialized = true;
         },
-        setApplicationDatabase: (state, action: PayloadAction<Database>) => {
+        setApplicationDatabase: (state, action: PayloadAction<WebSQLDatabase>) => {
             state.database = action.payload;
         }
     }
