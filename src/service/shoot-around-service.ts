@@ -1,5 +1,5 @@
 import {SQLTransaction, WebSQLDatabase} from 'expo-sqlite';
-import {ShootAround, ShootAroundSpot} from '../domain/shoot-around';
+import {ShootAround} from '../domain/shoot-around';
 import {SQLError, SQLResultSet} from 'expo-sqlite/src/SQLite.types';
 import moment from 'moment';
 
@@ -13,10 +13,12 @@ const CREATE_TABLE_SQL = 'create table if not exists shoot_around(' +
 
 const INSERT_STATEMENT = 'insert into shoot_around(timestamp, total_attempts, made_attempts, spot) values (?, ?, ?, ?)';
 
+const SELECT_ALL_STATEMENT = 'select id, timestamp, total_attempts, made_attempts, spot from shoot_around';
+
 export default class ShootAroundService {
     static initTable(database: WebSQLDatabase): Promise<void> {
         return new Promise<void>((resolve, reject) => {
-            database.exec([{ sql: CREATE_TABLE_SQL, args: [] }], false, (error, resultSet) => {
+            database.exec([{ sql: CREATE_TABLE_SQL, args: [] }], false, (error) => {
                 if (error) {
                     reject(error);
                 }
@@ -53,18 +55,10 @@ export default class ShootAroundService {
         return new Promise((resolve, reject) => {
             database.transaction((transaction: SQLTransaction) => {
                 transaction.executeSql(
-                    'select * from shoot_around',
+                    SELECT_ALL_STATEMENT,
                     [],
                     (transaction: SQLTransaction, resultSet: SQLResultSet) => {
-                        resolve(resultSet.rows._array.map((item: any) => {
-                            return {
-                                id: item['id'],
-                                dateTime: moment.unix(item['timestamp'] as number),
-                                totalAttempts: item['total_attempts'] as number,
-                                madeAttempts: item['made_attempts'] as number,
-                                spot: ShootAroundSpot.FREE_THROW
-                            };
-                        }));
+                        resolve(resultSet.rows._array.map(ShootAroundService.resultSetMapper));
                     },
                     (transaction: SQLTransaction, error: SQLError): boolean => {
                         if (error) {
@@ -75,5 +69,15 @@ export default class ShootAroundService {
                     });
             });
         });
+    }
+
+    private static resultSetMapper(item: any) {
+        return {
+            id: item['id'],
+            dateTime: moment.unix(item['timestamp'] as number),
+            totalAttempts: item['total_attempts'] as number,
+            madeAttempts: item['made_attempts'] as number,
+            spot: item['spot']
+        };
     }
 }
