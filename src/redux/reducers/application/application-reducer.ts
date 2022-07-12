@@ -1,7 +1,5 @@
 import {createAction, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {Database} from "expo-sqlite";
-
-export interface ApplicationInitializer {}
+import {Database} from 'expo-sqlite';
 
 export interface ApplicationState {
     applicationInitialized: boolean;
