@@ -1,6 +1,5 @@
-node_modules/
-.expo/
-dist/
+node_modules/**/*
+.expo/*
 npm-debug.*
 *.jks
 *.p8
@@ -9,6 +8,15 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
+build/
+bin/
+artifacts/
 
 # macOS
 .DS_Store
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
