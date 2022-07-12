@@ -7,22 +7,60 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx src/",
+    "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx src/ --fix",
+    "test": "echo test",
+    "build": "npm run lint && npm run test",
+    "build:android": "npm run build && expo build:android",
+    "publish": "npm run build && expo publish"
   },
   "dependencies": {
-    "expo": "~45.0.0",
-    "expo-sqlite": "~10.2.0",
-    "expo-status-bar": "~1.3.0",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "react-native": "0.68.2",
-    "react-native-web": "0.17.7"
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-44.0.0.tar.gz",
+    "@react-native-community/masked-view": "^0.1.10",
+    "expo": "^44.0.0",
+    "expo-constants": "~13.0.2",
+    "expo-sqlite": "~10.1.0",
+    "expo-file-system": "~13.1.3",
+    "expo-status-bar": "~1.2.0",
+    "expo-splash-screen": "~0.14.1",
+    "@react-navigation/drawer": "^6.1.8",
+    "@react-navigation/native": "^6.0.6",
+    "@react-navigation/native-stack": "^6.2.5",
+    "react-native-elements": "^3.4.2",
+    "@rneui/base": "^4.0.0-rc.3",
+    "@rneui/themed": "^4.0.0-rc.3",
+    "react-native-gesture-handler": "^2.2.0",
+    "react-native-reanimated": "^2.4.0",
+    "react-native-screens": "3.15.0c",
+    "react-native-safe-area-context": "3.3.2",
+    "react-native-web": "0.17.1",
+    "react-redux": "^8.0.1",
+    "redux": "^4.2.0",
+    "@reduxjs/toolkit": "^1.8.1",
+    "redux-saga": "^1.1.3",
+    "moment": "^2.29.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9",
+    "typescript": "^4.6.4",
+    "@types/jest": "^27.5.1",
     "@types/react": "~17.0.21",
-    "@types/react-native": "~0.66.13",
-    "typescript": "~4.3.5"
+    "@types/react-native": "^0.67.6",
+    "@types/react-test-renderer": "^18.0.0",
+    "@babel/core": "^7.12.9",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.25.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-react": "^7.23.2",
+    "eslint-plugin-react-native": "^3.10.0",
+    "@typescript-eslint/parser": "^5.23.0",
+    "@typescript-eslint/eslint-plugin": "^5.23.0",
+    "react-native-testing-library": "2.2.0",
+    "react-test-renderer": "16.13.1"
   },
-  "private": true
+  "resolutions": {
+    "@types/react": "~17.0.21"
+  }
 }
