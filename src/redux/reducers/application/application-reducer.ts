@@ -1,14 +1,17 @@
 import {createAction, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {WebSQLDatabase} from 'expo-sqlite';
+import {DataSource} from 'typeorm';
+import {ShootAroundEntity} from '../../../domain/shoot-around';
+import ShootAroundService from '../../../service/shoot-around-service';
 
 export interface ApplicationState {
     applicationInitialized: boolean;
-    database?: WebSQLDatabase;
+    dataSource?: DataSource;
+    shootAroundService?: ShootAroundService;
 }
 
 export const initialState: ApplicationState = {
     applicationInitialized: false,
-    database: undefined
+    dataSource: undefined
 };
 
 const applicationSlice = createSlice({
@@ -18,8 +21,11 @@ const applicationSlice = createSlice({
         initializeApplication: (state) => {
             state.applicationInitialized = true;
         },
-        setApplicationDatabase: (state, action: PayloadAction<WebSQLDatabase>) => {
-            state.database = action.payload;
+        setApplicationDataSource: (state, action: PayloadAction<DataSource>) => {
+            const dataSource = action.payload;
+            const repository = dataSource.getRepository(ShootAroundEntity);
+            state.dataSource = dataSource;
+            state.shootAroundService = new ShootAroundService(repository);
         }
     }
 });
@@ -28,7 +34,7 @@ const applicationReducer = applicationSlice.reducer;
 
 export const {
     initializeApplication,
-    setApplicationDatabase,
+    setApplicationDataSource,
 } = applicationSlice.actions;
 export const applicationMounted = createAction('application/applicationMounted');
 export default applicationReducer;

@@ -1,83 +1,44 @@
-import {SQLTransaction, WebSQLDatabase} from 'expo-sqlite';
-import {ShootAround} from '../domain/shoot-around';
-import {SQLError, SQLResultSet} from 'expo-sqlite/src/SQLite.types';
+import {ShootAround, ShootAroundEntity, ShootAroundSpot} from '../domain/shoot-around';
 import moment from 'moment';
-
-const CREATE_TABLE_SQL = 'create table if not exists shoot_around(' +
-    'id integer primary key autoincrement,' +
-    'timestamp integer,' +
-    'total_attempts integer,' +
-    'made_attempts integer,' +
-    'spot text' +
-    ')';
-
-const INSERT_STATEMENT = 'insert into shoot_around(timestamp, total_attempts, made_attempts, spot) values (?, ?, ?, ?)';
-
-const SELECT_ALL_STATEMENT = 'select id, timestamp, total_attempts, made_attempts, spot from shoot_around';
+import {Repository} from 'typeorm/repository/Repository';
 
 export default class ShootAroundService {
-    static initTable(database: WebSQLDatabase): Promise<void> {
-        return new Promise<void>((resolve, reject) => {
-            database.exec([{ sql: CREATE_TABLE_SQL, args: [] }], false, (error) => {
-                if (error) {
-                    reject(error);
-                }
-                resolve();
-            });
+    private repository: Repository<ShootAroundEntity>;
+
+    constructor(repository: Repository<ShootAroundEntity>) {
+        this.repository = repository;
+    }
+
+    insert(shootAround: ShootAround) {
+        return new Promise<void>((resolve) => {
+            const entity = new ShootAroundEntity();
+            entity.spot = shootAround.spot.toString();
+            entity.madeAttempts = shootAround.madeAttempts;
+            entity.totalAttempts = shootAround.totalAttempts;
+            entity.timestamp = shootAround.dateTime.unix();
+            this.repository.insert(entity)
+                .then(() => {
+                    resolve();
+                });
         });
     }
 
-    static insert(database: WebSQLDatabase, shootAround: ShootAround) {
-        return new Promise((resolve, reject) => {
-            database.transaction((transaction: SQLTransaction) => {
-                transaction.executeSql(
-                    INSERT_STATEMENT,
-                    [
-                        shootAround.dateTime.unix(),
-                        shootAround.totalAttempts,
-                        shootAround.madeAttempts,
-                        shootAround.spot.toString()
-                    ],
-                    (transaction: SQLTransaction, resultSet: SQLResultSet) => {
-                        resolve(resultSet);
-                },
-                    (transaction: SQLTransaction, error: SQLError): boolean => {
-                        if (error) {
-                            reject(error);
-                        }
-                        return !!error;
-                    });
-            });
+    findAll(): Promise<ShootAround[]> {
+        return new Promise<ShootAround[]>((resolve) => {
+            this.repository.find()
+                .then((items) => {
+                    resolve(items.map(this.mapToShootAround));
+                });
         });
     }
 
-    static findAll(database: WebSQLDatabase): Promise<ShootAround[]> {
-        return new Promise((resolve, reject) => {
-            database.transaction((transaction: SQLTransaction) => {
-                transaction.executeSql(
-                    SELECT_ALL_STATEMENT,
-                    [],
-                    (transaction: SQLTransaction, resultSet: SQLResultSet) => {
-                        resolve(resultSet.rows._array.map(ShootAroundService.resultSetMapper));
-                    },
-                    (transaction: SQLTransaction, error: SQLError): boolean => {
-                        if (error) {
-                            reject(error);
-                            return false;
-                        }
-                        return true;
-                    });
-            });
-        });
-    }
-
-    private static resultSetMapper(item: any) {
+    private mapToShootAround(entity: ShootAroundEntity): ShootAround {
         return {
-            id: item['id'],
-            dateTime: moment.unix(item['timestamp'] as number),
-            totalAttempts: item['total_attempts'] as number,
-            madeAttempts: item['made_attempts'] as number,
-            spot: item['spot']
+            id: entity.id,
+            dateTime: moment.unix(entity.timestamp),
+            totalAttempts: entity.totalAttempts,
+            madeAttempts: entity.madeAttempts,
+            spot: entity.spot as ShootAroundSpot
         };
     }
 }
