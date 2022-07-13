@@ -1,0 +1,26 @@
+name: Expo Publish - staging
+
+on:
+  push:
+    branches: [ development ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        name: checking out code
+      - uses: borales/actions-yarn@v3.0.0
+        name: running yarn install
+        with:
+          cmd: install
+      - uses: expo/expo-github-action@v6
+        name: adding Expo cli
+        with:
+          expo-version: 4.x
+          token: ${{ secrets.EXPO_TOKEN }}
+      - uses: borales/actions-yarn@v3.0.0
+        name: running yarn publish
+        with:
+          cmd: publish
