@@ -1,10 +1,12 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import DashboardScreen from '../screens/dashboard-screen';
+import AddShootAroundScreen from '../screens/add-shoot-around-screen';
 import colors from '../colors';
 
 export type RootStackParamList = {
     DashboardScreen: undefined;
+    AddShootAroundScreen: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -22,6 +24,12 @@ const ApplicationNavigator = () => {
                 component={DashboardScreen}
                 options={{
                     title: 'Dashboard'
+                }} />
+            <Stack.Screen
+                name='AddShootAroundScreen'
+                component={AddShootAroundScreen}
+                options={{
+                    title: 'Add Shootaround'
                 }} />
         </Stack.Navigator>
     );
