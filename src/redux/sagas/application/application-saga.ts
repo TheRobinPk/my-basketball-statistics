@@ -25,8 +25,8 @@ function* applicationMountedSaga() {
             entities: [ShootAroundEntity],
             migrationsRun: true,
             migrations: [ShootAroundCreateTable1608217149351],
-
         });
+
         yield put(setApplicationDataSource(dataSource));
         yield put(initializeApplication());
     }
