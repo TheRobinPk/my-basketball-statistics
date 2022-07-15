@@ -19,13 +19,15 @@ function* submitShootAroundSaga() {
     const shootAroundService: ShootAroundService | undefined = yield select((state: RootState) => state.application.shootAroundService);
     const totalAttempts: string = yield select((state: RootState) => state.addShootAround.totalAttempts);
     const madeAttempts: string = yield select((state: RootState) => state.addShootAround.madeAttempts);
+    const shootAroundSpot: ShootAroundSpot | undefined = yield select((state: RootState) => state.addShootAround.shootAroundSpot);
     const submitDisabled: boolean = yield select((state: RootState) => state.addShootAround.submitDisabled);
 
     if (!submitDisabled) {
         const shootAround: ShootAround = {
             totalAttempts: parseInt(totalAttempts),
             madeAttempts: parseInt(madeAttempts),
-            spot: ShootAroundSpot.FREE_THROW, // TODO
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            spot: shootAroundSpot!,
             dateTime: moment.utc()
         };
 

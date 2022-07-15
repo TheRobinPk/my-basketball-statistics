@@ -2,18 +2,21 @@ import React, {useEffect} from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
 import {Button} from '@rneui/base';
 import Toast from 'react-native-toast-message';
+import BasketballCourt from '../components/basketball-court/basketball-court';
 import colors from '../colors';
 import {useAppDispatch, useAppSelector} from '../redux/store/store';
 import {
     setAddShootAroundSubmitSuccess,
-    setMadeAttempts,
+    setMadeAttempts, setShootAroundSpot,
     setTotalAttempts,
     submitShootAround
 } from '../redux/reducers/add-shootaround/add-shootaround-reducer';
+import {ShootAroundSpot} from '../domain/shoot-around';
 
 const AddShootAroundScreen = () => {
     const totalAttempts = useAppSelector(state => state.addShootAround.totalAttempts);
     const madeAttempts = useAppSelector(state => state.addShootAround.madeAttempts);
+    const shootAroundSpot = useAppSelector(state => state.addShootAround.shootAroundSpot);
     const isLoading = useAppSelector(state => state.addShootAround.isLoading);
     const submitDisabled = useAppSelector(state => state.addShootAround.submitDisabled);
     const submitSuccess = useAppSelector(state => state.addShootAround.submitSuccess);
@@ -35,6 +38,9 @@ const AddShootAroundScreen = () => {
 
     return (
         <View testID='add-shoot-around-container' style={styles.container}>
+            <BasketballCourt
+                selectedSpot={shootAroundSpot}
+                onSpotSelected={(selectedSpot: ShootAroundSpot) => dispatch(setShootAroundSpot(selectedSpot))} />
             <View style={styles.rowContainer}>
                 <View style={styles.columnContainer}>
                     <Text
