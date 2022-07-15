@@ -7,8 +7,7 @@ import colors from '../colors';
 import {useAppDispatch, useAppSelector} from '../redux/store/store';
 import {
     setAddShootAroundSubmitSuccess,
-    setMadeAttempts, setShootAroundSpot,
-    setTotalAttempts,
+    setShootAroundFormValues,
     submitShootAround
 } from '../redux/reducers/add-shootaround/add-shootaround-reducer';
 import {ShootAroundSpot} from '../domain/shoot-around';
@@ -40,7 +39,13 @@ const AddShootAroundScreen = () => {
         <View testID='add-shoot-around-container' style={styles.container}>
             <BasketballCourt
                 selectedSpot={shootAroundSpot}
-                onSpotSelected={(selectedSpot: ShootAroundSpot) => dispatch(setShootAroundSpot(selectedSpot))} />
+                onSpotSelected={(selectedSpot: ShootAroundSpot) => {
+                    dispatch(setShootAroundFormValues({
+                        totalAttempts: totalAttempts,
+                        madeAttempts: madeAttempts,
+                        shootAroundSpot: selectedSpot
+                    }));
+                }} />
             <View style={styles.rowContainer}>
                 <View style={styles.columnContainer}>
                     <Text
@@ -57,7 +62,13 @@ const AddShootAroundScreen = () => {
                         autoCapitalize='none'
                         contextMenuHidden
                         value={totalAttempts?.toString()}
-                        onChangeText={(value) => dispatch(setTotalAttempts(value))} />
+                        onChangeText={(value) => {
+                            dispatch(setShootAroundFormValues({
+                                totalAttempts: value,
+                                madeAttempts: madeAttempts,
+                                shootAroundSpot: shootAroundSpot
+                            }));
+                        }} />
                 </View>
                 <View style={styles.columnContainer}>
                     <Text
@@ -74,7 +85,13 @@ const AddShootAroundScreen = () => {
                         autoCapitalize='none'
                         contextMenuHidden
                         value={madeAttempts?.toString()}
-                        onChangeText={(value) => dispatch(setMadeAttempts(value))} />
+                        onChangeText={(value) => {
+                            dispatch(setShootAroundFormValues({
+                                totalAttempts: totalAttempts,
+                                madeAttempts: value,
+                                shootAroundSpot: shootAroundSpot
+                            }));
+                        }} />
                 </View>
             </View>
             {error.isPresent && (

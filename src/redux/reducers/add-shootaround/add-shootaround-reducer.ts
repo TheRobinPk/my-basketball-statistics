@@ -30,9 +30,10 @@ export const initialState: AddShootAroundState = {
 };
 
 type ShootAroundValidationResult = Omit<AddShootAroundState, 'totalAttempts' | 'madeAttempts' | 'isLoading' | 'submitSuccess'>
+type ShootAroundForm = Pick<AddShootAroundState, 'totalAttempts' | 'madeAttempts' | 'shootAroundSpot'>;
 
-const validateShootAround = (totalAttempts: string, madeAttempts: string): ShootAroundValidationResult => {
-        if (totalAttempts.length === 0 || madeAttempts.length === 0) {
+const validateShootAround = (totalAttempts: string, madeAttempts: string, shootAroundSpot: ShootAroundSpot | undefined): ShootAroundValidationResult => {
+        if (totalAttempts.length === 0 || madeAttempts.length === 0 || shootAroundSpot === undefined) {
             return {
                 error: {
                     isPresent: false,
@@ -90,24 +91,20 @@ const addShootAroundSlice = createSlice({
         setAddShootAroundSubmitSuccess: (state, action: PayloadAction<boolean>) => {
             state.submitSuccess = action.payload;
         },
-        setTotalAttempts: (state, action: PayloadAction<string>) => {
-            state.totalAttempts = action.payload;
-            const validationResult = validateShootAround(action.payload, state.madeAttempts);
+        setShootAroundFormValues: (state, action: PayloadAction<ShootAroundForm>) => {
+            const { totalAttempts, madeAttempts, shootAroundSpot } = action.payload;
+            state.totalAttempts = totalAttempts;
+            state.madeAttempts = madeAttempts;
+            state.shootAroundSpot = shootAroundSpot;
+
+            const validationResult = validateShootAround(totalAttempts, madeAttempts, shootAroundSpot);
             state.error = validationResult.error;
             state.submitDisabled = validationResult.submitDisabled;
-        },
-        setMadeAttempts: (state, action: PayloadAction<string>) => {
-            state.madeAttempts = action.payload;
-            const validationResult = validateShootAround(state.totalAttempts, action.payload);
-            state.error = validationResult.error;
-            state.submitDisabled = validationResult.submitDisabled;
-        },
-        setShootAroundSpot: (state, action: PayloadAction<ShootAroundSpot>) => {
-            state.shootAroundSpot = action.payload;
         },
         resetShootAroundForm: (state) => {
             state.isLoading = false;
             state.submitDisabled = true;
+            state.submitSuccess = false;
             state.totalAttempts = '';
             state.madeAttempts = '';
             state.shootAroundSpot = undefined;
@@ -123,9 +120,7 @@ const addShootAroundReducer = addShootAroundSlice.reducer;
 
 export const {
     setAddShootAroundIsLoading,
-    setTotalAttempts,
-    setMadeAttempts,
-    setShootAroundSpot,
+    setShootAroundFormValues,
     resetShootAroundForm,
     setAddShootAroundSubmitSuccess
 } = addShootAroundSlice.actions;
