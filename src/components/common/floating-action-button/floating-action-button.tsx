@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import {SpeedDial} from 'react-native-elements';
-import {IconNode} from 'react-native-elements/dist/icons/Icon';
+import {IconNode, SpeedDial} from '@rneui/base';
 
 interface FloatingActionButtonAction {
     color: string;

@@ -1,4 +1,5 @@
 import {createAction, createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {ShootAroundSpot} from '../../../domain/shoot-around';
 
 interface FormError {
     isPresent: boolean;
@@ -8,6 +9,7 @@ interface FormError {
 export interface AddShootAroundState {
     totalAttempts: string;
     madeAttempts: string;
+    shootAroundSpot?: ShootAroundSpot;
     submitDisabled: boolean;
     isLoading: boolean;
     submitSuccess: boolean;
@@ -17,6 +19,7 @@ export interface AddShootAroundState {
 export const initialState: AddShootAroundState = {
     totalAttempts: '',
     madeAttempts: '',
+    shootAroundSpot: undefined,
     submitDisabled: true,
     isLoading: false,
     submitSuccess: false,
@@ -99,11 +102,15 @@ const addShootAroundSlice = createSlice({
             state.error = validationResult.error;
             state.submitDisabled = validationResult.submitDisabled;
         },
+        setShootAroundSpot: (state, action: PayloadAction<ShootAroundSpot>) => {
+            state.shootAroundSpot = action.payload;
+        },
         resetShootAroundForm: (state) => {
             state.isLoading = false;
             state.submitDisabled = true;
             state.totalAttempts = '';
             state.madeAttempts = '';
+            state.shootAroundSpot = undefined;
             state.error = {
                 isPresent: false,
                 text: ''
@@ -118,6 +125,7 @@ export const {
     setAddShootAroundIsLoading,
     setTotalAttempts,
     setMadeAttempts,
+    setShootAroundSpot,
     resetShootAroundForm,
     setAddShootAroundSubmitSuccess
 } = addShootAroundSlice.actions;

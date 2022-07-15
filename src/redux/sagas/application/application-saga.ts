@@ -8,7 +8,7 @@ import {
 import { DataSource } from 'typeorm';
 import {ShootAroundEntity} from '../../../domain/shoot-around';
 import {createConnection} from 'typeorm';
-import {ShootAroundCreateTable1608217149351} from '../../../domain/migrations/shoot-around-create-table';
+import {CreateShootAroundTable1657877900861} from '../../../migartions/create-shootaround-table1657877900861';
 
 export function* applicationMountedWatcherSaga() {
     yield takeLatest([applicationMounted.type], applicationMountedSaga);
@@ -24,7 +24,7 @@ function* applicationMountedSaga() {
             driver: require('expo-sqlite'),
             entities: [ShootAroundEntity],
             migrationsRun: true,
-            migrations: [ShootAroundCreateTable1608217149351],
+            migrations: [CreateShootAroundTable1657877900861],
         });
 
         yield put(setApplicationDataSource(dataSource));
