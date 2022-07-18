@@ -1,8 +1,8 @@
-name: Expo Publish - staging
+name: EAS Build - production
 
 on:
   push:
-    branches: [ development ]
+    branches: [ master ]
 
 jobs:
   build:
@@ -23,4 +23,4 @@ jobs:
       - uses: borales/actions-yarn@v3.0.0
         name: running yarn publish
         with:
-          cmd: publish:production
+          cmd: build:android:production
