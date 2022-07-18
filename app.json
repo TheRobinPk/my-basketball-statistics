@@ -18,7 +18,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "org.zenbot.basketball.shootaround.app"
     },
     "android": {
       "package": "org.zenbot.basketball.shootaround.app",
