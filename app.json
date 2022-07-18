@@ -21,6 +21,7 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "org.zenbot.basketball.shootaround.app",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"

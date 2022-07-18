@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import 'expo-dev-client';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
