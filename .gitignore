@@ -12,6 +12,8 @@ build/
 bin/
 artifacts/
 coverage/
+android/
+ios/
 
 # macOS
 .DS_Store
