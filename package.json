@@ -12,8 +12,10 @@
     "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx src/ --fix",
     "test": "jest",
     "build": "npm run lint && npm run test",
-    "build:android": "npm run build && expo build:android",
-    "publish": "npm run build && expo publish",
+    "build:android:develop": "npm run build && expo build:android --release-channel develop",
+    "build:android:production": "npm run build && expo build:android --release-channel production",
+    "publish:develop": "npm run build && expo publish --release-channel develop",
+    "publish:production": "npm run build && expo publish --release-channel production",
     "typeorm": "typeorm-ts-node-commonjs"
   },
   "dependencies": {
