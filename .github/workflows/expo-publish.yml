@@ -23,4 +23,4 @@ jobs:
       - uses: borales/actions-yarn@v3.0.0
         name: running yarn publish
         with:
-          cmd: publish
+          cmd: publish:production

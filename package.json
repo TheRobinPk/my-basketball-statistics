@@ -10,10 +10,12 @@
     "eject": "expo eject",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx src/",
     "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx src/ --fix",
-    "test": "jest",
+    "test": "jest --forceExit",
     "build": "npm run lint && npm run test",
-    "build:android": "npm run build && expo build:android",
-    "publish": "npm run build && expo publish",
+    "build:android:develop": "npm run build && expo build:android --release-channel develop",
+    "build:android:production": "npm run build && expo build:android --release-channel production",
+    "publish:develop": "npm run build && expo publish --release-channel develop",
+    "publish:production": "npm run build && expo publish --release-channel production",
     "typeorm": "typeorm-ts-node-commonjs"
   },
   "dependencies": {
@@ -31,6 +33,7 @@
     "expo-splash-screen": "~0.15.1",
     "expo-sqlite": "~10.2.0",
     "expo-status-bar": "~1.3.0",
+    "expo-constants": "~13.1.1",
     "expo-updates": "~0.11.7",
     "@react-navigation/native": "^6.0.11",
     "@react-navigation/native-stack": "^6.7.0",
@@ -63,8 +66,15 @@
     "jest": "^28.1.3",
     "@types/jest": "^28.1.5",
     "ts-jest": "^28.0.6",
+    "jest-expo": "^45.0.1",
     "jest-create-mock-instance": "^2.0.0",
     "react-native-testing-library": "2.2.0"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "transformIgnorePatterns": [
+      "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)"
+    ]
   },
   "private": true
 }
