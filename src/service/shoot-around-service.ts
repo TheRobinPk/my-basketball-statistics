@@ -1,5 +1,4 @@
-import {ShootAround, ShootAroundEntity, ShootAroundSpot} from '../domain/shoot-around';
-import moment from 'moment';
+import {ShootAround, ShootAroundEntity} from '../domain/shoot-around';
 import {Repository} from 'typeorm/repository/Repository';
 
 export default class ShootAroundService {
@@ -21,24 +20,5 @@ export default class ShootAroundService {
                     resolve();
                 });
         });
-    }
-
-    findAll(): Promise<ShootAround[]> {
-        return new Promise<ShootAround[]>((resolve) => {
-            this.repository.find()
-                .then((items) => {
-                    resolve(items.map(this.mapToShootAround));
-                });
-        });
-    }
-
-    private mapToShootAround(entity: ShootAroundEntity): ShootAround {
-        return {
-            id: entity.id,
-            dateTime: moment.unix(entity.timestamp),
-            totalAttempts: entity.totalAttempts,
-            madeAttempts: entity.madeAttempts,
-            spot: entity.spot as ShootAroundSpot
-        };
     }
 }
