@@ -1,7 +1,7 @@
 name: EAS Build - development
 
 on:
-  push:
+  pull_request:
     branches: [ development ]
 
 jobs:
@@ -11,16 +11,17 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         name: checking out code
-      - uses: borales/actions-yarn@v3.0.0
-        name: running yarn install
-        with:
-          cmd: install
       - uses: expo/expo-github-action@v7
         name: adding Expo cli
         with:
           expo-version: latest
           eas-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
+          packager: yarn
+      - uses: borales/actions-yarn@v3.0.0
+        name: running yarn install
+        with:
+          cmd: install
       - uses: borales/actions-yarn@v3.0.0
         name: running yarn publish
         with:
