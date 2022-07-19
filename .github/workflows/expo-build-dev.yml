@@ -1,4 +1,4 @@
-name: EAS Build - development
+name: EAS Android Build - development
 
 on:
   push:
@@ -9,19 +9,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-        name: checking out code
-      - uses: borales/actions-yarn@v3.0.0
-        name: running yarn install
+      - name: 🏗 Checkout code
+        uses: actions/checkout@v2
+
+      - name: 🏗 Setup Node
+        uses: actions/setup-node@v2
         with:
-          cmd: install
-      - uses: expo/expo-github-action@v7
-        name: adding Expo cli
+          node-version: 16.x
+          cache: yarn
+
+      - name: 🏗 Setup Expo and EAS
+        uses: expo/expo-github-action@v7
         with:
           expo-version: latest
           eas-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
-      - uses: borales/actions-yarn@v3.0.0
-        name: running yarn publish
-        with:
-          cmd: build:android:develop
+
+      - name: 📦 Install dependencies
+        run: yarn install
+
+      - name: 🚀 Build app
+        run: yarn run build:android:develop
