@@ -1,7 +1,7 @@
 name: Static code analysis
 
 on:
-  push:
+  pull_request:
     branches: [ development ]
 
 jobs:
@@ -9,13 +9,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-        name: checking out code
-      - uses: borales/actions-yarn@v3.0.0
-        name: yarn install
+      - name: 🏗 Checkout code
+        uses: actions/checkout@v2
+
+      - name: 🏗 Setup Node
+        uses: actions/setup-node@v2
         with:
-          cmd: install
-      - uses: borales/actions-yarn@v3.0.0
-        name: yarn build
-        with:
-          cmd: build
+          node-version: 16.x
+          cache: yarn
+
+      - name: 📦 Install dependencies
+        run: yarn install
+
+      - name: 🚀 Run code analysis and tests
+        run: yarn build
