@@ -20,6 +20,11 @@ const Snackbar = (props: IProps) => {
             visible={props.visible}
             duration={props.duration}
             style={styles.snackbarStyle}
+            action={{
+                label: 'Hide',
+                labelStyle: styles.labelStyle,
+                onPress: props.onDismiss
+            }}
             onDismiss={props.onDismiss}>
             <Text
                 testID={props.labelTestID}
