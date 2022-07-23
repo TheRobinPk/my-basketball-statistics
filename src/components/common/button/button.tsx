@@ -18,6 +18,7 @@ const Button = (props: IProps) => {
         ...styles.buttonStyle,
         ...additionalButtonStyle
     };
+    const labelStyle = props.disabled || props.loading ? styles.disabledLabelStyle : styles.labelStyle;
 
     return (
         <ButtonReactNativePaper
@@ -26,7 +27,7 @@ const Button = (props: IProps) => {
             disabled={props.disabled}
             loading={props.loading}
             onPress={props.onPress}>
-            <Text style={styles.labelStyle}>{props.label}</Text>
+            <Text style={labelStyle}>{props.loading ? '' : props.label}</Text>
         </ButtonReactNativePaper>
     );
 };
@@ -38,13 +39,16 @@ const styles = StyleSheet.create({
         marginEnd: 8
     },
     enabledButtonStyle: {
-        backgroundColor: colors.accentColor
+        backgroundColor: colors.primaryColor
     },
     disabledButtonStyle: {
         backgroundColor: colors.disabledGrey
     },
     labelStyle: {
-        color: colors.white
+        color: colors.accentColor
+    },
+    disabledLabelStyle: {
+        color: colors.grey
     }
 });
 

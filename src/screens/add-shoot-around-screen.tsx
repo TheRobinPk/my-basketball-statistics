@@ -1,16 +1,18 @@
 import React from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
 import BasketballCourt from '../components/basketball-court/basketball-court';
+import Button from '../components/common/button/button';
+import Snackbar from '../components/common/snackbar/snackbar';
 import {useAppDispatch, useAppSelector} from '../redux/store/store';
 import {ShootAroundSpot} from '../domain/shoot-around';
 import {
+    resetShootAroundForm,
     setAddShootAroundSubmitSuccess,
     setShootAroundFormValues,
     submitShootAround
 } from '../redux/reducers/add-shootaround/add-shootaround-reducer';
 import colors from '../colors';
-import Button from '../components/common/button/button';
-import Snackbar from '../components/common/snackbar/snackbar';
+import {useComponentWillUnmount} from '../hooks/useComponentWillUnmount';
 
 const AddShootAroundScreen = () => {
     const totalAttempts = useAppSelector(state => state.addShootAround.totalAttempts);
@@ -22,6 +24,10 @@ const AddShootAroundScreen = () => {
     const error = useAppSelector(state => state.addShootAround.error);
 
     const dispatch = useAppDispatch();
+
+    useComponentWillUnmount(() => {
+        dispatch(resetShootAroundForm());
+    });
 
     return (
         <View testID='add-shoot-around-container' style={styles.container}>
@@ -112,7 +118,7 @@ const styles = StyleSheet.create({
     },
     labelTitle: {
         fontWeight: 'bold',
-        color: colors.accentColor,
+        color: colors.primaryColor,
         fontSize: 16
     },
     textInputStyle: {
