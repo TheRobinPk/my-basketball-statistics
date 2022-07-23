@@ -4,6 +4,11 @@
   },
   "build": {
     "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "releaseChannel": "develop"
+    },
+    "preview": {
       "distribution": "internal",
       "releaseChannel": "develop",
       "android": {
