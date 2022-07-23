@@ -1,48 +1,40 @@
 import React, { useState } from 'react';
-import {IconNode, SpeedDial} from '@rneui/base';
+import {Portal, Provider, FAB as FloatingActionButtonRn} from 'react-native-paper';
 
 interface FloatingActionButtonAction {
-    color: string;
-    icon: IconNode;
+    icon: string;
     title: string;
     pressHandler: () => void;
 }
 
 interface IProps {
-    color: string;
-    icon: IconNode;
-    openIcon: IconNode;
+    icon: string;
+    openIcon: string;
     actions: FloatingActionButtonAction[];
 }
 
 const FloatingActionButton = (props: IProps) => {
-
     const [open, setOpen] = useState<boolean>(false);
+    const { icon, openIcon, actions } = props;
 
     return (
-        <SpeedDial
-            testID='floating-action-button'
-            isOpen={open}
-            color={props.color}
-            icon={props.icon}
-            openIcon={props.openIcon}
-            onOpen={() => setOpen(!open)}
-            onClose={() => setOpen(!open)}>
-            {props.actions.map((action, index) => {
-                return (
-                    <SpeedDial.Action
-                        testID='floating-action-button-new-submission-option'
-                        key={index}
-                        color={action.color}
-                        icon={action.icon}
-                        title={action.title}
-                        onPress={() => {
-                            setOpen(false);
-                            action.pressHandler();
-                        }} />
-                );
-            })}
-        </SpeedDial>
+        <Provider>
+            <Portal>
+                <FloatingActionButtonRn.Group
+                    testID='floating-action-button'
+                    open={open}
+                    visible
+                    icon={open ? openIcon : icon}
+                    actions={actions.map((action) => {
+                        return {
+                            icon: action.icon,
+                            label: action.title,
+                            onPress: action.pressHandler
+                        };
+                    })}
+                    onStateChange={({ open }) => setOpen(open)} />
+            </Portal>
+        </Provider>
     );
 };
 
