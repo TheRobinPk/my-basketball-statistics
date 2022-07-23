@@ -22,11 +22,7 @@ describe('add-shootaround-reducer', () => {
             shootAroundSpot: undefined,
             submitDisabled: true,
             isLoading: false,
-            submitSuccess: false,
-            error: {
-                isPresent: false,
-                text: ''
-            }
+            submitSuccess: false
         };
         expect(state).toEqual(expectedState);
     });
@@ -53,7 +49,7 @@ describe('add-shootaround-reducer', () => {
         expect(state.submitSuccess).toEqual(true);
     });
 
-    it('should reset the error and set disabled to true when setShootAroundFormValues is dispatched with empty madeAttempts', () => {
+    it('should set disabled to true when setShootAroundFormValues is dispatched with empty madeAttempts', () => {
         // GIVEN
 
         // WHEN
@@ -65,14 +61,10 @@ describe('add-shootaround-reducer', () => {
 
         // THEN
         const state = store.getState().addShootAround;
-        expect(state.error).toEqual({
-            isPresent: false,
-            text: ''
-        });
         expect(state.submitDisabled).toEqual(true);
     });
 
-    it('should reset the error and set disabled to true when setShootAroundFormValues is dispatched with empty totalAttempts', () => {
+    it('should set disabled to true when setShootAroundFormValues is dispatched with empty totalAttempts', () => {
         // GIVEN
 
         // WHEN
@@ -84,14 +76,10 @@ describe('add-shootaround-reducer', () => {
 
         // THEN
         const state = store.getState().addShootAround;
-        expect(state.error).toEqual({
-            isPresent: false,
-            text: ''
-        });
         expect(state.submitDisabled).toEqual(true);
     });
 
-    it('should reset the error and set disabled to true when setShootAroundFormValues is dispatched with empty shootAroundSpot', () => {
+    it('should set disabled to true when setShootAroundFormValues is dispatched with empty shootAroundSpot', () => {
         // GIVEN
 
         // WHEN
@@ -103,14 +91,10 @@ describe('add-shootaround-reducer', () => {
 
         // THEN
         const state = store.getState().addShootAround;
-        expect(state.error).toEqual({
-            isPresent: false,
-            text: ''
-        });
         expect(state.submitDisabled).toEqual(true);
     });
 
-    it('should set the error and set disabled to true when setShootAroundFormValues is dispatched with negative totalAttempts', () => {
+    it('should set disabled to true when setShootAroundFormValues is dispatched with negative totalAttempts', () => {
         // GIVEN
 
         // WHEN
@@ -122,14 +106,10 @@ describe('add-shootaround-reducer', () => {
 
         // THEN
         const state = store.getState().addShootAround;
-        expect(state.error).toEqual({
-            isPresent: true,
-            text: 'Please provide values larger than 0'
-        });
         expect(state.submitDisabled).toEqual(true);
     });
 
-    it('should set the error and set disabled to true when setShootAroundFormValues is dispatched with negative madeAttempts', () => {
+    it('should set disabled to true when setShootAroundFormValues is dispatched with negative madeAttempts', () => {
         // GIVEN
 
         // WHEN
@@ -141,14 +121,10 @@ describe('add-shootaround-reducer', () => {
 
         // THEN
         const state = store.getState().addShootAround;
-        expect(state.error).toEqual({
-            isPresent: true,
-            text: 'Please provide values larger than 0'
-        });
         expect(state.submitDisabled).toEqual(true);
     });
 
-    it('should set the error and set disabled to true when setShootAroundFormValues is dispatched with non positive totalAttempts', () => {
+    it('should set disabled to true when setShootAroundFormValues is dispatched with non positive totalAttempts', () => {
         // GIVEN
 
         // WHEN
@@ -160,14 +136,10 @@ describe('add-shootaround-reducer', () => {
 
         // THEN
         const state = store.getState().addShootAround;
-        expect(state.error).toEqual({
-            isPresent: true,
-            text: 'Total Attempts have to be greater than 0'
-        });
         expect(state.submitDisabled).toEqual(true);
     });
 
-    it('should set the error and set disabled to true when setShootAroundFormValues is dispatched with madeAttempts greater than totalAttempts', () => {
+    it('should set disabled to true when setShootAroundFormValues is dispatched with madeAttempts greater than totalAttempts', () => {
         // GIVEN
 
         // WHEN
@@ -179,10 +151,6 @@ describe('add-shootaround-reducer', () => {
 
         // THEN
         const state = store.getState().addShootAround;
-        expect(state.error).toEqual({
-            isPresent: true,
-            text: 'Made Attempts cannot be larger than Total Attempts'
-        });
         expect(state.submitDisabled).toEqual(true);
     });
 
@@ -201,14 +169,10 @@ describe('add-shootaround-reducer', () => {
         expect(state.shootAroundSpot).toEqual(ShootAroundSpot.PAINT);
         expect(state.totalAttempts).toEqual('10');
         expect(state.madeAttempts).toEqual('5');
-        expect(state.error).toEqual({
-            isPresent: false,
-            text: ''
-        });
         expect(state.submitDisabled).toEqual(false);
     });
 
-    it('should handle resetShootAroundForm correctly', () => {
+    it('should reset the from when resetShootAroundForm is dispatched', () => {
         // GIVEN
         store.dispatch(setAddShootAroundIsLoading(true));
         store.dispatch(setShootAroundFormValues({
@@ -229,11 +193,7 @@ describe('add-shootaround-reducer', () => {
             shootAroundSpot: undefined,
             submitDisabled: true,
             isLoading: false,
-            submitSuccess: false,
-            error: {
-                isPresent: false,
-                text: ''
-            }
+            submitSuccess: false
         };
         expect(state).toEqual(expectedState);
     });

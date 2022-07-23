@@ -1,11 +1,6 @@
 import {createAction, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {ShootAroundSpot} from '../../../domain/shoot-around';
 
-interface FormError {
-    isPresent: boolean;
-    text: string;
-}
-
 export interface AddShootAroundState {
     totalAttempts: string;
     madeAttempts: string;
@@ -13,7 +8,6 @@ export interface AddShootAroundState {
     submitDisabled: boolean;
     isLoading: boolean;
     submitSuccess: boolean;
-    error: FormError;
 }
 
 export const initialState: AddShootAroundState = {
@@ -22,11 +16,7 @@ export const initialState: AddShootAroundState = {
     shootAroundSpot: undefined,
     submitDisabled: true,
     isLoading: false,
-    submitSuccess: false,
-    error: {
-        isPresent: false,
-        text: ''
-    }
+    submitSuccess: false
 };
 
 type ShootAroundValidationResult = Omit<AddShootAroundState, 'totalAttempts' | 'madeAttempts' | 'isLoading' | 'submitSuccess'>
@@ -35,10 +25,6 @@ type ShootAroundForm = Pick<AddShootAroundState, 'totalAttempts' | 'madeAttempts
 const validateShootAround = (totalAttempts: string, madeAttempts: string, shootAroundSpot: ShootAroundSpot | undefined): ShootAroundValidationResult => {
         if (totalAttempts.length === 0 || madeAttempts.length === 0 || shootAroundSpot === undefined) {
             return {
-                error: {
-                    isPresent: false,
-                    text: ''
-                },
                 submitDisabled: true,
             };
         } else {
@@ -47,34 +33,18 @@ const validateShootAround = (totalAttempts: string, madeAttempts: string, shootA
 
             if (parsedTotalAttempts < 0 || parsedMadeAttempts < 0) {
                 return {
-                    error: {
-                        isPresent: true,
-                        text: 'Please provide values larger than 0'
-                    },
                     submitDisabled: true,
                 };
             } else if (parsedTotalAttempts < 1) {
                 return {
-                    error: {
-                        isPresent: true,
-                        text: 'Total Attempts have to be greater than 0'
-                    },
                     submitDisabled: true,
                 };
             } else if (parsedMadeAttempts > parsedTotalAttempts) {
                 return {
-                    error: {
-                        isPresent: true,
-                        text: 'Made Attempts cannot be larger than Total Attempts'
-                    },
                     submitDisabled: true,
                 };
             } else {
                 return {
-                    error: {
-                        isPresent: false,
-                        text: ''
-                    },
                     submitDisabled: false,
                 };
             }
@@ -98,7 +68,6 @@ const addShootAroundSlice = createSlice({
             state.shootAroundSpot = shootAroundSpot;
 
             const validationResult = validateShootAround(totalAttempts, madeAttempts, shootAroundSpot);
-            state.error = validationResult.error;
             state.submitDisabled = validationResult.submitDisabled;
         },
         resetShootAroundForm: (state) => {
@@ -108,10 +77,6 @@ const addShootAroundSlice = createSlice({
             state.totalAttempts = '';
             state.madeAttempts = '';
             state.shootAroundSpot = undefined;
-            state.error = {
-                isPresent: false,
-                text: ''
-            };
         }
     }
 });
