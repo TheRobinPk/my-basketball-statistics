@@ -1,5 +1,7 @@
-import {ShootAround, ShootAroundEntity} from '../domain/shoot-around';
+import {ShootAround, ShootAroundEntity, ShootAroundSpot} from '../domain/shoot-around';
 import {Repository} from 'typeorm/repository/Repository';
+import moment, {Moment} from 'moment';
+import {Between} from 'typeorm';
 
 export default class ShootAroundService {
     private repository: Repository<ShootAroundEntity>;
@@ -18,6 +20,30 @@ export default class ShootAroundService {
             this.repository.insert(entity)
                 .then(() => {
                     resolve();
+                });
+        });
+    }
+
+    findBetween(start: Moment, end: Moment): Promise<ShootAround[]> {
+        const searchStart = start.clone().utc().startOf('day');
+        const searchEnd = end.clone().utc().endOf('day');
+        return new Promise<ShootAround[]>((resolve) => {
+            this.repository.find({
+                where: {
+                    timestamp: Between(searchStart.unix(), searchEnd.unix())
+                }
+            })
+                .then((entities) => {
+                    const shootArounds = entities.map((entity) => {
+                        return {
+                            id: entity.id,
+                            dateTime: moment.utc(entity.timestamp),
+                            totalAttempts: entity.totalAttempts,
+                            madeAttempts: entity.madeAttempts,
+                            spot: entity.spot as ShootAroundSpot
+                        };
+                    });
+                    resolve(shootArounds);
                 });
         });
     }
