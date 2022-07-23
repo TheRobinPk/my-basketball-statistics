@@ -2,7 +2,7 @@ import {put, select, takeLatest} from 'redux-saga/effects';
 import {RootState} from '../../store/store';
 import {
     resetShootAroundForm,
-    setAddShootAroundIsLoading, setAddShootAroundSubmitSuccess,
+    setAddShootAroundIsLoading, setAddShootAroundSubmitSuccess, shootAroundSubmitSuccess,
     submitShootAround
 } from '../../reducers/add-shootaround/add-shootaround-reducer';
 import {ShootAround, ShootAroundSpot} from '../../../domain/shoot-around';
@@ -34,5 +34,6 @@ function* submitShootAroundSaga() {
         yield shootAroundService?.insert(shootAround);
         yield put(resetShootAroundForm());
         yield put(setAddShootAroundSubmitSuccess(true));
+        yield put(shootAroundSubmitSuccess());
     }
 }
