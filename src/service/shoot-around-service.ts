@@ -24,27 +24,22 @@ export default class ShootAroundService {
         });
     }
 
-    findBetween(start: Moment, end: Moment): Promise<ShootAround[]> {
-        const searchStart = start.clone().utc().startOf('day');
-        const searchEnd = end.clone().utc().endOf('day');
-        return new Promise<ShootAround[]>((resolve) => {
-            this.repository.find({
-                where: {
-                    timestamp: Between(searchStart.unix(), searchEnd.unix())
-                }
-            })
-                .then((entities) => {
-                    const shootArounds = entities.map((entity) => {
-                        return {
-                            id: entity.id,
-                            dateTime: moment.utc(entity.timestamp),
-                            totalAttempts: entity.totalAttempts,
-                            madeAttempts: entity.madeAttempts,
-                            spot: entity.spot as ShootAroundSpot
-                        };
-                    });
-                    resolve(shootArounds);
-                });
+    async findBetween(start: Moment, end: Moment): Promise<ShootAround[]> {
+        const searchStart = start.clone().startOf('day');
+        const searchEnd = end.clone().endOf('day');
+        const entities = await this.repository.find({
+            where: {
+                timestamp: Between(searchStart.unix(), searchEnd.unix())
+            }
+        });
+        return entities.map((entity) => {
+            return {
+                id: entity.id,
+                dateTime: moment.unix(entity.timestamp),
+                totalAttempts: entity.totalAttempts,
+                madeAttempts: entity.madeAttempts,
+                spot: entity.spot as ShootAroundSpot
+            };
         });
     }
 }

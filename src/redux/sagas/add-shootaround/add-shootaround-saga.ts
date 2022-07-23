@@ -28,7 +28,7 @@ function* submitShootAroundSaga() {
             madeAttempts: parseInt(madeAttempts),
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             spot: shootAroundSpot!,
-            dateTime: moment.utc()
+            dateTime: moment()
         };
 
         yield shootAroundService?.insert(shootAround);
