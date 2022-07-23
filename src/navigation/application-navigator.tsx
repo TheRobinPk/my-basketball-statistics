@@ -17,7 +17,7 @@ const ApplicationNavigator = () => {
             headerStyle: {
                 backgroundColor: colors.primaryColor
             },
-            headerTintColor: 'white'
+            headerTintColor: colors.accentColor
         }}>
             <Stack.Screen
                 name='DashboardScreen'

@@ -29,7 +29,6 @@ const DashboardScreen = (props: IProps) => {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: colors.black,
         color: colors.white,
         height: '100%',
         padding: 8

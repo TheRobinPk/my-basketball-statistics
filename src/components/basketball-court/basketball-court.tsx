@@ -21,7 +21,7 @@ const BasketballCourt = (props: IProps) => {
               y={y}
               height={height}
               width={width}
-              stroke={colors.black}
+              stroke={colors.primaryColor}
               strokeWidth={0.5}
               fill={selectedSpot === shootAroundSpot ? colors.grey : undefined}
               onPress={() => onSpotSelected(shootAroundSpot)} />
@@ -33,7 +33,7 @@ const BasketballCourt = (props: IProps) => {
             <Path
                 id={shootAroundSpot}
                 d={d}
-                stroke={colors.black}
+                stroke={colors.primaryColor}
                 strokeWidth={0.5}
                 fill={selectedSpot === shootAroundSpot ? colors.grey : undefined}
                 onPress={() => onSpotSelected(shootAroundSpot)} />
