@@ -1,5 +1,5 @@
 import {Moment} from 'moment';
-import {Entity, Column, PrimaryGeneratedColumn} from 'typeorm';
+import {Entity, Column, PrimaryGeneratedColumn, Index} from 'typeorm';
 
 export enum ShootAroundSpot {
     PAINT = 'PAINT',
@@ -17,6 +17,7 @@ export enum ShootAroundSpot {
 }
 
 @Entity('shoot_around')
+@Index('idx_shootaround_timestamp', { synchronize: false })
 export class ShootAroundEntity {
     @PrimaryGeneratedColumn()
     id!: number;

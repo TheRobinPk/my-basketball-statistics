@@ -2,7 +2,7 @@ import {put, select, takeLatest} from 'redux-saga/effects';
 import {RootState} from '../../store/store';
 import {
     resetShootAroundForm,
-    setAddShootAroundIsLoading, setAddShootAroundSubmitSuccess,
+    setAddShootAroundIsLoading, setAddShootAroundSubmitSuccess, shootAroundSubmitSuccess,
     submitShootAround
 } from '../../reducers/add-shootaround/add-shootaround-reducer';
 import {ShootAround, ShootAroundSpot} from '../../../domain/shoot-around';
@@ -28,11 +28,12 @@ function* submitShootAroundSaga() {
             madeAttempts: parseInt(madeAttempts),
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             spot: shootAroundSpot!,
-            dateTime: moment.utc()
+            dateTime: moment()
         };
 
         yield shootAroundService?.insert(shootAround);
         yield put(resetShootAroundForm());
         yield put(setAddShootAroundSubmitSuccess(true));
+        yield put(shootAroundSubmitSuccess());
     }
 }

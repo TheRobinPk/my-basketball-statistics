@@ -90,4 +90,5 @@ export const {
     setAddShootAroundSubmitSuccess
 } = addShootAroundSlice.actions;
 export const submitShootAround = createAction('add-shoot-around/submitShootAround');
+export const shootAroundSubmitSuccess = createAction('add-shoot-around/shootAroundSubmitSuccess');
 export default addShootAroundReducer;
