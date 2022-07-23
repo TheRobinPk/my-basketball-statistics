@@ -14,14 +14,12 @@ const DashboardScreen = (props: IProps) => {
                 DashboardScreen
             </Text>
             <FloatingActionButton
-                color={colors.primaryColor}
-                icon={{ name: 'add', color: colors.white }}
-                openIcon={{ name: 'close', color: colors.white }}
+                icon='plus'
+                openIcon='close'
                 actions={[
                     {
                         title: 'Add Shootaround',
-                        icon: { name: 'add', color: colors.white },
-                        color: colors.primaryColor,
+                        icon: 'basketball-hoop',
                         pressHandler: () => props.navigation.navigate('AddShootAroundScreen')
                     }
                 ]} />
