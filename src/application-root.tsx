@@ -1,5 +1,5 @@
 import React, {useCallback} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {StyleSheet, SafeAreaView} from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import {useComponentDidMount} from './hooks/useComponentDidMount';
 import {useAppDispatch, useAppSelector} from './redux/store/store';
@@ -27,12 +27,12 @@ const ApplicationRoot = () => {
     }
 
     return (
-        <View
+        <SafeAreaView
             testID='application-container'
             onLayout={onLayoutRootView}
             style={styles.content}>
             <ApplicationNavigator />
-        </View>
+        </SafeAreaView>
     );
 };
 
