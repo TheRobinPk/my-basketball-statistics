@@ -1,16 +1,16 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
-import {Button} from '@rneui/base';
-import Toast from 'react-native-toast-message';
 import BasketballCourt from '../components/basketball-court/basketball-court';
-import colors from '../colors';
 import {useAppDispatch, useAppSelector} from '../redux/store/store';
+import {ShootAroundSpot} from '../domain/shoot-around';
 import {
     setAddShootAroundSubmitSuccess,
     setShootAroundFormValues,
     submitShootAround
 } from '../redux/reducers/add-shootaround/add-shootaround-reducer';
-import {ShootAroundSpot} from '../domain/shoot-around';
+import colors from '../colors';
+import Button from '../components/common/button/button';
+import Snackbar from '../components/common/snackbar/snackbar';
 
 const AddShootAroundScreen = () => {
     const totalAttempts = useAppSelector(state => state.addShootAround.totalAttempts);
@@ -22,18 +22,6 @@ const AddShootAroundScreen = () => {
     const error = useAppSelector(state => state.addShootAround.error);
 
     const dispatch = useAppDispatch();
-
-    useEffect(() => {
-        if (submitSuccess) {
-            Toast.show({
-                position: 'bottom',
-                type: 'success',
-                text1: 'Saved successfully',
-                autoHide: false,
-                onHide: () => dispatch(setAddShootAroundSubmitSuccess(false)),
-            });
-        }
-    }, [submitSuccess]);
 
     return (
         <View testID='add-shoot-around-container' style={styles.container}>
@@ -100,13 +88,19 @@ const AddShootAroundScreen = () => {
                 </View>
             )}
             <Button
+                label='Submit'
                 testID='add-shoot-around-submit-button'
-                title='Submit'
-                buttonStyle={styles.buttonStyle}
-                titleStyle={{color: colors.white}}
+                labelTestID='add-shoot-around-submit-button-label'
                 disabled={submitDisabled}
                 loading={isLoading}
                 onPress={() => dispatch(submitShootAround())} />
+            <Snackbar
+                label='Saved successfully'
+                testID='add-shoot-success-snackbar'
+                labelTestID='add-shoot-success-snackbar-label'
+                visible={submitSuccess}
+                duration={2000}
+                onDismiss={() => dispatch(setAddShootAroundSubmitSuccess(false))} />
         </View>
     );
 };
@@ -139,11 +133,6 @@ const styles = StyleSheet.create({
     columnContainer: {
         width: '50%'
     },
-    buttonStyle: {
-        marginStart: 8,
-        marginEnd: 8,
-        backgroundColor: colors.accentColor
-    }
 });
 
 export default AddShootAroundScreen;
