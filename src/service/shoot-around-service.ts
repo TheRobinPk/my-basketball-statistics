@@ -47,9 +47,22 @@ export default class ShootAroundService {
     async findAggregatedBy(start: Moment, end: Moment, spots: ShootAroundSpot[]): Promise<ShootAroundAggregatedResult[]> {
         const searchStart = start.clone().startOf('day');
         const searchEnd = end.clone().endOf('day');
+        const queryString = this.getAggregatedQuery(searchStart, searchEnd, spots);
+        const queryResult = await this.repository.query(queryString);
+        return queryResult.map(this.mapAggregatedResult);
+    }
 
-        const queryString =
-        `select
+    private mapAggregatedResult(row: any): ShootAroundAggregatedResult {
+        return {
+            day: moment.unix(row['timestamp'] as number),
+            spot: row['spot'] as ShootAroundSpot,
+            totalAttempts: row['total_attempts'] as number,
+            madeAttempts: row['made_attempts'] as number,
+        };
+    }
+
+    private getAggregatedQuery(searchStart: moment.Moment, searchEnd: moment.Moment, spots: ShootAroundSpot[]) {
+        return `select
             a.spot,
             strftime('%s', a.day) as timestamp,
             sum(a.total_attempts) as total_attempts,
@@ -67,14 +80,5 @@ export default class ShootAroundService {
                     and s.spot in (${spots.map((spot) => `'${spot.toString()}'`).join(',')})
             ) a
         group by a.spot, a.day`;
-        const queryResult: any[] = await this.repository.query(queryString);
-        return queryResult.map((row) => {
-            return {
-                day: moment.unix(row['timestamp'] as number),
-                spot: row['spot'] as ShootAroundSpot,
-                totalAttempts: row['total_attempts'] as number,
-                madeAttempts: row['made_attempts'] as number,
-            };
-        });
     }
 }
