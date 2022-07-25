@@ -1,21 +1,19 @@
 import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
-import DateRangePicker, {DateRange} from '../components/common/date-time-range-picker/date-range-picker';
 import FloatingActionButton from '../components/common/floating-action-button/floating-action-button';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import DashboardHeader from '../components/dashboard/dashboard-header';
 import {RootStackParamList} from '../navigation/application-navigator';
-import colors from '../colors';
-import moment from 'moment';
 import {useAppDispatch, useAppSelector} from '../redux/store/store';
 import {useComponentDidMount} from '../hooks/useComponentDidMount';
 import {setDashboardSelectedRange} from '../redux/reducers/dashboard/dashboard-reducer';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import moment from 'moment';
+import colors from '../colors';
 
 type IProps = NativeStackScreenProps<RootStackParamList, 'DashboardScreen'>;
 
 const DashboardScreen = (props: IProps) => {
-    const isLoading = useAppSelector(state => state.dashboard.isLoading);
-    const selectedRange = useAppSelector(state => state.dashboard.selectedRange);
-    const shootArounds = useAppSelector(state => state.dashboard.shootArounds);
+    const aggregatedValues = useAppSelector(state => state.dashboard.aggregatedValues);
 
     const dispatch = useAppDispatch();
 
@@ -26,21 +24,15 @@ const DashboardScreen = (props: IProps) => {
         }));
     });
 
-    if (isLoading) {
-        return <Text>Loading...</Text>;
-    }
-
     return (
         <View style={styles.container}>
-            <DateRangePicker
-                range={selectedRange}
-                onChange={(range: DateRange) => dispatch(setDashboardSelectedRange(range))} />
+            <DashboardHeader />
             <View>
-                {shootArounds.map((shootAround) => {
+                {aggregatedValues.map((aggregatedValue) => {
                     return (
-                        <View key={shootAround.id}>
+                        <View key={aggregatedValue.spot.toString()}>
                             <Text>
-                                {JSON.stringify(shootAround)}
+                                {JSON.stringify(aggregatedValue)}
                             </Text>
                         </View>
                     );
