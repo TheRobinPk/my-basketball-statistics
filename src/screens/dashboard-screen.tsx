@@ -19,8 +19,8 @@ const DashboardScreen = (props: IProps) => {
 
     useComponentDidMount(() => {
         dispatch(setDashboardSelectedRange({
-            start: moment(),
-            end: moment()
+            start: moment().startOf('week'),
+            end: moment().endOf('week')
         }));
     });
 
