@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.disabledGrey
     },
     labelStyle: {
-        color: colors.accentColor
+        color: colors.white
     },
     disabledLabelStyle: {
         color: colors.grey

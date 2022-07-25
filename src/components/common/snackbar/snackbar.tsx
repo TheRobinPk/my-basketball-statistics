@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.primaryColor
     },
     labelStyle: {
-        color: colors.accentColor
+        color: colors.white
     }
 });
 

@@ -25,7 +25,7 @@ const FloatingActionButton = (props: IProps) => {
                 <FloatingActionButtonRn.Group
                     testID='floating-action-button'
                     fabStyle={styles.floatingButtonStyle}
-                    color={colors.accentColor}
+                    color={colors.white}
                     open={open}
                     visible
                     icon={open ? openIcon : icon}
@@ -33,10 +33,10 @@ const FloatingActionButton = (props: IProps) => {
                         return {
                             icon: action.icon,
                             label: action.title,
-                            color: colors.accentColor,
+                            color: colors.white,
                             style: styles.actionIconStyle,
                             labelStyle: styles.actionIconLabelStyle,
-                            labelTextColor: colors.accentColor,
+                            labelTextColor: colors.white,
                             onPress: action.pressHandler
                         };
                     })}
