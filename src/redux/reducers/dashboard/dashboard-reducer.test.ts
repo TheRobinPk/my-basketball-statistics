@@ -1,7 +1,7 @@
 import store from '../../store/store';
-import {setDashboardIsLoading, setDashboardSelectedRange, setDashboardShootArounds} from './dashboard-reducer';
+import {setDashboardAggregatedValues, setDashboardIsLoading, setDashboardSelectedRange, ShootAroundAggregatedResult} from './dashboard-reducer';
 import moment from 'moment/moment';
-import {ShootAround, ShootAroundSpot} from '../../../domain/shoot-around';
+import {ShootAroundSpot} from '../../../domain/shoot-around';
 
 describe('dashboard-reducer', () => {
     it('should set up the initialState correctly', () => {
@@ -12,7 +12,7 @@ describe('dashboard-reducer', () => {
 
         // THEN
         expect(state.isLoading).toEqual(true);
-        expect(state.shootArounds).toEqual([]);
+        expect(state.aggregatedValues).toEqual([]);
     });
 
     it('should handle setDashboardIsLoading correctly', () => {
@@ -44,20 +44,20 @@ describe('dashboard-reducer', () => {
         });
     });
 
-    it('should handle setDashboardShootArounds correctly', () => {
+    it('should handle setDashboardAggregatedValues correctly', () => {
         // GIVEN
-        const shootAround: ShootAround = {
+        const shootAround: ShootAroundAggregatedResult = {
             totalAttempts: 10,
             madeAttempts: 5,
             spot: ShootAroundSpot.MID_RANGE_RIGHT_CORNER,
-            dateTime: moment()
+            day: moment()
         };
 
         // WHEN
-        store.dispatch(setDashboardShootArounds([shootAround]));
+        store.dispatch(setDashboardAggregatedValues([shootAround]));
 
         // THEN
         const state = store.getState().dashboard;
-        expect(state.shootArounds).toEqual([shootAround]);
+        expect(state.aggregatedValues).toEqual([shootAround]);
     });
 });
