@@ -1,5 +1,5 @@
 import store from '../../store/store';
-import {setDashboardAggregatedValues, setDashboardIsLoading, setDashboardSelectedRange, ShootAroundAggregatedResult} from './dashboard-reducer';
+import {setDashboardAggregatedValues, setDashboardIsLoading, setDashboardSelectedFilterSpots, setDashboardSelectedRange, ShootAroundAggregatedResult} from './dashboard-reducer';
 import moment from 'moment/moment';
 import {ShootAroundSpot} from '../../../domain/shoot-around';
 
@@ -42,6 +42,23 @@ describe('dashboard-reducer', () => {
             start: date.clone(),
             end: date.clone()
         });
+    });
+
+    it('should handle setDashboardSelectedFilterSpots correctly', () => {
+        // GIVEN
+
+        // WHEN
+        store.dispatch(setDashboardSelectedFilterSpots([
+            ShootAroundSpot.MID_RANGE_RIGHT_WING,
+            ShootAroundSpot.PAINT
+        ]));
+
+        // THEN
+        const state = store.getState().dashboard;
+        expect(state.selectedFilterSpots).toEqual([
+            ShootAroundSpot.MID_RANGE_RIGHT_WING,
+            ShootAroundSpot.PAINT
+        ]);
     });
 
     it('should handle setDashboardAggregatedValues correctly', () => {
