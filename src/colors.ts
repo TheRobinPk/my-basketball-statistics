@@ -1,6 +1,5 @@
 export default {
     primaryColor: '#2c698d',
-    accentColor: '#bae8e8',
     white: '#ffffff',
     grey: '#e3e3e3',
     disabledGrey: '#bdbdbd',

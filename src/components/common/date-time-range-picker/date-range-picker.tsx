@@ -1,7 +1,7 @@
 import React from 'react';
 import moment, {Moment} from 'moment';
-import {DateTimePickerAndroid} from '@react-native-community/datetimepicker';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import DatePicker from './date-picker';
 
 export type DateRange = {
     start: Moment;
@@ -10,7 +10,7 @@ export type DateRange = {
 
 type DateRangeType = 'start' | 'end';
 
-export interface IProps {
+interface IProps {
     range: DateRange,
     onChange: (range: DateRange) => void
 }
@@ -35,35 +35,41 @@ const DateRangePicker = (props: IProps) => {
             }
         }
 
-        onChange({
-            start: selectedStart,
-            end: selectedEnd
-        });
-    };
-
-    const openPicker = (type: DateRangeType, date: Moment) => {
-        DateTimePickerAndroid.open({
-            value: date.toDate(),
-            mode: 'date',
-            is24Hour: true,
-            onChange: (event, selectedDate) => handleDateChange(type, selectedDate)
-        });
+        if (!start.isSame(selectedStart) || !end.isSame(selectedEnd)) {
+            onChange({
+                start: selectedStart,
+                end: selectedEnd
+            });
+        }
     };
 
     return (
-        <View>
-            <View>
-                <TouchableOpacity onPress={() => openPicker('start', start)}>
-                    <Text>{start.format('YYYY-MM-DD')}</Text>
-                </TouchableOpacity>
+        <View style={styles.container}>
+            <View style={styles.datePickerContainerStyle}>
+                <DatePicker
+                    date={start}
+                    label='Start Date'
+                    onChange={(event, selectedDate) => handleDateChange('start', selectedDate)} />
             </View>
-            <View>
-                <TouchableOpacity onPress={() => openPicker('end', end)}>
-                    <Text>{end.format('YYYY-MM-DD')}</Text>
-                </TouchableOpacity>
+            <View style={styles.datePickerContainerStyle}>
+                <DatePicker
+                    date={start}
+                    label='End Date'
+                    onChange={(event, selectedDate) => handleDateChange('end', selectedDate)} />
             </View>
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        width: 120,
+        flexDirection: 'row'
+    },
+    datePickerContainerStyle: {
+        marginLeft: 4,
+        marginRight: 4
+    }
+});
 
 export default DateRangePicker;

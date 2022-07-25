@@ -1,7 +1,7 @@
 import store from '../../store/store';
-import {setDashboardIsLoading, setDashboardSelectedRange, setDashboardShootArounds} from './dashboard-reducer';
+import {setDashboardAggregatedValues, setDashboardIsLoading, setDashboardSelectedFilterSpots, setDashboardSelectedRange, ShootAroundAggregatedResult} from './dashboard-reducer';
 import moment from 'moment/moment';
-import {ShootAround, ShootAroundSpot} from '../../../domain/shoot-around';
+import {ShootAroundSpot} from '../../../domain/shoot-around';
 
 describe('dashboard-reducer', () => {
     it('should set up the initialState correctly', () => {
@@ -12,7 +12,7 @@ describe('dashboard-reducer', () => {
 
         // THEN
         expect(state.isLoading).toEqual(true);
-        expect(state.shootArounds).toEqual([]);
+        expect(state.aggregatedValues).toEqual([]);
     });
 
     it('should handle setDashboardIsLoading correctly', () => {
@@ -44,20 +44,37 @@ describe('dashboard-reducer', () => {
         });
     });
 
-    it('should handle setDashboardShootArounds correctly', () => {
+    it('should handle setDashboardSelectedFilterSpots correctly', () => {
         // GIVEN
-        const shootAround: ShootAround = {
-            totalAttempts: 10,
-            madeAttempts: 5,
-            spot: ShootAroundSpot.MID_RANGE_RIGHT_CORNER,
-            dateTime: moment()
-        };
 
         // WHEN
-        store.dispatch(setDashboardShootArounds([shootAround]));
+        store.dispatch(setDashboardSelectedFilterSpots([
+            ShootAroundSpot.MID_RANGE_RIGHT_WING,
+            ShootAroundSpot.PAINT
+        ]));
 
         // THEN
         const state = store.getState().dashboard;
-        expect(state.shootArounds).toEqual([shootAround]);
+        expect(state.selectedFilterSpots).toEqual([
+            ShootAroundSpot.MID_RANGE_RIGHT_WING,
+            ShootAroundSpot.PAINT
+        ]);
+    });
+
+    it('should handle setDashboardAggregatedValues correctly', () => {
+        // GIVEN
+        const shootAround: ShootAroundAggregatedResult = {
+            totalAttempts: 10,
+            madeAttempts: 5,
+            spot: ShootAroundSpot.MID_RANGE_RIGHT_CORNER,
+            day: moment()
+        };
+
+        // WHEN
+        store.dispatch(setDashboardAggregatedValues([shootAround]));
+
+        // THEN
+        const state = store.getState().dashboard;
+        expect(state.aggregatedValues).toEqual([shootAround]);
     });
 });
