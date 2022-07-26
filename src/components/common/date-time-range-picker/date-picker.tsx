@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {Moment} from 'moment';
+import moment, {Moment} from 'moment';
 import {DateTimePickerAndroid, DateTimePickerEvent} from '@react-native-community/datetimepicker';
 import colors from '../../../colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -19,6 +19,8 @@ const DatePicker = (props: IProps) => {
             value: date.toDate(),
             mode: 'date',
             is24Hour: true,
+            maximumDate: moment().endOf('year').toDate(),
+            minimumDate: moment().startOf('year').toDate(),
             onChange: props.onChange
         });
     };
