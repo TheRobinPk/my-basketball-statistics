@@ -2,7 +2,13 @@ import {ShootAround, ShootAroundEntity, ShootAroundSpot} from '../domain/shoot-a
 import {Repository} from 'typeorm/repository/Repository';
 import moment, {Moment} from 'moment';
 import {Between} from 'typeorm';
-import {ShootAroundAggregatedResult} from '../redux/reducers/dashboard/dashboard-reducer';
+
+export interface ShootAroundAggregatedResult {
+    spot: ShootAroundSpot;
+    day: Moment;
+    totalAttempts: number;
+    madeAttempts: number;
+}
 
 export default class ShootAroundService {
     private repository: Repository<ShootAroundEntity>;
