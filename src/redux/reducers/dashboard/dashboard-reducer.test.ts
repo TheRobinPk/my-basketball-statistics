@@ -1,7 +1,13 @@
 import store from '../../store/store';
-import {setDashboardAggregatedValues, setDashboardIsLoading, setDashboardSelectedFilterSpots, setDashboardSelectedRange, ShootAroundAggregatedResult} from './dashboard-reducer';
+import {
+    setDashboardChartData,
+    setDashboardIsLoading,
+    setDashboardSelectedFilterSpots,
+    setDashboardSelectedRange
+} from './dashboard-reducer';
 import moment from 'moment/moment';
 import {ShootAroundSpot} from '../../../domain/shoot-around';
+import {ShootAroundChartData} from '../../../service/shoot-around-chart-service';
 
 describe('dashboard-reducer', () => {
     it('should set up the initialState correctly', () => {
@@ -12,7 +18,7 @@ describe('dashboard-reducer', () => {
 
         // THEN
         expect(state.isLoading).toEqual(true);
-        expect(state.aggregatedValues).toEqual([]);
+        expect(state.chartData).toEqual(undefined);
     });
 
     it('should handle setDashboardIsLoading correctly', () => {
@@ -61,20 +67,23 @@ describe('dashboard-reducer', () => {
         ]);
     });
 
-    it('should handle setDashboardAggregatedValues correctly', () => {
+    it('should handle setDashboardChartData correctly', () => {
         // GIVEN
-        const shootAround: ShootAroundAggregatedResult = {
-            totalAttempts: 10,
-            madeAttempts: 5,
-            spot: ShootAroundSpot.MID_RANGE_RIGHT_CORNER,
-            day: moment()
+        const chartData: ShootAroundChartData = {
+            labels: ['label'],
+            dataSets: [
+                {
+                    color: 'color',
+                    data: [1, 2]
+                }
+            ]
         };
 
         // WHEN
-        store.dispatch(setDashboardAggregatedValues([shootAround]));
+        store.dispatch(setDashboardChartData(chartData));
 
         // THEN
         const state = store.getState().dashboard;
-        expect(state.aggregatedValues).toEqual([shootAround]);
+        expect(state.chartData).toEqual(chartData);
     });
 });

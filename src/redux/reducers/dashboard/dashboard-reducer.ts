@@ -2,20 +2,16 @@ import {DateRange} from '../../../components/common/date-time-range-picker/date-
 import moment from 'moment';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {ShootAroundSpot} from '../../../domain/shoot-around';
-import {Moment} from 'moment/moment';
+import {ShootAroundChartData} from '../../../service/shoot-around-chart-service';
 
-export interface ShootAroundAggregatedResult {
-    spot: ShootAroundSpot;
-    day: Moment;
-    totalAttempts: number;
-    madeAttempts: number;
-}
+export type ChartDataGroupBy = 'week' | 'day' | 'month';
 
 export interface DashboardState {
     isLoading: boolean,
     selectedRange: DateRange,
+    selectedGrouping: ChartDataGroupBy,
     selectedFilterSpots: ShootAroundSpot[];
-    aggregatedValues: ShootAroundAggregatedResult[];
+    chartData: ShootAroundChartData | undefined;
 }
 
 export const initialState: DashboardState = {
@@ -24,8 +20,9 @@ export const initialState: DashboardState = {
         start: moment(),
         end: moment(),
     },
+    selectedGrouping: 'week',
     selectedFilterSpots: [],
-    aggregatedValues: []
+    chartData: undefined
 };
 
 const dashboardSlice = createSlice({
@@ -36,13 +33,19 @@ const dashboardSlice = createSlice({
             state.isLoading = action.payload;
         },
         setDashboardSelectedRange: (state, action: PayloadAction<DateRange>) => {
-            state.selectedRange = action.payload;
+            state.selectedRange.start = action.payload.start.startOf(state.selectedGrouping);
+            state.selectedRange.end = action.payload.end.endOf(state.selectedGrouping);
         },
-        setDashboardSelectedFilterSpots: (state, action:PayloadAction<ShootAroundSpot[]>) => {
+        setDashboardSelectedGrouping: (state, action: PayloadAction<ChartDataGroupBy>) => {
+            state.selectedGrouping = action.payload;
+            state.selectedRange.start = state.selectedRange.start.startOf(action.payload);
+            state.selectedRange.end = state.selectedRange.end.endOf(action.payload);
+        },
+        setDashboardSelectedFilterSpots: (state, action: PayloadAction<ShootAroundSpot[]>) => {
             state.selectedFilterSpots = action.payload;
         },
-        setDashboardAggregatedValues: (state, action: PayloadAction<ShootAroundAggregatedResult[]>) => {
-            state.aggregatedValues = [...action.payload];
+        setDashboardChartData: (state, action: PayloadAction<ShootAroundChartData>) => {
+            state.chartData = action.payload;
         }
     }
 });
@@ -53,6 +56,6 @@ export const {
     setDashboardIsLoading,
     setDashboardSelectedRange,
     setDashboardSelectedFilterSpots,
-    setDashboardAggregatedValues
+    setDashboardChartData
 } = dashboardSlice.actions;
 export default dashboardReducer;
