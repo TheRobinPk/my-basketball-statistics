@@ -53,7 +53,7 @@ const DateRangePicker = (props: IProps) => {
             </View>
             <View style={styles.datePickerContainerStyle}>
                 <DatePicker
-                    date={start}
+                    date={end}
                     label='End Date'
                     onChange={(event, selectedDate) => handleDateChange('end', selectedDate)} />
             </View>
