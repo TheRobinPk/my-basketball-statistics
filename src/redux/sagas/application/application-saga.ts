@@ -2,8 +2,7 @@ import {call, put, select, takeLatest} from 'redux-saga/effects';
 import {RootState} from '../../store/store';
 import {
     applicationMounted,
-    initializeApplication,
-    setApplicationDataSource
+    initializeApplication
 } from '../../reducers/application/application-reducer';
 import { DataSource } from 'typeorm';
 import {ShootAroundEntity} from '../../../domain/shoot-around';
@@ -32,7 +31,6 @@ function* applicationMountedSaga() {
             ],
         });
 
-        yield put(setApplicationDataSource(dataSource));
-        yield put(initializeApplication());
+        yield put(initializeApplication(dataSource));
     }
 }
