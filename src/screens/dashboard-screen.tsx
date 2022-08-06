@@ -1,5 +1,5 @@
 import React from 'react';
-import {ScrollView} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import FloatingActionButton from '../components/common/floating-action-button/floating-action-button';
 import DashboardHeader from '../components/dashboard/dashboard-header';
 import DashboardChart from '../components/dashboard/dashboard-chart';
@@ -24,11 +24,13 @@ const DashboardScreen = (props: IProps) => {
     });
 
     return (
-        <>
-            <ScrollView>
+        <ScrollView contentContainerStyle={styles.scrollViewStyle}>
+            <View style={styles.cardStyle}>
                 <DashboardHeader />
+            </View>
+            <View style={styles.cardStyle}>
                 <DashboardChart />
-            </ScrollView>
+            </View>
             <FloatingActionButton
                 icon='plus'
                 openIcon='close'
@@ -39,8 +41,17 @@ const DashboardScreen = (props: IProps) => {
                         pressHandler: () => props.navigation.navigate('AddShootAroundScreen')
                     }
                 ]} />
-        </>
+        </ScrollView>
     );
 };
+
+const styles = StyleSheet.create({
+    scrollViewStyle: {
+        flexGrow: 1
+    },
+   cardStyle: {
+       marginBottom: 16
+   }
+});
 
 export default DashboardScreen;
