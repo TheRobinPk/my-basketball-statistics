@@ -1,12 +1,11 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
 import {Card} from 'react-native-paper';
-import {DropDownItem} from '../common/item-picker/item-picker';
 import {DataAggregationType, setDashboardDataAggregationType, setDashboardDateRange, setDashboardShootAroundSpots} from '../../redux/reducers/dashboard/dashboard-reducer';
 import {ShootAroundSpot} from '../../domain/shoot-around';
 import {useAppDispatch, useAppSelector} from '../../redux/store/store';
-import Dropdown from '../common/dropdown/dropdown';
+import Dropdown, {DropDownItem} from '../common/dropdown/dropdown';
 import DateRangePicker, {DateRange} from '../common/date-picker/date-range-picker';
+import DropdownMultiSelect from '../common/dropdown/dropdown-multi-select';
 
 const DashboardHeader = () => {
     const dateRange = useAppSelector(state => state.dashboard.dateRange);
@@ -83,6 +82,9 @@ const DashboardHeader = () => {
         },
     ];
 
+    const selectedShootAroundSpotKeys = shootAroundSpots.map((spot) => spot.toString());
+    const selectedShootAroundSpots = shootAroundSpotDropDownItems.filter((value) => selectedShootAroundSpotKeys.includes(value.key));
+
     const handleSelectedFilterSpotsChange = (selectedItems: DropDownItem[]) => {
         dispatch(setDashboardShootAroundSpots(selectedItems.map(item => item.key as ShootAroundSpot)));
     };
@@ -98,23 +100,14 @@ const DashboardHeader = () => {
                     label='Aggregate results by'
                     selectedItem={selectedDataAggregationType}
                     onChange={(selectedItem: DropDownItem) => dispatch(setDashboardDataAggregationType(selectedItem.key as DataAggregationType))} />
-                <View style={styles.multiItemPickerStyle}>
-                    {/*<ItemPicker*/}
-                    {/*    items={shootAroundSpots}*/}
-                    {/*    label='Shootaround spots'*/}
-                    {/*    selectedItems={selectedShootAroundSpots}*/}
-                    {/*    multiSelect*/}
-                    {/*    onChange={(selectedItems: DropDownItem[]) => handleSelectedFilterSpotsChange(selectedItems)} />*/}
-                </View>
+                <DropdownMultiSelect
+                    items={shootAroundSpotDropDownItems}
+                    label='Shootaround spots'
+                    selectedItems={selectedShootAroundSpots}
+                    onChange={(selectedItems: DropDownItem[]) => handleSelectedFilterSpotsChange(selectedItems)} />
             </Card.Content>
         </Card>
     );
 };
-
-const styles = StyleSheet.create({
-    multiItemPickerStyle: {
-        marginTop: 8
-    }
-});
 
 export default DashboardHeader;
