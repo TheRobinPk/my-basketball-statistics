@@ -1,13 +1,7 @@
 import store from '../../store/store';
-import {
-    setDashboardChartData,
-    setDashboardIsLoading,
-    setDashboardSelectedFilterSpots,
-    setDashboardSelectedRange
-} from './dashboard-reducer';
+import {setDashboardChartData, setDashboardDataAggregationType, setDashboardDateRange, setDashboardIsLoading, setDashboardShootAroundSpots, ShootAroundChartData} from './dashboard-reducer';
 import moment from 'moment/moment';
 import {ShootAroundSpot} from '../../../domain/shoot-around';
-import {ShootAroundChartData} from '../../../service/shoot-around-chart-service';
 
 describe('dashboard-reducer', () => {
     it('should set up the initialState correctly', () => {
@@ -32,37 +26,48 @@ describe('dashboard-reducer', () => {
         expect(state.isLoading).toEqual(true);
     });
 
-    it('should handle setDashboardSelectedRange correctly', () => {
+    it('should handle setDashboardDateRange correctly', () => {
         // GIVEN
         const date = moment();
 
         // WHEN
-        store.dispatch(setDashboardSelectedRange({
-            start: date.clone(),
-            end: date.clone()
+        store.dispatch(setDashboardDateRange({
+            start: date.clone().startOf('week'),
+            end: date.clone().endOf('week')
         }));
 
         // THEN
         const state = store.getState().dashboard;
-        expect(state.selectedRange).toEqual({
-            start: date.clone(),
-            end: date.clone()
+        expect(state.dateRange).toEqual({
+            start: date.clone().startOf('week'),
+            end: date.clone().endOf('week')
         });
     });
 
-    it('should handle setDashboardSelectedFilterSpots correctly', () => {
+    it('should handle setDashboardDataAggregationType correctly', () => {
         // GIVEN
 
         // WHEN
-        store.dispatch(setDashboardSelectedFilterSpots([
-            ShootAroundSpot.MID_RANGE_RIGHT_WING,
+        store.dispatch(setDashboardDataAggregationType('week'));
+
+        // THEN
+        const state = store.getState().dashboard;
+        expect(state.dataAggregationType).toEqual('week');
+    });
+
+    it('should handle setDashboardShootAroundSpots correctly', () => {
+        // GIVEN
+
+        // WHEN
+        store.dispatch(setDashboardShootAroundSpots([
+            ShootAroundSpot.FREE_THROW,
             ShootAroundSpot.PAINT
         ]));
 
         // THEN
         const state = store.getState().dashboard;
-        expect(state.selectedFilterSpots).toEqual([
-            ShootAroundSpot.MID_RANGE_RIGHT_WING,
+        expect(state.shootAroundSpots).toEqual([
+            ShootAroundSpot.FREE_THROW,
             ShootAroundSpot.PAINT
         ]);
     });
@@ -73,7 +78,7 @@ describe('dashboard-reducer', () => {
             labels: ['label'],
             dataSets: [
                 {
-                    color: 'color',
+                    spot: ShootAroundSpot.PAINT,
                     data: [1, 2]
                 }
             ]
