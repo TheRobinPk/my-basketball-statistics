@@ -24,13 +24,15 @@ const DashboardScreen = (props: IProps) => {
     });
 
     return (
-        <ScrollView contentContainerStyle={styles.scrollViewStyle}>
-            <View style={styles.cardStyle}>
-                <DashboardHeader />
-            </View>
-            <View style={styles.cardStyle}>
-                <DashboardChart />
-            </View>
+        <>
+            <ScrollView contentContainerStyle={styles.scrollViewStyle}>
+                <View style={styles.cardStyle}>
+                    <DashboardHeader />
+                </View>
+                <View style={styles.cardStyle}>
+                    <DashboardChart />
+                </View>
+            </ScrollView>
             <FloatingActionButton
                 icon='plus'
                 openIcon='close'
@@ -41,7 +43,7 @@ const DashboardScreen = (props: IProps) => {
                         pressHandler: () => props.navigation.navigate('AddShootAroundScreen')
                     }
                 ]} />
-        </ScrollView>
+        </>
     );
 };
 
@@ -50,7 +52,7 @@ const styles = StyleSheet.create({
         flexGrow: 1
     },
    cardStyle: {
-       marginBottom: 16
+        margin: 8
    }
 });
 
