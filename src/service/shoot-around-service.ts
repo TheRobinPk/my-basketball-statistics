@@ -2,7 +2,6 @@ import {ShootAround, ShootAroundEntity, ShootAroundSpot} from '../domain/shoot-a
 import {Repository} from 'typeorm/repository/Repository';
 import moment, {Moment} from 'moment';
 import {Between} from 'typeorm';
-import {ShootAroundAggregatedResult} from '../redux/reducers/dashboard/dashboard-reducer';
 
 export default class ShootAroundService {
     private repository: Repository<ShootAroundEntity>;
@@ -44,7 +43,7 @@ export default class ShootAroundService {
         });
     }
 
-    async findAggregatedBy(start: Moment, end: Moment, spots: ShootAroundSpot[]): Promise<ShootAroundAggregatedResult[]> {
+    async findBetweenAndWithinSpotsByDays(start: Moment, end: Moment, spots: ShootAroundSpot[]): Promise<ShootAround[]> {
         const searchStart = start.clone().startOf('day');
         const searchEnd = end.clone().endOf('day');
         const queryString = this.getAggregatedQuery(searchStart, searchEnd, spots);
@@ -52,9 +51,9 @@ export default class ShootAroundService {
         return queryResult.map(this.mapAggregatedResult);
     }
 
-    private mapAggregatedResult(row: any): ShootAroundAggregatedResult {
+    private mapAggregatedResult(row: any): ShootAround {
         return {
-            day: moment.unix(row['timestamp'] as number),
+            dateTime: moment.unix(row['timestamp'] as number),
             spot: row['spot'] as ShootAroundSpot,
             totalAttempts: row['total_attempts'] as number,
             madeAttempts: row['made_attempts'] as number,

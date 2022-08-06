@@ -11,13 +11,13 @@ export type DateRange = {
 type DateRangeType = 'start' | 'end';
 
 interface IProps {
-    range: DateRange,
-    onChange: (range: DateRange) => void
+    value: DateRange,
+    onChange: (dateRange: DateRange) => void
 }
 
 const DateRangePicker = (props: IProps) => {
-    const { range, onChange } = props;
-    const { start, end } = range;
+    const { value, onChange } = props;
+    const { start, end } = value;
 
     const handleDateChange = (type: DateRangeType, date?: Date) => {
         let selectedStart = start.clone();
@@ -53,7 +53,7 @@ const DateRangePicker = (props: IProps) => {
             </View>
             <View style={styles.datePickerContainerStyle}>
                 <DatePicker
-                    date={start}
+                    date={end}
                     label='End Date'
                     onChange={(event, selectedDate) => handleDateChange('end', selectedDate)} />
             </View>

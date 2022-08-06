@@ -1,5 +1,5 @@
 import store from '../../store/store';
-import {setDashboardAggregatedValues, setDashboardIsLoading, setDashboardSelectedFilterSpots, setDashboardSelectedRange, ShootAroundAggregatedResult} from './dashboard-reducer';
+import {setDashboardChartData, setDashboardDataAggregationType, setDashboardDateRange, setDashboardIsLoading, setDashboardShootAroundSpots, ShootAroundChartData} from './dashboard-reducer';
 import moment from 'moment/moment';
 import {ShootAroundSpot} from '../../../domain/shoot-around';
 
@@ -12,7 +12,7 @@ describe('dashboard-reducer', () => {
 
         // THEN
         expect(state.isLoading).toEqual(true);
-        expect(state.aggregatedValues).toEqual([]);
+        expect(state.chartData).toEqual(undefined);
     });
 
     it('should handle setDashboardIsLoading correctly', () => {
@@ -26,55 +26,69 @@ describe('dashboard-reducer', () => {
         expect(state.isLoading).toEqual(true);
     });
 
-    it('should handle setDashboardSelectedRange correctly', () => {
+    it('should handle setDashboardDateRange correctly', () => {
         // GIVEN
         const date = moment();
 
         // WHEN
-        store.dispatch(setDashboardSelectedRange({
-            start: date.clone(),
-            end: date.clone()
+        store.dispatch(setDashboardDateRange({
+            start: date.clone().startOf('week'),
+            end: date.clone().endOf('week')
         }));
 
         // THEN
         const state = store.getState().dashboard;
-        expect(state.selectedRange).toEqual({
-            start: date.clone(),
-            end: date.clone()
+        expect(state.dateRange).toEqual({
+            start: date.clone().startOf('week'),
+            end: date.clone().endOf('week')
         });
     });
 
-    it('should handle setDashboardSelectedFilterSpots correctly', () => {
+    it('should handle setDashboardDataAggregationType correctly', () => {
         // GIVEN
 
         // WHEN
-        store.dispatch(setDashboardSelectedFilterSpots([
-            ShootAroundSpot.MID_RANGE_RIGHT_WING,
+        store.dispatch(setDashboardDataAggregationType('week'));
+
+        // THEN
+        const state = store.getState().dashboard;
+        expect(state.dataAggregationType).toEqual('week');
+    });
+
+    it('should handle setDashboardShootAroundSpots correctly', () => {
+        // GIVEN
+
+        // WHEN
+        store.dispatch(setDashboardShootAroundSpots([
+            ShootAroundSpot.FREE_THROW,
             ShootAroundSpot.PAINT
         ]));
 
         // THEN
         const state = store.getState().dashboard;
-        expect(state.selectedFilterSpots).toEqual([
-            ShootAroundSpot.MID_RANGE_RIGHT_WING,
+        expect(state.shootAroundSpots).toEqual([
+            ShootAroundSpot.FREE_THROW,
             ShootAroundSpot.PAINT
         ]);
     });
 
-    it('should handle setDashboardAggregatedValues correctly', () => {
+    it('should handle setDashboardChartData correctly', () => {
         // GIVEN
-        const shootAround: ShootAroundAggregatedResult = {
-            totalAttempts: 10,
-            madeAttempts: 5,
-            spot: ShootAroundSpot.MID_RANGE_RIGHT_CORNER,
-            day: moment()
+        const chartData: ShootAroundChartData = {
+            labels: ['label'],
+            dataSets: [
+                {
+                    spot: ShootAroundSpot.PAINT,
+                    data: [1, 2]
+                }
+            ]
         };
 
         // WHEN
-        store.dispatch(setDashboardAggregatedValues([shootAround]));
+        store.dispatch(setDashboardChartData(chartData));
 
         // THEN
         const state = store.getState().dashboard;
-        expect(state.aggregatedValues).toEqual([shootAround]);
+        expect(state.chartData).toEqual(chartData);
     });
 });

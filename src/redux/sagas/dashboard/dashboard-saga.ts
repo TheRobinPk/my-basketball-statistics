@@ -2,20 +2,23 @@ import {put, select, takeLatest} from 'redux-saga/effects';
 import ShootAroundService from '../../../service/shoot-around-service';
 import {RootState} from '../../store/store';
 import {
-    setDashboardAggregatedValues,
     setDashboardIsLoading,
-    setDashboardSelectedFilterSpots,
-    setDashboardSelectedRange,
-    ShootAroundAggregatedResult
+    setDashboardDateRange,
+    setDashboardDataAggregationType,
+    setDashboardShootAroundSpots,
+    setDashboardChartData,
+    ShootAroundChartData, DataAggregationType,
 } from '../../reducers/dashboard/dashboard-reducer';
-import {ShootAroundSpot} from '../../../domain/shoot-around';
-import {DateRange} from '../../../components/common/date-time-range-picker/date-range-picker';
+import {ShootAround, ShootAroundSpot} from '../../../domain/shoot-around';
 import {shootAroundSubmitSuccess} from '../../reducers/add-shootaround/add-shootaround-reducer';
+import ShootAroundChartService from '../../../service/shoot-around-chart-service';
+import {DateRange} from '../../../components/common/date-picker/date-range-picker';
 
 export function* dashboardDateRangeChangedWatcherSaga() {
     yield takeLatest([
-        setDashboardSelectedRange.type,
-        setDashboardSelectedFilterSpots.type,
+        setDashboardDateRange.type,
+        setDashboardDataAggregationType.type,
+        setDashboardShootAroundSpots.type,
         shootAroundSubmitSuccess.type
     ], dashboardDateRangeChangedSaga);
 }
@@ -24,12 +27,15 @@ function* dashboardDateRangeChangedSaga() {
     yield put(setDashboardIsLoading(true));
 
     const shootAroundService: ShootAroundService | undefined = yield select((state: RootState) => state.application.shootAroundService);
-    const selectedRange: DateRange = yield select((state: RootState) => state.dashboard.selectedRange);
-    const selectedFilterSpots: ShootAroundSpot[] = yield select((state: RootState) => state.dashboard.selectedFilterSpots);
+    const shootAroundChartService: ShootAroundChartService | undefined = yield select((state: RootState) => state.application.shootAroundChartService);
+    const dateRange: DateRange = yield select((state: RootState) => state.dashboard.dateRange);
+    const dataAggregationType: DataAggregationType | undefined = yield select((state: RootState) => state.dashboard.dataAggregationType);
+    const shootAroundSpots: ShootAroundSpot[] = yield select((state: RootState) => state.dashboard.shootAroundSpots);
+    const { start, end } = dateRange;
 
-    const { start, end } = selectedRange;
-    const aggregatedValues: ShootAroundAggregatedResult[] = yield shootAroundService?.findAggregatedBy(start, end, selectedFilterSpots);
+    const shootArounds: ShootAround[] = yield shootAroundService?.findBetweenAndWithinSpotsByDays(start, end, shootAroundSpots);
+    const chartData: ShootAroundChartData = yield shootAroundChartService?.calculateShootAroundChartData(shootArounds, dataAggregationType, dateRange);
 
-    yield put(setDashboardAggregatedValues(aggregatedValues));
+    yield put(setDashboardChartData(chartData));
     yield put(setDashboardIsLoading(false));
 }
