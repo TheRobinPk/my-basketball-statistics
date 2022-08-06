@@ -3,9 +3,9 @@ import {DateRange} from '../components/common/date-picker/date-range-picker';
 import {DataAggregationType, ShootAroundChartData, ShootAroundDataSet} from '../redux/reducers/dashboard/dashboard-reducer';
 
 const LABEL_FORMAT_MAP: Map<DataAggregationType, string> = new Map<DataAggregationType, string>([
-    ['day', 'MM-DD'],
-    ['week', 'MM-DD'],
-    ['month', 'MMM']
+    ['day', 'YYYY-MM-DD'],
+    ['week', 'YYYY Wo'],
+    ['month', 'YYYY MMM']
 ]);
 
 interface NormalizedResult {
