@@ -29,7 +29,7 @@ function* dashboardDateRangeChangedSaga() {
     const shootAroundService: ShootAroundService | undefined = yield select((state: RootState) => state.application.shootAroundService);
     const shootAroundChartService: ShootAroundChartService | undefined = yield select((state: RootState) => state.application.shootAroundChartService);
     const dateRange: DateRange = yield select((state: RootState) => state.dashboard.dateRange);
-    const dataAggregationType: DataAggregationType = yield select((state: RootState) => state.dashboard.dataAggregationType);
+    const dataAggregationType: DataAggregationType | undefined = yield select((state: RootState) => state.dashboard.dataAggregationType);
     const shootAroundSpots: ShootAroundSpot[] = yield select((state: RootState) => state.dashboard.shootAroundSpots);
     const { start, end } = dateRange;
 

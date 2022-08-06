@@ -18,7 +18,7 @@ export interface ShootAroundChartData {
 export interface DashboardState {
     isLoading: boolean,
     dateRange: DateRange,
-    dataAggregationType: DataAggregationType,
+    dataAggregationType: DataAggregationType | undefined,
     shootAroundSpots: ShootAroundSpot[];
     chartData: ShootAroundChartData | undefined;
 }
@@ -29,7 +29,7 @@ export const initialState: DashboardState = {
         start: moment(),
         end: moment()
     },
-    dataAggregationType: 'week',
+    dataAggregationType: undefined,
     shootAroundSpots: [],
     chartData: undefined
 };

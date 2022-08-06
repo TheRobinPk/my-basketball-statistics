@@ -1,10 +1,9 @@
 import {ShootAroundAggregatedResult} from './shoot-around-service';
 import {ShootAroundSpot} from '../domain/shoot-around';
-import {DateRange} from '../components/common/date-time-range-picker/date-range-picker';
-import {DateRangeType, ShootAroundChartData, ShootAroundDataSet} from '../redux/reducers/dashboard/dashboard-reducer';
-import colors from '../colors';
+import {DateRange} from '../components/common/date-picker/date-range-picker';
+import {DataAggregationType, ShootAroundChartData, ShootAroundDataSet} from '../redux/reducers/dashboard/dashboard-reducer';
 
-const LABEL_FORMAT_MAP: Map<DateRangeType, string> = new Map<DateRangeType, string>([
+const LABEL_FORMAT_MAP: Map<DataAggregationType, string> = new Map<DataAggregationType, string>([
     ['day', 'MM-DD'],
     ['week', 'MM-DD'],
     ['month', 'MMM']
@@ -20,39 +19,43 @@ interface NormalizedResult {
 export default class ShootAroundChartService {
     calculateShootAroundChartData(
         shootAroundAggregatedResults: ShootAroundAggregatedResult[],
-        dateRangeType: DateRangeType,
+        dataAggregationType: DataAggregationType | undefined,
         dateRange: DateRange
     ): ShootAroundChartData {
-        const labels = this.calculateLabels(dateRangeType, dateRange);
-        const dataSets = this.calculateDataSets(shootAroundAggregatedResults, dateRangeType, labels);
+        let labels: string[] = [];
+        let dataSets: ShootAroundDataSet[] = [];
+        if (dataAggregationType) {
+            labels = this.calculateLabels(dataAggregationType, dateRange);
+            dataSets = this.calculateDataSets(shootAroundAggregatedResults, dataAggregationType, labels);
+        }
         return {
             labels: labels,
             dataSets: dataSets
         };
     }
 
-    private calculateLabels(dateRangeType: DateRangeType, dateRange: DateRange): string[] {
+    private calculateLabels(dataAggregationType: DataAggregationType, dateRange: DateRange): string[] {
         const result = [];
 
         const { start, end } = dateRange;
-        const rangeStart = start.clone().startOf(dateRangeType);
-        const rangeEnd = end.clone().endOf(dateRangeType);
+        const rangeStart = start.clone().startOf(dataAggregationType);
+        const rangeEnd = end.clone().endOf(dataAggregationType);
         let date = rangeStart.clone();
         while (date.isSameOrBefore(rangeEnd)) {
             result.push(date.clone());
-            date = date.clone().add(1, dateRangeType);
+            date = date.clone().add(1, dataAggregationType);
         }
-        return result.map((label) => label.format(LABEL_FORMAT_MAP.get(dateRangeType)));
+        return result.map((label) => label.format(LABEL_FORMAT_MAP.get(dataAggregationType)));
     }
 
     private calculateDataSets(
         shootAroundAggregatedResults: ShootAroundAggregatedResult[],
-        dateRangeType: DateRangeType,
+        dataAggregationType: DataAggregationType,
         labels: string[]) {
         const dataSets: ShootAroundDataSet[] = [];
         const aggregatedResultsBySpot = this.groupAggregatedResultsBySpot(shootAroundAggregatedResults);
         aggregatedResultsBySpot.forEach((results, spot) => {
-            const resultsForSpotByDate = this.groupResultsByDate(results, dateRangeType);
+            const resultsForSpotByDate = this.groupResultsByDate(results, dataAggregationType);
             dataSets.push(this.calculateDataSet(resultsForSpotByDate, spot, labels));
         });
         return dataSets;
@@ -69,10 +72,10 @@ export default class ShootAroundChartService {
 
     private groupResultsByDate(
         aggregatedResultsForSpot: ShootAroundAggregatedResult[],
-        dateRangeType: DateRangeType,
+        dataAggregationType: DataAggregationType,
     ): Map<string, NormalizedResult[]> {
         return aggregatedResultsForSpot
-            .map((aggregatedResult) => this.normalizeShootAroundAggregatedResult(aggregatedResult, dateRangeType))
+            .map((aggregatedResult) => this.normalizeShootAroundAggregatedResult(aggregatedResult, dataAggregationType))
             .reduce(
                 (result, item) => result.set(item.weekStartLabel, [...result.get(item.weekStartLabel) || [], item]),
                 new Map<string, NormalizedResult[]>()
@@ -81,14 +84,14 @@ export default class ShootAroundChartService {
 
     private normalizeShootAroundAggregatedResult(
         aggregatedResult: ShootAroundAggregatedResult,
-        dateRangeType: DateRangeType)
+        dataAggregationType: DataAggregationType)
         : NormalizedResult {
-        const format = LABEL_FORMAT_MAP.get(dateRangeType);
+        const format = LABEL_FORMAT_MAP.get(dataAggregationType);
         return {
             spot: aggregatedResult.spot,
             totalAttempts: aggregatedResult.totalAttempts,
             madeAttempts: aggregatedResult.madeAttempts,
-            weekStartLabel: aggregatedResult.day.clone().startOf(dateRangeType).format(format)
+            weekStartLabel: aggregatedResult.day.clone().startOf(dataAggregationType).format(format)
         };
     }
 
@@ -107,7 +110,6 @@ export default class ShootAroundChartService {
             }
         });
         return {
-            color: colors.primaryColor,
             spot: spot,
             data: data,
         };
