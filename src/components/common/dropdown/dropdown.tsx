@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import {Divider, Menu} from 'react-native-paper';
 import {MaterialIcons} from '@expo/vector-icons';
 import colors from '../../../colors';
+import {commonPickerStyle} from '../styles/styles';
 
 interface IProps {
     items: DropDownItem[];
@@ -26,16 +27,16 @@ const Dropdown = (props: IProps) => {
     };
 
     return (
-        <View style={styles.container} testID='dropdown-container'>
-            <Text style={styles.labelStyle}>{props.label}</Text>
+        <View style={commonPickerStyle.container} testID='dropdown-container'>
+            <Text style={commonPickerStyle.labelStyle}>{props.label}</Text>
             <Menu
                 visible={open}
-                contentStyle={styles.menuContentStyle}
+                contentStyle={commonPickerStyle.menuContentStyle}
                 onDismiss={() => setOpen(false)}
                 anchor={
                     <TouchableOpacity
                         testID='dropdown-input'
-                        style={styles.touchableOpacityStyle}
+                        style={commonPickerStyle.touchableOpacityStyle}
                         onPress={() => setOpen(true)}>
                         <Text>
                             {props.selectedItem?.label || props.placeholder || 'Select...'}
@@ -48,7 +49,7 @@ const Dropdown = (props: IProps) => {
                         <React.Fragment key={item.key}>
                             <Menu.Item
                                 title={item.label}
-                                titleStyle={props.selectedItem?.key === item.key ? styles.selectedMenuItemContentStyle : null}
+                                titleStyle={props.selectedItem?.key === item.key ? commonPickerStyle.selectedMenuItemContentStyle : null}
                                 onPress={() => handleItemSelected(item)} />
                             <Divider />
                         </React.Fragment>
@@ -58,35 +59,5 @@ const Dropdown = (props: IProps) => {
         </View>
     );
 };
-
-
-const styles = StyleSheet.create({
-    container: {
-        marginLeft: 4,
-        marginRight: 4
-    },
-    touchableOpacityStyle: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        width: 160,
-        padding: 8,
-        borderStyle: 'solid',
-        borderColor: colors.primaryColor,
-        borderWidth: 1
-    },
-    labelStyle: {
-        fontSize: 10,
-        color: colors.primaryColor,
-        marginLeft: 4
-    },
-    menuContentStyle: {
-        backgroundColor: colors.white
-    },
-    selectedMenuItemContentStyle: {
-        color: colors.primaryColor,
-        fontWeight: '700'
-    }
-});
 
 export default Dropdown;

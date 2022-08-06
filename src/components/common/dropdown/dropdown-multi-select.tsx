@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
+import {DropDownItem} from './dropdown';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
 import {Divider, Menu} from 'react-native-paper';
-import Tag from '../tag/tag';
+import {MaterialIcons} from '@expo/vector-icons';
 import colors from '../../../colors';
+import Tag from '../tag/tag';
+import {commonPickerStyle} from '../styles/styles';
 
 interface IProps {
     items: DropDownItem[];
@@ -13,37 +15,37 @@ interface IProps {
     onChange: (selectedValues: DropDownItem[]) => void;
 }
 
-export interface DropDownItem {
-    key: string;
-    label: string;
-}
-
-const MultiItemPicker = (props: IProps) => {
+const DropdownMultiSelect = (props: IProps) => {
     const[open, setOpen] = useState<boolean>(false);
 
-    const handleItemPressed = (pressedItem : DropDownItem) => {
-        if (props.selectedItems.includes(pressedItem)) {
-            const filteredItems = props.selectedItems.filter((item) => item.key !== pressedItem.key);
+    let placeHolderText = props.placeholder || 'Select...';
+    if (props.selectedItems.length > 0) {
+        placeHolderText = `${props.selectedItems.length} item(s) selected`;
+    }
+
+    const handleItemSelected = (selectedItem : DropDownItem) => {
+        if (props.selectedItems.includes(selectedItem)) {
+            const filteredItems = props.selectedItems.filter((item) => item.key !== selectedItem.key);
             props.onChange(filteredItems);
         } else {
-            props.onChange([...props.selectedItems, pressedItem]);
+            props.onChange([...props.selectedItems, selectedItem]);
         }
     };
 
     return (
-        <View style={styles.container} testID='dropdown-container'>
-            <Text style={styles.labelStyle}>{props.label}</Text>
+        <View style={commonPickerStyle.container} testID='multi-dropdown-container'>
+            <Text style={commonPickerStyle.labelStyle}>{props.label}</Text>
             <Menu
                 visible={open}
-                contentStyle={styles.menuContentStyle}
+                contentStyle={commonPickerStyle.menuContentStyle}
                 onDismiss={() => setOpen(false)}
                 anchor={
                     <TouchableOpacity
-                        testID='date-picker-start-date'
-                        style={styles.touchableOpacityStyle}
+                        testID='multi-dropdown-input'
+                        style={commonPickerStyle.touchableOpacityStyle}
                         onPress={() => setOpen(true)}>
                         <Text>
-                            {props.selectedItems.length > 0 ? `${props.selectedItems.length} items selected` : props.placeholder || 'Select...'}
+                            {placeHolderText}
                         </Text>
                         <MaterialIcons name='arrow-drop-down' size={18} color={colors.primaryColor} />
                     </TouchableOpacity>
@@ -54,8 +56,9 @@ const MultiItemPicker = (props: IProps) => {
                             <Menu.Item
                                 title={item.label}
                                 contentStyle={styles.menuItemContentStyle}
+                                titleStyle={props.selectedItems.includes(item) ? commonPickerStyle.selectedMenuItemContentStyle : null}
                                 trailingIcon={props.selectedItems.includes(item) ? 'minus-circle-outline' : 'plus-circle-outline'}
-                                onPress={() => handleItemPressed(item)} />
+                                onPress={() => handleItemSelected(item)} />
                             <Divider />
                         </React.Fragment>
                     );
@@ -68,7 +71,7 @@ const MultiItemPicker = (props: IProps) => {
                             <Tag
                                 label={item.label}
                                 removable
-                                onPress={() => handleItemPressed(item)} />
+                                onPress={() => handleItemSelected(item)} />
                         </View>
                     );
                 })}
@@ -78,28 +81,6 @@ const MultiItemPicker = (props: IProps) => {
 };
 
 const styles = StyleSheet.create({
-    container: {
-        marginLeft: 4,
-        marginRight: 4
-    },
-    touchableOpacityStyle: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        width: 140,
-        padding: 8,
-        borderStyle: 'solid',
-        borderColor: colors.primaryColor,
-        borderWidth: 1
-    },
-    labelStyle: {
-        fontSize: 10,
-        color: colors.primaryColor,
-        marginLeft: 4
-    },
-    menuContentStyle: {
-        backgroundColor: colors.white
-    },
     menuItemContentStyle: {
         justifyContent: 'space-between',
         width: 180
@@ -111,7 +92,7 @@ const styles = StyleSheet.create({
     selectedTagItemStyle: {
         marginRight: 4,
         marginTop: 4
-    }
+    },
 });
 
-export default MultiItemPicker;
+export default DropdownMultiSelect;
