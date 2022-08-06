@@ -1,6 +1,6 @@
 import ShootAroundChartService from './shoot-around-chart-service';
 import {ShootAroundAggregatedResult} from './shoot-around-service';
-import {DateRange} from '../components/common/date-time-range-picker/date-range-picker';
+import {DateRange} from '../components/common/date-picker/date-range-picker';
 import moment from 'moment';
 import {ShootAroundSpot} from '../domain/shoot-around';
 
