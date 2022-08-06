@@ -1,19 +1,38 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Card} from 'react-native-paper';
-import DateRangePicker, {DateRange} from '../common/date-time-range-picker/date-range-picker';
-import MultiItemPicker, {DropDownItem} from '../common/multi-item-picker/multi-item-picker';
-import {setDashboardSelectedFilterSpots, setDashboardSelectedRange} from '../../redux/reducers/dashboard/dashboard-reducer';
+import {DropDownItem} from '../common/item-picker/item-picker';
+import {DataAggregationType, setDashboardDataAggregationType, setDashboardDateRange, setDashboardShootAroundSpots} from '../../redux/reducers/dashboard/dashboard-reducer';
 import {ShootAroundSpot} from '../../domain/shoot-around';
 import {useAppDispatch, useAppSelector} from '../../redux/store/store';
+import Dropdown from '../common/dropdown/dropdown';
+import DateRangePicker, {DateRange} from '../common/date-picker/date-range-picker';
 
 const DashboardHeader = () => {
-    const selectedRange = useAppSelector(state => state.dashboard.selectedRange);
-    const selectedFilterSpots = useAppSelector(state => state.dashboard.selectedFilterSpots);
+    const dateRange = useAppSelector(state => state.dashboard.dateRange);
+    const dataAggregationType = useAppSelector(state => state.dashboard.dataAggregationType);
+    const shootAroundSpots = useAppSelector(state => state.dashboard.shootAroundSpots);
 
     const dispatch = useAppDispatch();
 
-    const dropDownValues: DropDownItem[] = [
+    const dataAggregationTypeDropDownItems: DropDownItem[] = [
+        {
+            key: 'day',
+            label: 'Day'
+        },
+        {
+            key: 'week',
+            label: 'Week'
+        },
+        {
+            key: 'month',
+            label: 'Month'
+        }
+    ];
+
+    const selectedDataAggregationType = dataAggregationTypeDropDownItems.find((value) => value.key === dataAggregationType);
+
+    const shootAroundSpotDropDownItems: DropDownItem[] = [
         {
             key: ShootAroundSpot.FREE_THROW.toString(),
             label: 'Free Throw',
@@ -63,27 +82,29 @@ const DashboardHeader = () => {
             label: '3pt top of the key',
         },
     ];
-    const selectedItems = dropDownValues
-        .filter((value) => selectedFilterSpots
-            .map((spot) => spot.toString())
-            .includes(value.key));
 
-    const handleMultiItemPickerChange = (selectedItems: DropDownItem[]) => {
-        dispatch(setDashboardSelectedFilterSpots(selectedItems.map(item => item.key as ShootAroundSpot)));
+    const handleSelectedFilterSpotsChange = (selectedItems: DropDownItem[]) => {
+        dispatch(setDashboardShootAroundSpots(selectedItems.map(item => item.key as ShootAroundSpot)));
     };
 
     return (
         <Card mode='elevated' elevation={5}>
             <Card.Content>
                 <DateRangePicker
-                    range={selectedRange}
-                    onChange={(range: DateRange) => dispatch(setDashboardSelectedRange(range))} />
+                    value={dateRange}
+                    onChange={(dateRange: DateRange) => dispatch(setDashboardDateRange(dateRange))} />
+                <Dropdown
+                    items={dataAggregationTypeDropDownItems}
+                    label='Aggregate results by'
+                    selectedItem={selectedDataAggregationType}
+                    onChange={(selectedItem: DropDownItem) => dispatch(setDashboardDataAggregationType(selectedItem.key as DataAggregationType))} />
                 <View style={styles.multiItemPickerStyle}>
-                    <MultiItemPicker
-                        items={dropDownValues}
-                        label='Spot'
-                        selectedItems={selectedItems}
-                        onChange={(selectedItems) => handleMultiItemPickerChange(selectedItems)} />
+                    {/*<ItemPicker*/}
+                    {/*    items={shootAroundSpots}*/}
+                    {/*    label='Shootaround spots'*/}
+                    {/*    selectedItems={selectedShootAroundSpots}*/}
+                    {/*    multiSelect*/}
+                    {/*    onChange={(selectedItems: DropDownItem[]) => handleSelectedFilterSpotsChange(selectedItems)} />*/}
                 </View>
             </Card.Content>
         </Card>

@@ -1,43 +1,34 @@
 import React from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {ScrollView} from 'react-native';
 import FloatingActionButton from '../components/common/floating-action-button/floating-action-button';
 import DashboardHeader from '../components/dashboard/dashboard-header';
+import DashboardChart from '../components/dashboard/dashboard-chart';
 import {RootStackParamList} from '../navigation/application-navigator';
-import {useAppDispatch, useAppSelector} from '../redux/store/store';
+import {useAppDispatch} from '../redux/store/store';
 import {useComponentDidMount} from '../hooks/useComponentDidMount';
-import {setDashboardSelectedRange} from '../redux/reducers/dashboard/dashboard-reducer';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {setDashboardDataAggregationType, setDashboardDateRange} from '../redux/reducers/dashboard/dashboard-reducer';
 import moment from 'moment';
-import colors from '../colors';
 
 type IProps = NativeStackScreenProps<RootStackParamList, 'DashboardScreen'>;
 
 const DashboardScreen = (props: IProps) => {
-    const aggregatedValues = useAppSelector(state => state.dashboard.aggregatedValues);
-
     const dispatch = useAppDispatch();
 
     useComponentDidMount(() => {
-        dispatch(setDashboardSelectedRange({
+        dispatch(setDashboardDateRange({
             start: moment().startOf('week'),
             end: moment().endOf('week')
         }));
+        dispatch(setDashboardDataAggregationType('week'));
     });
 
     return (
-        <View style={styles.container}>
-            <DashboardHeader />
-            <View>
-                {aggregatedValues.map((aggregatedValue) => {
-                    return (
-                        <View key={aggregatedValue.spot.toString()}>
-                            <Text>
-                                {JSON.stringify(aggregatedValue)}
-                            </Text>
-                        </View>
-                    );
-                })}
-            </View>
+        <>
+            <ScrollView>
+                <DashboardHeader />
+                <DashboardChart />
+            </ScrollView>
             <FloatingActionButton
                 icon='plus'
                 openIcon='close'
@@ -48,16 +39,8 @@ const DashboardScreen = (props: IProps) => {
                         pressHandler: () => props.navigation.navigate('AddShootAroundScreen')
                     }
                 ]} />
-        </View>
+        </>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        color: colors.white,
-        height: '100%',
-        padding: 8
-    }
-});
 
 export default DashboardScreen;
