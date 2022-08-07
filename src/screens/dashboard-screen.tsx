@@ -20,7 +20,7 @@ const DashboardScreen = (props: IProps) => {
             start: moment().startOf('week'),
             end: moment().endOf('week')
         }));
-        dispatch(setDashboardDataAggregationType('week'));
+        dispatch(setDashboardDataAggregationType('day'));
     });
 
     return (

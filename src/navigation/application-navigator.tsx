@@ -1,7 +1,7 @@
 import React from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import DashboardScreen from '../screens/dashboard-screen';
-import AddShootAroundScreen from '../screens/add-shoot-around-screen';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import ShootAroundDashboardStackNavigator from './shoot-around-stack-navigator';
+import ShootAroundListStackNavigator from './shoot-around-list-stack-navigator';
 import colors from '../colors';
 
 export type RootStackParamList = {
@@ -9,29 +9,40 @@ export type RootStackParamList = {
     AddShootAroundScreen: undefined;
 };
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+export type ShootAroundListStackParamList = {
+    ShootAroundListScreen: undefined;
+    AddShootAroundScreen: undefined;
+};
+
+export type RootDrawerParamList = {
+    ShootAroundDashboardStackNavigator: undefined;
+    ShootAroundListStackNavigator: undefined;
+};
+
+const Drawer = createDrawerNavigator<RootDrawerParamList>();
 
 const ApplicationNavigator = () => {
     return (
-        <Stack.Navigator screenOptions={{
-            headerStyle: {
-                backgroundColor: colors.primaryColor
-            },
-            headerTintColor: colors.white
+        <Drawer.Navigator
+            initialRouteName='ShootAroundDashboardStackNavigator'
+            screenOptions={{
+                headerShown: false,
+                drawerActiveTintColor: colors.white,
+                drawerActiveBackgroundColor: colors.primaryColor
         }}>
-            <Stack.Screen
-                name='DashboardScreen'
-                component={DashboardScreen}
+            <Drawer.Screen
+                name='ShootAroundDashboardStackNavigator'
                 options={{
-                    title: 'Dashboard'
-                }} />
-            <Stack.Screen
-                name='AddShootAroundScreen'
-                component={AddShootAroundScreen}
+                    drawerLabel: 'Shootaround Dashboard'
+                }}
+                component={ShootAroundDashboardStackNavigator} />
+            <Drawer.Screen
+                name='ShootAroundListStackNavigator'
                 options={{
-                    title: 'Add Shootaround'
-                }} />
-        </Stack.Navigator>
+                    drawerLabel: 'Shootaround List'
+                }}
+                component={ShootAroundListStackNavigator} />
+        </Drawer.Navigator>
     );
 };
 

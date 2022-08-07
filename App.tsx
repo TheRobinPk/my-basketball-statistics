@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 import 'expo-dev-client';
+import 'react-native-gesture-handler';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { Provider as PaperProvider } from 'react-native-paper';
