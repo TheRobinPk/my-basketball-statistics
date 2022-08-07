@@ -6,7 +6,8 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {ShootAroundListStackParamList} from '../navigation/application-navigator';
 import FloatingActionButton from '../components/common/floating-action-button/floating-action-button';
 import {useComponentDidMount} from '../hooks/useComponentDidMount';
-import {getShootAroundListData} from '../redux/reducers/shootaround-list/shootaround-list-reducer';
+import {getShootAroundListData, resetShootAroundList} from '../redux/reducers/shootaround-list/shootaround-list-reducer';
+import {useComponentWillUnmount} from '../hooks/useComponentWillUnmount';
 
 export interface IShootAroundListRow {
     key: string;
@@ -25,6 +26,10 @@ const ShootAroundListScreen = (props: IProps) => {
 
     useComponentDidMount(() => {
        dispatch(getShootAroundListData());
+    });
+
+    useComponentWillUnmount(() => {
+        dispatch(resetShootAroundList());
     });
 
     const rows: IShootAroundListRow[] = data.map((shootAround) => {
