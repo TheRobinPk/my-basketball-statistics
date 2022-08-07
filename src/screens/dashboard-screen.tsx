@@ -38,7 +38,7 @@ const DashboardScreen = (props: IProps) => {
                 openIcon='close'
                 actions={[
                     {
-                        title: 'Add Shootaround',
+                        title: 'Add Shoot Around',
                         icon: 'basketball-hoop',
                         pressHandler: () => props.navigation.navigate('AddShootAroundScreen')
                     }

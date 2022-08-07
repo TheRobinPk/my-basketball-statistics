@@ -11,7 +11,7 @@ import {
     setAddShootAroundSubmitSuccess,
     setShootAroundFormValues,
     submitShootAround
-} from '../redux/reducers/add-shootaround/add-shootaround-reducer';
+} from '../redux/reducers/add-shoot-around/add-shoot-around-reducer';
 import colors from '../colors';
 import {useComponentWillUnmount} from '../hooks/useComponentWillUnmount';
 

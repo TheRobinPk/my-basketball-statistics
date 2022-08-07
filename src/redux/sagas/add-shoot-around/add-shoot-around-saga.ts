@@ -4,7 +4,7 @@ import {
     resetShootAroundForm,
     setAddShootAroundIsLoading, setAddShootAroundSubmitSuccess, shootAroundSubmitSuccess,
     submitShootAround
-} from '../../reducers/add-shootaround/add-shootaround-reducer';
+} from '../../reducers/add-shoot-around/add-shoot-around-reducer';
 import {ShootAround, ShootAroundSpot} from '../../../domain/shoot-around';
 import moment from 'moment';
 import ShootAroundService from '../../../service/shoot-around-service';
