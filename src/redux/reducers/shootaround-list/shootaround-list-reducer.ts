@@ -7,7 +7,7 @@ export interface ShootaroundListState {
 }
 
 export const initialState: ShootaroundListState = {
-    isLoading: false,
+    isLoading: true,
     data: []
 };
 
@@ -22,7 +22,7 @@ const shootAroundListSlice = createSlice({
             state.data = action.payload;
         },
         resetShootAroundList: (state) => {
-            state.isLoading = false;
+            state.isLoading = true;
             state.data = [];
         }
     }
