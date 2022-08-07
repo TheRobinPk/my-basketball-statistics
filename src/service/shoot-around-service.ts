@@ -24,6 +24,15 @@ export default class ShootAroundService {
         });
     }
 
+    async findAll(): Promise<ShootAround[]> {
+        const entities = await this.repository.find({
+            order: {
+                timestamp: 'DESC'
+            }
+        });
+        return entities.map(this.mapShootAroundEntity);
+    }
+
     async findBetween(start: Moment, end: Moment): Promise<ShootAround[]> {
         const searchStart = start.clone().startOf('day');
         const searchEnd = end.clone().endOf('day');
@@ -32,15 +41,17 @@ export default class ShootAroundService {
                 timestamp: Between(searchStart.unix(), searchEnd.unix())
             }
         });
-        return entities.map((entity) => {
-            return {
-                id: entity.id,
-                dateTime: moment.unix(entity.timestamp),
-                totalAttempts: entity.totalAttempts,
-                madeAttempts: entity.madeAttempts,
-                spot: entity.spot as ShootAroundSpot
-            };
-        });
+        return entities.map(this.mapShootAroundEntity);
+    }
+
+    private mapShootAroundEntity(entity: ShootAroundEntity): ShootAround {
+        return {
+            id: entity.id,
+            dateTime: moment.unix(entity.timestamp),
+            totalAttempts: entity.totalAttempts,
+            madeAttempts: entity.madeAttempts,
+            spot: entity.spot as ShootAroundSpot
+        };
     }
 
     async findBetweenAndWithinSpotsByDays(start: Moment, end: Moment, spots: ShootAroundSpot[]): Promise<ShootAround[]> {
