@@ -4,7 +4,7 @@ import {ShootAroundListStackParamList} from './application-navigator';
 import colors from '../colors';
 import DrawerToggle from './drawer-toggle';
 import ShootAroundListScreen from '../screens/shoot-around-list-screen';
-import AddShootAroundScreen from '../screens/add-shoot-around-screen';
+import AddShootAroundScreen from '../screens/shoot-around/add-shoot-around-screen';
 
 const Stack = createNativeStackNavigator<ShootAroundListStackParamList>();
 

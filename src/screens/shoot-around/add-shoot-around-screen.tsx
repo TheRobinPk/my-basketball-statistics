@@ -1,19 +1,19 @@
 import React from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
-import BasketballCourt from '../components/basketball-court/basketball-court';
-import Button from '../components/common/button/button';
-import Snackbar from '../components/common/snackbar/snackbar';
+import BasketballCourt from '../../components/basketball-court/basketball-court';
+import Button from '../../components/common/button/button';
+import Snackbar from '../../components/common/snackbar/snackbar';
 import { MaterialIcons } from '@expo/vector-icons';
-import {useAppDispatch, useAppSelector} from '../redux/store/store';
-import {ShootAroundSpot} from '../domain/shoot-around';
+import {useAppDispatch, useAppSelector} from '../../redux/store/store';
+import {ShootAroundSpot} from '../../domain/shoot-around';
 import {
     resetShootAroundForm,
     setAddShootAroundSubmitSuccess,
     setShootAroundFormValues,
     submitShootAround
-} from '../redux/reducers/add-shoot-around/add-shoot-around-reducer';
-import colors from '../colors';
-import {useComponentWillUnmount} from '../hooks/useComponentWillUnmount';
+} from '../../redux/reducers/add-shoot-around/add-shoot-around-reducer';
+import colors from '../../colors';
+import {useComponentWillUnmount} from '../../hooks/useComponentWillUnmount';
 
 const AddShootAroundScreen = () => {
     const totalAttempts = useAppSelector(state => state.addShootAround.totalAttempts);
