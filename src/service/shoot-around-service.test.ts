@@ -61,6 +61,33 @@ describe('shoot-around-service', () => {
         expect(repository.insert).toHaveBeenCalledWith(expectedEntity);
     });
 
+    it('should find all ShootArounds ordered by timestamp DESC', async () => {
+        // GIVEN
+
+        // WHEN
+        const result = await shootAroundService.findAll();
+
+        // THEN
+        expect(repository.find).toHaveBeenCalledTimes(1);
+        expect(repository.find).toHaveBeenCalledWith({
+            order: {
+                timestamp: 'DESC'
+            }
+        });
+
+        expect(result.length).toEqual(2);
+
+        expect(result[0].id).toEqual(1);
+        expect(result[0].totalAttempts).toEqual(20);
+        expect(result[0].madeAttempts).toEqual(14);
+        expect(result[0].spot).toEqual(ShootAroundSpot.FREE_THROW);
+
+        expect(result[1].id).toEqual(2);
+        expect(result[1].totalAttempts).toEqual(20);
+        expect(result[1].madeAttempts).toEqual(8);
+        expect(result[1].spot).toEqual(ShootAroundSpot.THREE_POINT_RIGHT_WING);
+    });
+
     it('should find the ShootArounds between the given dates', async () => {
         // GIVEN
 
