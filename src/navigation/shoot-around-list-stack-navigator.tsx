@@ -21,7 +21,7 @@ const ShootAroundListStackNavigator = () => {
                 name='ShootAroundListScreen'
                 component={ShootAroundListScreen}
                 options={{
-                    title: 'Shootaround List',
+                    title: 'Shoot Around List',
                     // eslint-disable-next-line react/no-multi-comp
                     headerLeft: () => <DrawerToggle />
                 }} />
@@ -29,7 +29,7 @@ const ShootAroundListStackNavigator = () => {
                 name='AddShootAroundScreen'
                 component={AddShootAroundScreen}
                 options={{
-                    title: 'Add Shootaround'
+                    title: 'Add Shoot Around'
                 }} />
         </Stack.Navigator>
     );

@@ -1,9 +1,9 @@
 import store from '../../store/store';
 import {ShootAround, ShootAroundSpot} from '../../../domain/shoot-around';
-import {resetShootAroundList, setShootAroundListData, setShootAroundListIsLoading} from './shootaround-list-reducer';
+import {resetShootAroundList, setShootAroundListData, setShootAroundListIsLoading} from './shoot-around-list-reducer';
 import moment from 'moment/moment';
 
-describe('shootaround-list-reducer', () => {
+describe('shoot-around-list-reducer', () => {
     it('should set up the initialState correctly', () => {
         // GIVEN
 

@@ -1,12 +1,12 @@
 import {ShootAround} from '../../../domain/shoot-around';
 import {createAction, createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-export interface ShootaroundListState {
+export interface ShootAroundListState {
     isLoading: boolean;
     data: ShootAround[]
 }
 
-export const initialState: ShootaroundListState = {
+export const initialState: ShootAroundListState = {
     isLoading: true,
     data: []
 };
