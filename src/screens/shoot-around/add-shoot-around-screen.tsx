@@ -14,6 +14,7 @@ import {
 } from '../../redux/reducers/add-shoot-around/add-shoot-around-reducer';
 import colors from '../../colors';
 import {useComponentWillUnmount} from '../../hooks/useComponentWillUnmount';
+import ApplicationBar from '../../components/app-bar/application-bar';
 
 const AddShootAroundScreen = () => {
     const totalAttempts = useAppSelector(state => state.addShootAround.totalAttempts);
@@ -31,6 +32,7 @@ const AddShootAroundScreen = () => {
 
     return (
         <>
+            <ApplicationBar title='Add Shoot Around' showGoBack />
             <View testID='add-shoot-around-container' style={styles.container}>
                 <View>
                     <BasketballCourt

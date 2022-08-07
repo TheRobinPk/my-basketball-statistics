@@ -9,6 +9,7 @@ import {useComponentDidMount} from '../../hooks/useComponentDidMount';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {setDashboardDataAggregationType, setDashboardDateRange} from '../../redux/reducers/dashboard/dashboard-reducer';
 import moment from 'moment';
+import ApplicationBar from '../../components/app-bar/application-bar';
 
 type IProps = NativeStackScreenProps<ShootAroundStackNavigatorParamList, 'DashboardScreen'>;
 
@@ -25,6 +26,7 @@ const DashboardScreen = (props: IProps) => {
 
     return (
         <>
+            <ApplicationBar title='Dashboard' showDrawerToggle />
             <ScrollView contentContainerStyle={styles.scrollViewStyle}>
                 <View style={styles.cardStyle}>
                     <DashboardHeader />
