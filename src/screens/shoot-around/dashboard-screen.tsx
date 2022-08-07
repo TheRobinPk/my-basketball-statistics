@@ -3,14 +3,14 @@ import {ScrollView, StyleSheet, View} from 'react-native';
 import FloatingActionButton from '../../components/common/floating-action-button/floating-action-button';
 import DashboardHeader from '../../components/dashboard/dashboard-header';
 import DashboardChart from '../../components/dashboard/dashboard-chart';
-import {RootStackParamList} from '../../navigation/application-navigator';
+import {ShootAroundStackNavigatorParamList} from '../../navigation/shoot-around-stack-navigator';
 import {useAppDispatch} from '../../redux/store/store';
 import {useComponentDidMount} from '../../hooks/useComponentDidMount';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {setDashboardDataAggregationType, setDashboardDateRange} from '../../redux/reducers/dashboard/dashboard-reducer';
 import moment from 'moment';
 
-type IProps = NativeStackScreenProps<RootStackParamList, 'DashboardScreen'>;
+type IProps = NativeStackScreenProps<ShootAroundStackNavigatorParamList, 'DashboardScreen'>;
 
 const DashboardScreen = (props: IProps) => {
     const dispatch = useAppDispatch();

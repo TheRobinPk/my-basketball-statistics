@@ -3,10 +3,14 @@ import colors from '../colors';
 import DashboardScreen from '../screens/shoot-around/dashboard-screen';
 import AddShootAroundScreen from '../screens/shoot-around/add-shoot-around-screen';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {RootStackParamList} from './application-navigator';
 import DrawerToggle from './drawer-toggle';
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+export type ShootAroundStackNavigatorParamList = {
+    DashboardScreen: undefined;
+    AddShootAroundScreen: undefined;
+};
+
+const Stack = createNativeStackNavigator<ShootAroundStackNavigatorParamList>();
 
 const ShootAroundDashboardStackNavigator = () => {
     return (
