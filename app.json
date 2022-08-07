@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "basketball-shootaround-app",
-    "slug": "basketball-shootaround-app",
+    "name": "basketball-shoot-around-app",
+    "slug": "basketball-shoot-around-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -19,10 +19,10 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "org.zenbot.basketball.shootaround.app"
+      "bundleIdentifier": "org.zenbot.basketball.shoot.around.app"
     },
     "android": {
-      "package": "org.zenbot.basketball.shootaround.app",
+      "package": "org.zenbot.basketball.shoot.around.app",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"

@@ -102,7 +102,7 @@ const DashboardHeader = () => {
                     onChange={(selectedItem: DropDownItem) => dispatch(setDashboardDataAggregationType(selectedItem.key as DataAggregationType))} />
                 <DropdownMultiSelect
                     items={shootAroundSpotDropDownItems}
-                    label='Shootaround spots'
+                    label='Shoot Around spots'
                     selectedItems={selectedShootAroundSpots}
                     onChange={(selectedItems: DropDownItem[]) => handleSelectedFilterSpotsChange(selectedItems)} />
             </Card.Content>

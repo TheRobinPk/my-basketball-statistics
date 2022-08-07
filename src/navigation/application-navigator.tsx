@@ -33,13 +33,13 @@ const ApplicationNavigator = () => {
             <Drawer.Screen
                 name='ShootAroundDashboardStackNavigator'
                 options={{
-                    drawerLabel: 'Shootaround Dashboard'
+                    drawerLabel: 'Shoot Around Dashboard'
                 }}
                 component={ShootAroundDashboardStackNavigator} />
             <Drawer.Screen
                 name='ShootAroundListStackNavigator'
                 options={{
-                    drawerLabel: 'Shootaround List'
+                    drawerLabel: 'Shoot Around List'
                 }}
                 component={ShootAroundListStackNavigator} />
         </Drawer.Navigator>

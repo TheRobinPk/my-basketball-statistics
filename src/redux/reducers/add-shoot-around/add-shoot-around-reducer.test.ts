@@ -5,10 +5,10 @@ import {
     setAddShootAroundIsLoading,
     setAddShootAroundSubmitSuccess,
     setShootAroundFormValues,
-} from './add-shootaround-reducer';
+} from './add-shoot-around-reducer';
 import {ShootAroundSpot} from '../../../domain/shoot-around';
 
-describe('add-shootaround-reducer', () => {
+describe('add-shoot-around-reducer', () => {
     it('should set up the initialState correctly', () => {
         // GIVEN
 

@@ -3,7 +3,7 @@ import {getShootAroundListData, setShootAroundListData, setShootAroundListIsLoad
 import ShootAroundService from '../../../service/shoot-around-service';
 import {RootState} from '../../store/store';
 import {ShootAround} from '../../../domain/shoot-around';
-import {shootAroundSubmitSuccess} from '../../reducers/add-shootaround/add-shootaround-reducer';
+import {shootAroundSubmitSuccess} from '../../reducers/add-shoot-around/add-shoot-around-reducer';
 
 export function* getShootAroundListDataWatcherSaga() {
     yield takeLatest([

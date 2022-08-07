@@ -1,5 +1,5 @@
 {
-  "name": "basketball-shootaround-app",
+  "name": "basketball-shoot-around-app",
   "version": "1.0.0",
   "scripts": {
     "start": "expo start --dev-client",

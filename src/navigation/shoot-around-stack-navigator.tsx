@@ -21,7 +21,7 @@ const ShootAroundDashboardStackNavigator = () => {
                 name='DashboardScreen'
                 component={DashboardScreen}
                 options={{
-                    title: 'Dashboard',
+                    title: 'Dashboardv2',
                     // eslint-disable-next-line react/no-multi-comp
                     headerLeft: () => <DrawerToggle />
                 }} />
@@ -29,7 +29,7 @@ const ShootAroundDashboardStackNavigator = () => {
                 name='AddShootAroundScreen'
                 component={AddShootAroundScreen}
                 options={{
-                    title: 'Add Shootaround'
+                    title: 'Add Shoot Around'
                 }} />
         </Stack.Navigator>
     );

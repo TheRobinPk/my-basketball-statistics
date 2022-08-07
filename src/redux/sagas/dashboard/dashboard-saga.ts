@@ -10,7 +10,7 @@ import {
     ShootAroundChartData, DataAggregationType,
 } from '../../reducers/dashboard/dashboard-reducer';
 import {ShootAround, ShootAroundSpot} from '../../../domain/shoot-around';
-import {shootAroundSubmitSuccess} from '../../reducers/add-shootaround/add-shootaround-reducer';
+import {shootAroundSubmitSuccess} from '../../reducers/add-shoot-around/add-shoot-around-reducer';
 import ShootAroundChartService from '../../../service/shoot-around-chart-service';
 import {DateRange} from '../../../components/common/date-picker/date-range-picker';
 
