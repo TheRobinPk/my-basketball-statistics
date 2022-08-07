@@ -11,6 +11,7 @@ export type RootStackParamList = {
 
 export type ShootAroundListStackParamList = {
     ShootAroundListScreen: undefined;
+    AddShootAroundScreen: undefined;
 };
 
 export type RootDrawerParamList = {
