@@ -3,7 +3,7 @@ import {Repository} from 'typeorm/repository/Repository';
 import {ShootAround, ShootAroundEntity, ShootAroundSpot} from '../domain/shoot-around';
 import ShootAroundService from './shoot-around-service';
 import moment from 'moment';
-import {Between} from 'typeorm';
+import {Between, In} from 'typeorm';
 
 let repository: jest.Mocked<Repository<ShootAroundEntity>>;
 let shootAroundService: ShootAroundService;
@@ -92,7 +92,7 @@ describe('shoot-around-service', () => {
         // GIVEN
 
         // WHEN
-        const result = await shootAroundService.findBetween(DATE , DATE);
+        const result = await shootAroundService.findBetweenAndWithinSpots(DATE , DATE, [ShootAroundSpot.PAINT, ShootAroundSpot.FREE_THROW]);
 
         // THEN
         expect(repository.find).toHaveBeenCalledTimes(1);
@@ -101,7 +101,8 @@ describe('shoot-around-service', () => {
                 timestamp: Between(
                     DATE.clone().startOf('day').unix(),
                     DATE.clone().endOf('day').unix()
-                )
+                ),
+                spot: In(['PAINT', 'FREE_THROW'])
             }
         });
 
