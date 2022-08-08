@@ -5,7 +5,7 @@ import LoadingWrapper from '../../components/common/loading-wrapper/loading-wrap
 import {useComponentDidMount} from '../../hooks/useComponentDidMount';
 import {getShootAroundListData, resetShootAroundList} from '../../redux/reducers/shoot-around-list/shoot-around-list-reducer';
 import {useComponentWillUnmount} from '../../hooks/useComponentWillUnmount';
-import ApplicationBar from '../../components/app-bar/application-bar';
+import ApplicationBar from '../../navigation/application-bar/application-bar';
 
 export interface IShootAroundListRow {
     key: string;

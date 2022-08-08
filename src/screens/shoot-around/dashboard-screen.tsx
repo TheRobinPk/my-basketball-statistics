@@ -9,7 +9,7 @@ import {useComponentDidMount} from '../../hooks/useComponentDidMount';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {setDashboardDataAggregationType, setDashboardDateRange} from '../../redux/reducers/dashboard/dashboard-reducer';
 import moment from 'moment';
-import ApplicationBar from '../../components/app-bar/application-bar';
+import ApplicationBar from '../../navigation/application-bar/application-bar';
 
 type IProps = NativeStackScreenProps<ShootAroundStackNavigatorParamList, 'DashboardScreen'>;
 
@@ -18,8 +18,8 @@ const DashboardScreen = (props: IProps) => {
 
     useComponentDidMount(() => {
         dispatch(setDashboardDateRange({
-            start: moment().startOf('week'),
-            end: moment().endOf('week')
+            start: moment().startOf('day').subtract(7, 'day'),
+            end: moment().startOf('day')
         }));
         dispatch(setDashboardDataAggregationType('day'));
     });
