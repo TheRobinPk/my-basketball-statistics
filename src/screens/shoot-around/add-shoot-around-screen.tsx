@@ -1,19 +1,20 @@
 import React from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
-import BasketballCourt from '../components/basketball-court/basketball-court';
-import Button from '../components/common/button/button';
-import Snackbar from '../components/common/snackbar/snackbar';
-import { MaterialIcons } from '@expo/vector-icons';
-import {useAppDispatch, useAppSelector} from '../redux/store/store';
-import {ShootAroundSpot} from '../domain/shoot-around';
+import BasketballCourt from '../../components/basketball-court/basketball-court';
+import Button from '../../components/common/button/button';
+import Snackbar from '../../components/common/snackbar/snackbar';
+import {useAppDispatch, useAppSelector} from '../../redux/store/store';
+import {ShootAroundSpot} from '../../domain/shoot-around';
 import {
     resetShootAroundForm,
     setAddShootAroundSubmitSuccess,
     setShootAroundFormValues,
     submitShootAround
-} from '../redux/reducers/add-shoot-around/add-shoot-around-reducer';
-import colors from '../colors';
-import {useComponentWillUnmount} from '../hooks/useComponentWillUnmount';
+} from '../../redux/reducers/add-shoot-around/add-shoot-around-reducer';
+import colors from '../../colors';
+import {useComponentWillUnmount} from '../../hooks/useComponentWillUnmount';
+import ApplicationBar from '../../navigation/application-bar/application-bar';
+import {HelperText} from 'react-native-paper';
 
 const AddShootAroundScreen = () => {
     const totalAttempts = useAppSelector(state => state.addShootAround.totalAttempts);
@@ -31,6 +32,7 @@ const AddShootAroundScreen = () => {
 
     return (
         <>
+            <ApplicationBar title='Add Shoot Around' showGoBack />
             <View testID='add-shoot-around-container' style={styles.container}>
                 <View>
                     <BasketballCourt
@@ -42,14 +44,14 @@ const AddShootAroundScreen = () => {
                                 shootAroundSpot: selectedSpot
                             }));
                         }} />
-                    {(shootAroundSpot === undefined) && (
-                        <View style={styles.basketballCourtInfoStyle}>
-                            <MaterialIcons name='info' size={18} color={colors.primaryColor} />
-                            <Text testID='basketball-court-info-text' style={styles.basketballCourtInfoTextStyle}>
-                                You can select a shooting spot by tapping on the spot
-                            </Text>
-                        </View>
-                    )}
+                    <HelperText
+                        type='info'
+                        style={styles.basketballCourtInfoStyle}
+                        visible={shootAroundSpot === undefined}>
+                        <Text testID='basketball-court-info-text' style={styles.basketballCourtInfoTextStyle}>
+                            You can select a shooting spot by tapping on the spot
+                        </Text>
+                    </HelperText>
                     <View style={styles.rowContainer}>
                         <View style={styles.columnContainer}>
                             <Text
@@ -123,7 +125,7 @@ const AddShootAroundScreen = () => {
 const styles = StyleSheet.create({
     container: {
         height: '100%',
-        justifyContent: 'space-between'
+        justifyContent: 'flex-start'
     },
     labelTitle: {
         fontWeight: 'bold',
@@ -163,8 +165,8 @@ const styles = StyleSheet.create({
     },
     submitButtonContainerStyle: {
         width: 160,
-        alignSelf: 'center',
-        marginBottom: 16
+        marginTop: 16,
+        alignSelf: 'center'
     }
 });
 

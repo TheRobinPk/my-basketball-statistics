@@ -1,30 +1,32 @@
 import React from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
-import FloatingActionButton from '../components/common/floating-action-button/floating-action-button';
-import DashboardHeader from '../components/dashboard/dashboard-header';
-import DashboardChart from '../components/dashboard/dashboard-chart';
-import {RootStackParamList} from '../navigation/application-navigator';
-import {useAppDispatch} from '../redux/store/store';
-import {useComponentDidMount} from '../hooks/useComponentDidMount';
+import FloatingActionButton from '../../components/common/floating-action-button/floating-action-button';
+import DashboardHeader from '../../components/dashboard/dashboard-header';
+import DashboardChart from '../../components/dashboard/dashboard-chart';
+import {ShootAroundStackNavigatorParamList} from '../../navigation/shoot-around-stack-navigator';
+import {useAppDispatch} from '../../redux/store/store';
+import {useComponentDidMount} from '../../hooks/useComponentDidMount';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {setDashboardDataAggregationType, setDashboardDateRange} from '../redux/reducers/dashboard/dashboard-reducer';
+import {setDashboardDataAggregationType, setDashboardDateRange} from '../../redux/reducers/dashboard/dashboard-reducer';
 import moment from 'moment';
+import ApplicationBar from '../../navigation/application-bar/application-bar';
 
-type IProps = NativeStackScreenProps<RootStackParamList, 'DashboardScreen'>;
+type IProps = NativeStackScreenProps<ShootAroundStackNavigatorParamList, 'DashboardScreen'>;
 
 const DashboardScreen = (props: IProps) => {
     const dispatch = useAppDispatch();
 
     useComponentDidMount(() => {
         dispatch(setDashboardDateRange({
-            start: moment().startOf('week'),
-            end: moment().endOf('week')
+            start: moment().startOf('day').subtract(7, 'day'),
+            end: moment().startOf('day')
         }));
         dispatch(setDashboardDataAggregationType('day'));
     });
 
     return (
         <>
+            <ApplicationBar title='Dashboard' showDrawerToggle />
             <ScrollView contentContainerStyle={styles.scrollViewStyle}>
                 <View style={styles.cardStyle}>
                     <DashboardHeader />

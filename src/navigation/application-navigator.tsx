@@ -1,22 +1,12 @@
 import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import ShootAroundDashboardStackNavigator from './shoot-around-stack-navigator';
-import ShootAroundListStackNavigator from './shoot-around-list-stack-navigator';
-import colors from '../colors';
-
-export type RootStackParamList = {
-    DashboardScreen: undefined;
-    AddShootAroundScreen: undefined;
-};
-
-export type ShootAroundListStackParamList = {
-    ShootAroundListScreen: undefined;
-    AddShootAroundScreen: undefined;
-};
+import ShootAroundListScreen from '../screens/data-management/shoot-around-list-screen';
+import ApplicationDrawer from './application-drawer/application-drawer';
 
 export type RootDrawerParamList = {
     ShootAroundDashboardStackNavigator: undefined;
-    ShootAroundListStackNavigator: undefined;
+    ShootAroundListScreen: undefined;
 };
 
 const Drawer = createDrawerNavigator<RootDrawerParamList>();
@@ -25,23 +15,16 @@ const ApplicationNavigator = () => {
     return (
         <Drawer.Navigator
             initialRouteName='ShootAroundDashboardStackNavigator'
+            drawerContent={(props) => <ApplicationDrawer drawerContentProps={props} />}
             screenOptions={{
-                headerShown: false,
-                drawerActiveTintColor: colors.white,
-                drawerActiveBackgroundColor: colors.primaryColor
-        }}>
+                headerShown: false
+            }}>
             <Drawer.Screen
                 name='ShootAroundDashboardStackNavigator'
-                options={{
-                    drawerLabel: 'Shoot Around Dashboard'
-                }}
                 component={ShootAroundDashboardStackNavigator} />
             <Drawer.Screen
-                name='ShootAroundListStackNavigator'
-                options={{
-                    drawerLabel: 'Shoot Around List'
-                }}
-                component={ShootAroundListStackNavigator} />
+                name='ShootAroundListScreen'
+                component={ShootAroundListScreen} />
         </Drawer.Navigator>
     );
 };

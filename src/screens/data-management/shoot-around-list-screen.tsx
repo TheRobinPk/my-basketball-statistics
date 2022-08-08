@@ -1,13 +1,11 @@
 import React from 'react';
-import Table, {ITableColumn} from '../components/common/table/table';
-import {useAppDispatch, useAppSelector} from '../redux/store/store';
-import LoadingWrapper from '../components/common/loading-wrapper/loading-wrapper';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {ShootAroundListStackParamList} from '../navigation/application-navigator';
-import FloatingActionButton from '../components/common/floating-action-button/floating-action-button';
-import {useComponentDidMount} from '../hooks/useComponentDidMount';
-import {getShootAroundListData, resetShootAroundList} from '../redux/reducers/shoot-around-list/shoot-around-list-reducer';
-import {useComponentWillUnmount} from '../hooks/useComponentWillUnmount';
+import Table, {ITableColumn} from '../../components/common/table/table';
+import {useAppDispatch, useAppSelector} from '../../redux/store/store';
+import LoadingWrapper from '../../components/common/loading-wrapper/loading-wrapper';
+import {useComponentDidMount} from '../../hooks/useComponentDidMount';
+import {getShootAroundListData, resetShootAroundList} from '../../redux/reducers/shoot-around-list/shoot-around-list-reducer';
+import {useComponentWillUnmount} from '../../hooks/useComponentWillUnmount';
+import ApplicationBar from '../../navigation/application-bar/application-bar';
 
 export interface IShootAroundListRow {
     key: string;
@@ -17,9 +15,7 @@ export interface IShootAroundListRow {
     spot: string;
 }
 
-type IProps = NativeStackScreenProps<ShootAroundListStackParamList, 'ShootAroundListScreen'>;
-
-const ShootAroundListScreen = (props: IProps) => {
+const ShootAroundListScreen = () => {
     const dispatch = useAppDispatch();
     const isLoading = useAppSelector(state => state.shootAroundList.isLoading);
     const data = useAppSelector(state => state.shootAroundList.data);
@@ -70,19 +66,10 @@ const ShootAroundListScreen = (props: IProps) => {
 
     return (
         <>
+            <ApplicationBar title='Shoot Around List' showDrawerToggle />
             <LoadingWrapper isLoading={isLoading}>
                 <Table<IShootAroundListRow> columns={columns} rows={rows} />
             </LoadingWrapper>
-            <FloatingActionButton
-                icon='plus'
-                openIcon='close'
-                actions={[
-                    {
-                        title: 'Add Shoot Around',
-                        icon: 'basketball-hoop',
-                        pressHandler: () => props.navigation.navigate('AddShootAroundScreen')
-                    }
-                ]} />
         </>
     );
 };
