@@ -33,7 +33,7 @@ function* dashboardDateRangeChangedSaga() {
     const shootAroundSpots: ShootAroundSpot[] = yield select((state: RootState) => state.dashboard.shootAroundSpots);
     const { start, end } = dateRange;
 
-    const shootArounds: ShootAround[] = yield shootAroundService?.findBetweenAndWithinSpotsByDays(start, end, shootAroundSpots);
+    const shootArounds: ShootAround[] = yield shootAroundService?.findBetweenAndWithinSpots(start, end, shootAroundSpots);
     const chartData: ShootAroundChartData = yield shootAroundChartService?.calculateShootAroundChartData(shootArounds, dataAggregationType, dateRange);
 
     yield put(setDashboardChartData(chartData));

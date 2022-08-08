@@ -70,6 +70,18 @@ describe('shoot-around-chart-service', () => {
                 totalAttempts: 20,
                 madeAttempts: 20,
             },
+            {
+                dateTime: moment('2022-07-05 12:41'),
+                spot: ShootAroundSpot.THREE_POINT_TOP_OF_THE_KEY,
+                totalAttempts: 10,
+                madeAttempts: 6,
+            },
+            {
+                dateTime: moment('2022-07-05 12:42'),
+                spot: ShootAroundSpot.THREE_POINT_TOP_OF_THE_KEY,
+                totalAttempts: 10,
+                madeAttempts: 2,
+            }
         ];
         const dateRange: DateRange = {
             start: start,
@@ -81,7 +93,7 @@ describe('shoot-around-chart-service', () => {
 
         // THEN
         expect(result.labels).toEqual(['2022-06-28', '2022-06-29', '2022-06-30', '2022-07-01', '2022-07-02', '2022-07-03', '2022-07-04', '2022-07-05']);
-        expect(result.dataSets.length).toEqual(2);
+        expect(result.dataSets.length).toEqual(3);
 
         expect(result.dataSets[0].spot).toEqual(ShootAroundSpot.PAINT);
         expect(result.dataSets[0].data).toEqual([
@@ -105,6 +117,18 @@ describe('shoot-around-chart-service', () => {
             0,
             20/20,
             20/20
+        ]);
+
+        expect(result.dataSets[2].spot).toEqual(ShootAroundSpot.THREE_POINT_TOP_OF_THE_KEY);
+        expect(result.dataSets[2].data).toEqual([
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            8/20
         ]);
 
     });
@@ -181,6 +205,18 @@ describe('shoot-around-chart-service', () => {
                 totalAttempts: 20,
                 madeAttempts: 20,
             },
+            {
+                dateTime: moment('2022-08-04 12:41'),
+                spot: ShootAroundSpot.THREE_POINT_TOP_OF_THE_KEY,
+                totalAttempts: 10,
+                madeAttempts: 6,
+            },
+            {
+                dateTime: moment('2022-08-04 12:42'),
+                spot: ShootAroundSpot.THREE_POINT_TOP_OF_THE_KEY,
+                totalAttempts: 10,
+                madeAttempts: 2,
+            }
         ];
         const dateRange: DateRange = {
             start: start,
@@ -192,7 +228,7 @@ describe('shoot-around-chart-service', () => {
 
         // THEN
         expect(result.labels).toEqual(['2022 25th', '2022 26th', '2022 27th', '2022 28th', '2022 29th', '2022 30th']);
-        expect(result.dataSets.length).toEqual(2);
+        expect(result.dataSets.length).toEqual(3);
 
         expect(result.dataSets[0].spot).toEqual(ShootAroundSpot.PAINT);
         expect(result.dataSets[0].data).toEqual([
@@ -212,6 +248,16 @@ describe('shoot-around-chart-service', () => {
             0,
             0,
             20/20
+        ]);
+
+        expect(result.dataSets[2].spot).toEqual(ShootAroundSpot.THREE_POINT_TOP_OF_THE_KEY);
+        expect(result.dataSets[2].data).toEqual([
+            0,
+            0,
+            0,
+            0,
+            0,
+            8/20
         ]);
 
     });
@@ -288,6 +334,18 @@ describe('shoot-around-chart-service', () => {
                 totalAttempts: 20,
                 madeAttempts: 20,
             },
+            {
+                dateTime: moment('2022-07-04 12:41'),
+                spot: ShootAroundSpot.THREE_POINT_TOP_OF_THE_KEY,
+                totalAttempts: 10,
+                madeAttempts: 6,
+            },
+            {
+                dateTime: moment('2022-07-04 12:42'),
+                spot: ShootAroundSpot.THREE_POINT_TOP_OF_THE_KEY,
+                totalAttempts: 10,
+                madeAttempts: 2,
+            }
         ];
         const dateRange: DateRange = {
             start: start,
@@ -299,7 +357,7 @@ describe('shoot-around-chart-service', () => {
 
         // THEN
         expect(result.labels).toEqual(['2022 Apr', '2022 May', '2022 Jun', '2022 Jul']);
-        expect(result.dataSets.length).toEqual(2);
+        expect(result.dataSets.length).toEqual(3);
 
         expect(result.dataSets[0].spot).toEqual(ShootAroundSpot.PAINT);
         expect(result.dataSets[0].data).toEqual([
@@ -315,6 +373,14 @@ describe('shoot-around-chart-service', () => {
             20/20,
             0,
             0
+        ]);
+
+        expect(result.dataSets[2].spot).toEqual(ShootAroundSpot.THREE_POINT_TOP_OF_THE_KEY);
+        expect(result.dataSets[2].data).toEqual([
+            0,
+            0,
+            0,
+            8/20
         ]);
 
     });
