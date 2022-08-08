@@ -2,6 +2,7 @@ import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import ShootAroundDashboardStackNavigator from './shoot-around-stack-navigator';
 import ShootAroundListScreen from '../screens/data-management/shoot-around-list-screen';
+import ApplicationDrawer from './application-drawer/application-drawer';
 
 export type RootDrawerParamList = {
     ShootAroundDashboardStackNavigator: undefined;
@@ -14,14 +15,12 @@ const ApplicationNavigator = () => {
     return (
         <Drawer.Navigator
             initialRouteName='ShootAroundDashboardStackNavigator'
+            drawerContent={(props) => <ApplicationDrawer drawerContentProps={props} />}
             screenOptions={{
                 headerShown: false
             }}>
             <Drawer.Screen
                 name='ShootAroundDashboardStackNavigator'
-                options={{
-                    drawerLabel: 'Shoot Around Dashboard'
-                }}
                 component={ShootAroundDashboardStackNavigator} />
             <Drawer.Screen
                 name='ShootAroundListScreen'
