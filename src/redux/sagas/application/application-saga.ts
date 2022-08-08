@@ -29,6 +29,7 @@ function* applicationMountedSaga() {
                 CreateShootAroundTable1657877900861,
                 CreateShootAroundTableIndex1658570828462
             ],
+            logging: ENV.SHOULD_LOG_SQL
         });
 
         yield put(initializeApplication(dataSource));
