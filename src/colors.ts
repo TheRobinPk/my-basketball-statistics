@@ -1,5 +1,6 @@
 export default {
     primaryColor: '#2c698d',
+    primaryColorWithOpacity: '#2c698d66',
     white: '#ffffff',
     grey: '#e3e3e3',
     disabledGrey: '#bdbdbd',
