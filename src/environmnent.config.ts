@@ -16,7 +16,7 @@ const ENV = {
     },
     production: {
         DATABASE_NAME: 'app.db',
-        SHOULD_LOG_SQL: true
+        SHOULD_LOG_SQL: false
     },
 };
 
