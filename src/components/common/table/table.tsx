@@ -1,6 +1,6 @@
-import React from 'react';
-import {DataTable} from 'react-native-paper';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import React, {useState} from 'react';
+import {Card, DataTable} from 'react-native-paper';
+import {Dimensions, ScrollView, StyleSheet, Text, View} from 'react-native';
 import colors from '../../../colors';
 import TableItemDelete from './table-item-delete';
 import EmptyState from '../empty-state/empty-state';
@@ -22,14 +22,20 @@ export interface ITableDeleteProps<T> {
     onDelete: (row: T) => void;
 }
 
+export interface ITablePaginationProps {
+    pageSize: number;
+}
+
 export interface ITableProps<T> {
     columns: ITableColumn<T>[];
     rows: T[];
     rowDelete?: ITableDeleteProps<T>;
+    pagination?: ITablePaginationProps;
 }
 
 const Table = <T extends ITableKey>(props: ITableProps<T>) => {
-    const { columns, rows, rowDelete } = props;
+    const [currentPage, setCurrentPage] = useState<number>(1); // starting from 1, like what we'd like to display
+    const { rows, columns, rowDelete, pagination } = props;
 
     if (rows.length === 0) {
         return (
@@ -37,23 +43,13 @@ const Table = <T extends ITableKey>(props: ITableProps<T>) => {
         );
     }
 
-    const columnsToRender = [...columns];
-    if (rowDelete !== undefined) {
-        columnsToRender.push({
-           key: 'actions',
-           title: 'Actions',
-           width: 50,
-           renderColumn: (row: T) => {
-               return (
-                   <View style={styles.actionsColumnStyle}>
-                       <TableItemDelete
-                           dialogTitle={rowDelete.dialogTitle}
-                           onDelete={() => rowDelete.onDelete(row)} />
-                   </View>
-               );
-           }
-        });
-    }
+    const getCurrentPageData = (): T[] => {
+        let result = [...rows];
+        if (pagination !== undefined) {
+            result = rows.slice((currentPage - 1) * pagination.pageSize, currentPage * pagination.pageSize);
+        }
+        return result;
+    };
 
     const renderColumnHeader = (column: ITableColumn<T>) => {
         return (
@@ -106,33 +102,73 @@ const Table = <T extends ITableKey>(props: ITableProps<T>) => {
         );
     };
 
+    const columnsToRender = [...columns];
+    const rowsToRender = getCurrentPageData();
+
+    if (rowDelete !== undefined) {
+        columnsToRender.push({
+            key: 'actions',
+            title: 'Actions',
+            width: 50,
+            renderColumn: (row: T) => {
+                return (
+                    <TableItemDelete
+                        dialogTitle={rowDelete.dialogTitle}
+                        onDelete={() => rowDelete.onDelete(row)} />
+                );
+            }
+        });
+    }
+
+    const from = ((currentPage - 1) * (pagination?.pageSize || 1)) + 1;
+    const to = Math.min(currentPage * (pagination?.pageSize || 1), rows.length);
+
     return (
-        <ScrollView
-            style={styles.horizontalScrollViewStyle}
-            horizontal
-            showsHorizontalScrollIndicator
-            persistentScrollbar
-            indicatorStyle='black'>
-            <ScrollView
-                persistentScrollbar
-                indicatorStyle='black'>
-                <DataTable>
-                    <DataTable.Header>
-                        {columnsToRender.map((column) => {
-                            return renderColumnHeader(column);
-                        })}
-                    </DataTable.Header>
-                    {rows.map((row) => {
-                        return renderRow(columnsToRender, row);
-                    })}
-                </DataTable>
-            </ScrollView>
-        </ScrollView>
+        <View style={styles.cardStyle}>
+            <Card mode='elevated' elevation={5}>
+                <Card.Content>
+                    <ScrollView
+                        style={styles.horizontalScrollViewStyle}
+                        horizontal
+                        showsHorizontalScrollIndicator
+                        persistentScrollbar
+                        indicatorStyle='black'>
+                        <DataTable>
+                            <DataTable.Header>
+                                {columnsToRender.map((column) => {
+                                    return renderColumnHeader(column);
+                                })}
+                            </DataTable.Header>
+                            <ScrollView
+                                style={{ maxHeight: Dimensions.get('window').height * 2/3 }}
+                                persistentScrollbar
+                                showsVerticalScrollIndicator>
+                                {rowsToRender.map((row) => {
+                                    return renderRow(columnsToRender, row);
+                                })}
+                            </ScrollView>
+                        </DataTable>
+                    </ScrollView>
+                </Card.Content>
+                {pagination !== undefined ? (
+                    <Card.Actions>
+                        <DataTable.Pagination
+                            page={currentPage - 1}
+                            numberOfPages={Math.ceil(rows.length / pagination.pageSize)}
+                            onPageChange={(page) => setCurrentPage(page + 1)}
+                            label={`Showing ${from} - ${to} of ${rows.length}`} />
+                    </Card.Actions>
+                ) : null}
+            </Card>
+        </View>
     );
 };
 
 
 const styles = StyleSheet.create({
+    cardStyle: {
+        margin: 8
+    },
     horizontalScrollViewStyle: {
         paddingBottom: 4
     },
@@ -154,9 +190,6 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: colors.darkerGrey,
         fontWeight: '500'
-    },
-    actionsColumnStyle: {
-
     }
 });
 

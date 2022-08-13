@@ -78,6 +78,9 @@ const ShootAroundListScreen = () => {
                     rowDelete={{
                         dialogTitle: 'Are you sure you want to delete the Shoot Around?',
                         onDelete: (row: IShootAroundListRow) => onDeleteShootAround(row)
+                    }}
+                    pagination={{
+                        pageSize: 20
                     }} />
             </LoadingWrapper>
         </>
