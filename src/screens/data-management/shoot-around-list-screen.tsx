@@ -3,7 +3,7 @@ import Table, {ITableColumn} from '../../components/common/table/table';
 import {useAppDispatch, useAppSelector} from '../../redux/store/store';
 import LoadingWrapper from '../../components/common/loading-wrapper/loading-wrapper';
 import {useComponentDidMount} from '../../hooks/useComponentDidMount';
-import {getShootAroundListData, resetShootAroundList} from '../../redux/reducers/shoot-around-list/shoot-around-list-reducer';
+import {deleteShootAround, getShootAroundListData, resetShootAroundList} from '../../redux/reducers/shoot-around-list/shoot-around-list-reducer';
 import {useComponentWillUnmount} from '../../hooks/useComponentWillUnmount';
 import ApplicationBar from '../../navigation/application-bar/application-bar';
 
@@ -28,6 +28,10 @@ const ShootAroundListScreen = () => {
         dispatch(resetShootAroundList());
     });
 
+    const onDeleteShootAround = (shootAroundRow: IShootAroundListRow) => {
+        dispatch(deleteShootAround(parseInt(shootAroundRow.key)));
+    };
+
     const rows: IShootAroundListRow[] = data.map((shootAround) => {
         return {
             key: shootAround.id?.toString() || '-1',
@@ -42,7 +46,7 @@ const ShootAroundListScreen = () => {
             key: 'dateTime',
             dataKey: 'dateTime',
             title: 'Date',
-            width: 150
+            width: 100
         },
         {
             key: 'totalAttempts',
@@ -68,7 +72,13 @@ const ShootAroundListScreen = () => {
         <>
             <ApplicationBar title='Shoot Around List' showDrawerToggle />
             <LoadingWrapper isLoading={isLoading}>
-                <Table<IShootAroundListRow> columns={columns} rows={rows} />
+                <Table<IShootAroundListRow>
+                    columns={columns}
+                    rows={rows}
+                    rowDelete={{
+                        dialogTitle: 'Are you sure you want to delete the Shoot Around?',
+                        onDelete: (row: IShootAroundListRow) => onDeleteShootAround(row)
+                    }} />
             </LoadingWrapper>
         </>
     );
