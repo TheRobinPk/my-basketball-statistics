@@ -3,10 +3,6 @@
   "version": "1.0.0",
   "scripts": {
     "start": "expo start --dev-client",
-    "android": "expo run:android",
-    "ios": "expo run:ios",
-    "web": "expo start --web",
-    "eject": "expo eject",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx src/",
     "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx src/ --fix",
     "test": "jest --forceExit",
@@ -14,8 +10,6 @@
     "build:android:develop": "npm run build && eas build --platform android --profile development --non-interactive",
     "build:android:preview": "npm run build && eas build --platform android --profile preview --non-interactive",
     "build:android:production": "npm run build && eas build --platform android --profile production --non-interactive",
-    "publish:develop": "npm run build && expo publish --release-channel develop",
-    "publish:production": "npm run build && expo publish --release-channel production",
     "typeorm": "typeorm-ts-node-commonjs"
   },
   "dependencies": {
