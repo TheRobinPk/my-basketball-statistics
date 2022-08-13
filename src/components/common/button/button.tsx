@@ -42,13 +42,13 @@ const styles = StyleSheet.create({
         backgroundColor: colors.primaryColor
     },
     disabledButtonStyle: {
-        backgroundColor: colors.disabledGrey
+        backgroundColor: colors.lightGrey
     },
     labelStyle: {
         color: colors.white
     },
     disabledLabelStyle: {
-        color: colors.grey
+        color: colors.inactiveGrey
     }
 });
 
