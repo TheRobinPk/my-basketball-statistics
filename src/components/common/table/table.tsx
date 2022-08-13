@@ -2,6 +2,8 @@ import React from 'react';
 import {DataTable} from 'react-native-paper';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import colors from '../../../colors';
+import TableItemDelete from './table-item-delete';
+import EmptyState from '../empty-state/empty-state';
 
 export interface ITableKey {
     key: string;
@@ -15,13 +17,43 @@ export interface ITableColumn<T> {
     renderColumn?: (row: T) => React.ReactNode;
 }
 
+export interface ITableDeleteProps<T> {
+    dialogTitle: string;
+    onDelete: (row: T) => void;
+}
+
 export interface ITableProps<T> {
     columns: ITableColumn<T>[];
-    rows: T[]
+    rows: T[];
+    rowDelete?: ITableDeleteProps<T>;
 }
 
 const Table = <T extends ITableKey>(props: ITableProps<T>) => {
-    const { columns, rows } = props;
+    const { columns, rows, rowDelete } = props;
+
+    if (rows.length === 0) {
+        return (
+            <EmptyState />
+        );
+    }
+
+    const columnsToRender = [...columns];
+    if (rowDelete !== undefined) {
+        columnsToRender.push({
+           key: 'actions',
+           title: 'Actions',
+           width: 50,
+           renderColumn: (row: T) => {
+               return (
+                   <View style={styles.actionsColumnStyle}>
+                       <TableItemDelete
+                           dialogTitle={rowDelete.dialogTitle}
+                           onDelete={() => rowDelete.onDelete(row)} />
+                   </View>
+               );
+           }
+        });
+    }
 
     const renderColumnHeader = (column: ITableColumn<T>) => {
         return (
@@ -86,12 +118,12 @@ const Table = <T extends ITableKey>(props: ITableProps<T>) => {
                 indicatorStyle='black'>
                 <DataTable>
                     <DataTable.Header>
-                        {columns.map((column) => {
+                        {columnsToRender.map((column) => {
                             return renderColumnHeader(column);
                         })}
                     </DataTable.Header>
                     {rows.map((row) => {
-                        return renderRow(columns, row);
+                        return renderRow(columnsToRender, row);
                     })}
                 </DataTable>
             </ScrollView>
@@ -119,7 +151,12 @@ const styles = StyleSheet.create({
         paddingRight: 8
     },
     cellTextStyle: {
-        fontSize: 12
+        fontSize: 12,
+        color: colors.darkerGrey,
+        fontWeight: '500'
+    },
+    actionsColumnStyle: {
+
     }
 });
 
