@@ -6,6 +6,7 @@ import {useAppDispatch, useAppSelector} from '../../redux/store/store';
 import Dropdown, {DropDownItem} from '../common/dropdown/dropdown';
 import DateRangePicker, {DateRange} from '../common/date-picker/date-range-picker';
 import DropdownMultiSelect from '../common/dropdown/dropdown-multi-select';
+import {StyleSheet, View} from 'react-native';
 
 const DashboardHeader = () => {
     const dateRange = useAppSelector(state => state.dashboard.dateRange);
@@ -90,24 +91,32 @@ const DashboardHeader = () => {
     };
 
     return (
-        <Card mode='elevated' elevation={5}>
-            <Card.Content>
-                <DateRangePicker
-                    value={dateRange}
-                    onChange={(dateRange: DateRange) => dispatch(setDashboardDateRange(dateRange))} />
-                <Dropdown
-                    items={dataAggregationTypeDropDownItems}
-                    label='Aggregate results by'
-                    selectedItem={selectedDataAggregationType}
-                    onChange={(selectedItem: DropDownItem) => dispatch(setDashboardDataAggregationType(selectedItem.key as DataAggregationType))} />
-                <DropdownMultiSelect
-                    items={shootAroundSpotDropDownItems}
-                    label='Shoot Around spots'
-                    selectedItems={selectedShootAroundSpots}
-                    onChange={(selectedItems: DropDownItem[]) => handleSelectedFilterSpotsChange(selectedItems)} />
-            </Card.Content>
-        </Card>
+        <View style={styles.cardStyle}>
+            <Card mode='elevated' elevation={5}>
+                <Card.Content>
+                    <DateRangePicker
+                        value={dateRange}
+                        onChange={(dateRange: DateRange) => dispatch(setDashboardDateRange(dateRange))} />
+                    <Dropdown
+                        items={dataAggregationTypeDropDownItems}
+                        label='Aggregate results by'
+                        selectedItem={selectedDataAggregationType}
+                        onChange={(selectedItem: DropDownItem) => dispatch(setDashboardDataAggregationType(selectedItem.key as DataAggregationType))} />
+                    <DropdownMultiSelect
+                        items={shootAroundSpotDropDownItems}
+                        label='Shoot Around spots'
+                        selectedItems={selectedShootAroundSpots}
+                        onChange={(selectedItems: DropDownItem[]) => handleSelectedFilterSpotsChange(selectedItems)} />
+                </Card.Content>
+            </Card>
+        </View>
     );
 };
+
+const styles = StyleSheet.create({
+    cardStyle: {
+        margin: 8
+    }
+});
 
 export default DashboardHeader;

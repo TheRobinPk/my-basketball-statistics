@@ -46,24 +46,28 @@ const ShootAroundListScreen = () => {
             key: 'dateTime',
             dataKey: 'dateTime',
             title: 'Date',
+            sortFunction: (a, b) => a.dateTime.localeCompare(b.dateTime),
             width: 100
         },
         {
             key: 'totalAttempts',
             dataKey: 'totalAttempts',
             title: 'Total Attempts',
+            sortFunction: (a, b) => parseInt(a.totalAttempts) - parseInt(b.totalAttempts),
             width: 50
         },
         {
             key: 'madeAttempts',
             dataKey: 'madeAttempts',
             title: 'Made Attempts',
+            sortFunction: (a, b) => parseInt(a.madeAttempts) - parseInt(b.madeAttempts),
             width: 50
         },
         {
             key: 'spot',
             dataKey: 'spot',
             title: 'Spot',
+            sortFunction: (a, b) => a.spot.localeCompare(b.spot),
             width: 150
         }
     ];
@@ -78,6 +82,9 @@ const ShootAroundListScreen = () => {
                     rowDelete={{
                         dialogTitle: 'Are you sure you want to delete the Shoot Around?',
                         onDelete: (row: IShootAroundListRow) => onDeleteShootAround(row)
+                    }}
+                    pagination={{
+                        pageSize: 20
                     }} />
             </LoadingWrapper>
         </>

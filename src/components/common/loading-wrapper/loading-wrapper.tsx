@@ -1,6 +1,7 @@
 import React from 'react';
 import colors from '../../../colors';
 import {ActivityIndicator} from 'react-native-paper';
+import {StyleSheet, View} from 'react-native';
 
 interface IProps {
     isLoading: boolean;
@@ -10,12 +11,21 @@ interface IProps {
 const LoadingWrapper = (props: IProps) => {
     return (
         <>
-            {props.isLoading ?
-                <ActivityIndicator animating color={colors.primaryColor} /> :
-                props.children
-            }
+            {props.isLoading ? (
+                <View style={styles.container}>
+                    <ActivityIndicator animating color={colors.primaryColor} />
+                </View>
+            ) : props.children}
         </>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
+});
 
 export default LoadingWrapper;
