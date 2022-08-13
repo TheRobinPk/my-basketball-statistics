@@ -1,9 +1,9 @@
 import React from 'react';
-import {Text} from 'react-native';
+import EmptyState from '../empty-state/empty-state';
 
 interface IProps {
     isEmpty: boolean;
-    emptyText: string;
+    emptyText?: string;
     children: React.ReactNode;
 }
 
@@ -11,7 +11,7 @@ const EmptyWrapper = (props: IProps) => {
     return (
         <>
             {props.isEmpty ?
-                <Text>{props.emptyText}</Text> :
+                <EmptyState text={props.emptyText} /> :
                 props.children
             }
         </>

@@ -33,6 +33,12 @@ describe('shoot-around-service', () => {
         (repository as any).insert = jest.fn(() => {
             return new Promise<void>((resolve) => resolve());
         });
+        (repository as any).update = jest.fn(() => {
+            return new Promise<void>((resolve) => resolve());
+        });
+        (repository as any).delete = jest.fn(() => {
+            return new Promise<void>((resolve) => resolve());
+        });
         (repository as any).find = jest.fn(() => {
             return new Promise<ShootAroundEntity[]>((resolve) => resolve(DUMMY_SHOOT_AROUNDS));
         });
@@ -59,6 +65,38 @@ describe('shoot-around-service', () => {
         expectedEntity.timestamp = DATE.unix();
         expect(repository.insert).toHaveBeenCalledTimes(1);
         expect(repository.insert).toHaveBeenCalledWith(expectedEntity);
+    });
+
+    it('should update the entity by id', () => {
+        // GIVEN
+        const shootAround: ShootAround = {
+            totalAttempts: 10,
+            madeAttempts: 5,
+            spot: ShootAroundSpot.MID_RANGE_RIGHT_CORNER,
+            dateTime: DATE
+        };
+
+        // WHEN
+        shootAroundService.update(1, shootAround);
+
+        // THEN
+        expect(repository.update).toHaveBeenCalledTimes(1);
+        expect(repository.update).toHaveBeenCalledWith(1, {
+            totalAttempts: shootAround.totalAttempts,
+            madeAttempts: shootAround.madeAttempts,
+            spot: shootAround.spot.toString()
+        });
+    });
+
+    it('should delete the entity by id', () => {
+        // GIVEN
+
+        // WHEN
+        shootAroundService.delete(1);
+
+        // THEN
+        expect(repository.delete).toHaveBeenCalledTimes(1);
+        expect(repository.delete).toHaveBeenCalledWith(1);
     });
 
     it('should find all ShootArounds ordered by timestamp DESC', async () => {

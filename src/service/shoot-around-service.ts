@@ -24,6 +24,28 @@ export default class ShootAroundService {
         });
     }
 
+    update(id: number, shootAround: ShootAround): Promise<void> {
+        return new Promise<void>((resolve) => {
+            this.repository.update(id, {
+                totalAttempts: shootAround.totalAttempts,
+                madeAttempts: shootAround.madeAttempts,
+                spot: shootAround.spot.toString()
+            })
+                .then(() => {
+                    resolve();
+                });
+        });
+    }
+
+    delete(id: number): Promise<void> {
+        return new Promise<void>((resolve) => {
+            this.repository.delete(id)
+                .then(() => {
+                    resolve();
+                });
+        });
+    }
+
     async findAll(): Promise<ShootAround[]> {
         const entities = await this.repository.find({
             order: {

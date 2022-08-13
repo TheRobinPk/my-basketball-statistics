@@ -35,4 +35,5 @@ export const {
     resetShootAroundList
 } = shootAroundListSlice.actions;
 export const getShootAroundListData = createAction('shoot-around-list/getShootAroundListData');
+export const deleteShootAround = createAction<number>('shoot-around-list/deleteShootAround');
 export default shootAroundListReducer;
