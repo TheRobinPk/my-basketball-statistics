@@ -14,6 +14,7 @@ export interface ITableColumn<T> {
     dataKey?: string;
     title: string;
     width: number;
+    sortFunction?: (a: T, b: T) => number;
     renderColumn?: (row: T) => React.ReactNode;
 }
 
@@ -33,8 +34,16 @@ export interface ITableProps<T> {
     pagination?: ITablePaginationProps;
 }
 
+type SortDirection = 'ascending' | 'descending';
+
+interface ISort {
+    sortBy: string;
+    sortDirection: SortDirection;
+}
+
 const Table = <T extends ITableKey>(props: ITableProps<T>) => {
     const [currentPage, setCurrentPage] = useState<number>(1); // starting from 1, like what we'd like to display
+    const [sort, setSort] = useState<ISort | undefined>(undefined);
     const { rows, columns, rowDelete, pagination } = props;
 
     if (rows.length === 0) {
@@ -45,17 +54,42 @@ const Table = <T extends ITableKey>(props: ITableProps<T>) => {
 
     const getCurrentPageData = (): T[] => {
         let result = [...rows];
+        if (sort) {
+            const sortByColumn = columns.find((column) => column.dataKey === sort.sortBy);
+            const sortFunction = sortByColumn?.sortFunction;
+            if (sortFunction) {
+                result = result.sort((a, b) => {
+                    const sortResult = sortFunction(a, b);
+                    return sort.sortDirection === 'ascending' ? sortResult : sortResult * -1;
+                });
+            }
+        }
         if (pagination !== undefined) {
-            result = rows.slice((currentPage - 1) * pagination.pageSize, currentPage * pagination.pageSize);
+            result = result.slice((currentPage - 1) * pagination.pageSize, currentPage * pagination.pageSize);
         }
         return result;
+    };
+
+    const handleSort = (sortBy: string | undefined) => {
+        if (sortBy) {
+            let sortDirection: SortDirection = 'ascending';
+            if (sortBy === sort?.sortBy && sort?.sortDirection === 'ascending') {
+                sortDirection = 'descending';
+            }
+            setSort({
+                sortBy: sortBy,
+                sortDirection: sortDirection
+            });
+        }
     };
 
     const renderColumnHeader = (column: ITableColumn<T>) => {
         return (
             <DataTable.Title
                 key={column.key}
-                style={styles.columnHeaderStyle}>
+                style={styles.columnHeaderStyle}
+                sortDirection={sort?.sortBy === column.dataKey ? sort?.sortDirection : undefined}
+                onPress={column.sortFunction ? () => handleSort(column.dataKey) : undefined}>
                 <View style={{ width: column.width }}>
                     <Text style={styles.columnHeaderTextStyle}>
                         {column.title}
@@ -96,7 +130,7 @@ const Table = <T extends ITableKey>(props: ITableProps<T>) => {
             toRender = column.renderColumn(row);
         }
         return (
-            <View style={{ width: column.width }}>
+            <View style={{ width: column.width + 20 }}>
                 {toRender}
             </View>
         );
@@ -173,7 +207,6 @@ const styles = StyleSheet.create({
         paddingBottom: 4
     },
     columnHeaderStyle: {
-        marginLeft: 8,
         marginRight: 8
     },
     columnHeaderTextStyle: {
