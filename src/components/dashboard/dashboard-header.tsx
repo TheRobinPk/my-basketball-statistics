@@ -107,9 +107,12 @@ const DashboardHeader = () => {
         <View style={styles.cardStyle}>
             <Card mode='elevated' elevation={5}>
                 <Card.Content>
-                    <DateRangePicker
-                        value={dateRange}
-                        onChange={(dateRange: DateRange) => dispatch(setDashboardDateRange(dateRange))} />
+                    {renderFilterSection(
+                        <DateRangePicker
+                            dateRange={dateRange}
+                            onDateRangeSelected={(dateRange: DateRange) => dispatch(setDashboardDateRange(dateRange))} />,
+                        'Show data between'
+                    )}
                     {renderFilterSection(
                         <Switch
                             options={dataAggregationTypeItems}
