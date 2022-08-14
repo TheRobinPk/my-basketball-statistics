@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import colors from '../../../colors';
 import {Dialog, IconButton, Portal} from 'react-native-paper';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import Button from '../button/button';
 
 interface ITableItemDelete {
@@ -32,18 +32,16 @@ const TableItemDelete = (props: ITableItemDelete) => {
                     <Dialog.Title style={styles.whiteText}>
                         {props.dialogTitle}
                     </Dialog.Title>
-                    <Dialog.Actions>
+                    <View style={styles.actionButtonsContainer}>
                         <Button
                             label='Cancel'
-                            testID='shoot-around-delete-dialog-cancel-button'
-                            labelTestID='shoot-around-delete-dialog-cancel-button-label'
+                            type='default'
                             onPress={() => setDialogVisible(false)} />
                         <Button
                             label='Delete'
-                            testID='shoot-around-delete-dialog-delete-button'
-                            labelTestID='shoot-around-delete-dialog-delete-button-label'
+                            type='primary'
                             onPress={handleDelete} />
-                    </Dialog.Actions>
+                    </View>
                 </Dialog>
             </Portal>
         </>
@@ -52,10 +50,15 @@ const TableItemDelete = (props: ITableItemDelete) => {
 
 const styles = StyleSheet.create({
     deleteDialogStyle: {
-        backgroundColor: colors.primaryColor
+        backgroundColor: colors.white
     },
     whiteText: {
-        color: colors.white
+        color: colors.primaryColor
+    },
+    actionButtonsContainer: {
+        padding: 8,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
     }
 });
 

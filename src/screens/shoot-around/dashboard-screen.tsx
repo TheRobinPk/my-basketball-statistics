@@ -7,7 +7,7 @@ import {ShootAroundStackNavigatorParamList} from '../../navigation/shoot-around-
 import {useAppDispatch} from '../../redux/store/store';
 import {useComponentDidMount} from '../../hooks/useComponentDidMount';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {setDashboardDataAggregationType, setDashboardDateRange} from '../../redux/reducers/dashboard/dashboard-reducer';
+import {initDashboard} from '../../redux/reducers/dashboard/dashboard-reducer';
 import moment from 'moment';
 import ApplicationBar from '../../navigation/application-bar/application-bar';
 
@@ -17,11 +17,13 @@ const DashboardScreen = (props: IProps) => {
     const dispatch = useAppDispatch();
 
     useComponentDidMount(() => {
-        dispatch(setDashboardDateRange({
-            start: moment().startOf('day').subtract(7, 'day'),
-            end: moment().startOf('day')
+        dispatch(initDashboard({
+            dataAggregationType: 'day',
+            dateRange: {
+                start: moment().startOf('day').subtract(7, 'day'),
+                end: moment().startOf('day')
+            }
         }));
-        dispatch(setDashboardDataAggregationType('day'));
     });
 
     return (

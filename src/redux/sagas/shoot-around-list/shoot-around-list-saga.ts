@@ -5,6 +5,7 @@ import {RootState} from '../../store/store';
 import {ShootAround} from '../../../domain/shoot-around';
 import {shootAroundSubmitSuccess} from '../../reducers/add-shoot-around/add-shoot-around-reducer';
 import {PayloadAction} from '@reduxjs/toolkit';
+import {getDashboardChartData} from '../../reducers/dashboard/dashboard-reducer';
 
 export function* getShootAroundListDataWatcherSaga() {
     yield takeLatest([
@@ -30,4 +31,5 @@ function* deleteShootAroundSaga(action: PayloadAction<number>) {
 
     yield shootAroundService?.delete(action.payload);
     yield put(getShootAroundListData());
+    yield put(getDashboardChartData());
 }

@@ -3,27 +3,23 @@ import ShootAroundService from '../../../service/shoot-around-service';
 import {RootState} from '../../store/store';
 import {
     setDashboardIsLoading,
-    setDashboardDateRange,
-    setDashboardDataAggregationType,
-    setDashboardShootAroundSpots,
     setDashboardChartData,
-    ShootAroundChartData, DataAggregationType,
+    ShootAroundChartData, DataAggregationType, getDashboardChartData, initDashboard,
 } from '../../reducers/dashboard/dashboard-reducer';
 import {ShootAround, ShootAroundSpot} from '../../../domain/shoot-around';
-import {shootAroundSubmitSuccess} from '../../reducers/add-shoot-around/add-shoot-around-reducer';
 import ShootAroundChartService from '../../../service/shoot-around-chart-service';
 import {DateRange} from '../../../components/common/date-picker/date-range-picker';
+import {shootAroundSubmitSuccess} from '../../reducers/add-shoot-around/add-shoot-around-reducer';
 
-export function* dashboardDateRangeChangedWatcherSaga() {
+export function* getDashboardChartDataWatcherSaga() {
     yield takeLatest([
-        setDashboardDateRange.type,
-        setDashboardDataAggregationType.type,
-        setDashboardShootAroundSpots.type,
+        initDashboard.type,
+        getDashboardChartData.type,
         shootAroundSubmitSuccess.type
-    ], dashboardDateRangeChangedSaga);
+    ], getDashboardChartDataSaga);
 }
 
-function* dashboardDateRangeChangedSaga() {
+function* getDashboardChartDataSaga() {
     yield put(setDashboardIsLoading(true));
 
     const shootAroundService: ShootAroundService | undefined = yield select((state: RootState) => state.application.shootAroundService);

@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createAction, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {ShootAroundSpot} from '../../../domain/shoot-around';
 import {DateRange} from '../../../components/common/date-picker/date-range-picker';
 import moment from 'moment';
@@ -23,6 +23,8 @@ export interface DashboardState {
     chartData: ShootAroundChartData | undefined;
 }
 
+type DashboardInit = Pick<DashboardState, 'dateRange' | 'dataAggregationType'>;
+
 export const initialState: DashboardState = {
     isLoading: true,
     dateRange: {
@@ -38,6 +40,10 @@ const dashboardSlice = createSlice({
     name: 'dashboard',
     initialState,
     reducers: {
+        initDashboard: (state, action: PayloadAction<DashboardInit>) => {
+            state.dataAggregationType = action.payload.dataAggregationType;
+            state.dateRange = action.payload.dateRange;
+        },
         setDashboardIsLoading: (state, action: PayloadAction<boolean>) => {
             state.isLoading = action.payload;
         },
@@ -59,10 +65,12 @@ const dashboardSlice = createSlice({
 const dashboardReducer = dashboardSlice.reducer;
 
 export const {
+    initDashboard,
     setDashboardIsLoading,
     setDashboardDateRange,
     setDashboardDataAggregationType,
     setDashboardShootAroundSpots,
     setDashboardChartData
 } = dashboardSlice.actions;
+export const getDashboardChartData = createAction('dashboard/getDashboardChartData');
 export default dashboardReducer;
