@@ -1,5 +1,5 @@
 import store from '../../store/store';
-import {setDashboardChartData, setDashboardDataAggregationType, setDashboardDateRange, setDashboardIsLoading, setDashboardShootAroundSpots, ShootAroundChartData} from './dashboard-reducer';
+import {initDashboard, setDashboardChartData, setDashboardDataAggregationType, setDashboardDateRange, setDashboardIsLoading, setDashboardShootAroundSpots, ShootAroundChartData} from './dashboard-reducer';
 import moment from 'moment/moment';
 import {ShootAroundSpot} from '../../../domain/shoot-around';
 
@@ -13,6 +13,28 @@ describe('dashboard-reducer', () => {
         // THEN
         expect(state.isLoading).toEqual(true);
         expect(state.chartData).toEqual(undefined);
+    });
+
+    it('should handle initDashboard correctly', () => {
+        // GIVEN
+        const date = moment();
+
+        // WHEN
+        store.dispatch(initDashboard({
+            dateRange: {
+                start: date.clone().startOf('week'),
+                end: date.clone().endOf('week')
+            },
+            dataAggregationType: 'week'
+        }));
+
+        // THEN
+        const state = store.getState().dashboard;
+        expect(state.dateRange).toEqual({
+            start: date.clone().startOf('week'),
+            end: date.clone().endOf('week')
+        });
+        expect(state.dataAggregationType).toEqual('week');
     });
 
     it('should handle setDashboardIsLoading correctly', () => {

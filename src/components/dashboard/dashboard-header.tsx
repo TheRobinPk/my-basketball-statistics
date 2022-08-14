@@ -8,8 +8,9 @@ import Switch, {ISwitchOption} from '../common/switch/switch';
 import MultiTagSelect, {ITagItem} from '../common/multi-tag-select/multi-tag-select';
 import {ShootAroundSpot} from '../../domain/shoot-around';
 import {useAppDispatch, useAppSelector} from '../../redux/store/store';
-import {DataAggregationType, setDashboardDataAggregationType, setDashboardDateRange, setDashboardShootAroundSpots} from '../../redux/reducers/dashboard/dashboard-reducer';
+import {DataAggregationType, getDashboardChartData, setDashboardDataAggregationType, setDashboardDateRange, setDashboardShootAroundSpots} from '../../redux/reducers/dashboard/dashboard-reducer';
 import colors from '../../colors';
+import Button from '../common/button/button';
 
 const dataAggregationTypeItems: ISwitchOption[] = [
     {
@@ -141,6 +142,13 @@ const DashboardHeader = () => {
                                 onChange={(selectedItems: ITagItem[]) => handleSelectedFilterSpotsChange(selectedItems)} />,
                             'Shoot Around spots'
                         )}
+                        <Divider />
+                        <View style={styles.applyButtonStyle}>
+                            <Button
+                                label='Apply'
+                                type='primary'
+                                onPress={() => dispatch(getDashboardChartData())} />
+                        </View>
                     </Card.Content>
                 </AnimatedSection>
             </Card>
@@ -162,6 +170,9 @@ const styles = StyleSheet.create({
     },
     filterSectionIconStyle: {
         marginRight: 16
+    },
+    applyButtonStyle: {
+        marginVertical: 8
     }
 });
 
