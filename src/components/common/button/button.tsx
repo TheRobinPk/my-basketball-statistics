@@ -3,22 +3,37 @@ import {StyleSheet, Text} from 'react-native';
 import {Button as ButtonReactNativePaper} from 'react-native-paper';
 import colors from '../../../colors';
 
+type ButtonType = 'default' | 'primary';
+
 interface IProps {
     label: string;
-    testID: string;
-    labelTestID: string;
+    type: ButtonType;
+    testID?: string;
+    labelTestID?: string;
     disabled?: boolean;
     loading?: boolean;
     onPress: () => void;
 }
 
 const Button = (props: IProps) => {
-    const additionalButtonStyle = props.disabled || props.loading ? styles.disabledButtonStyle : styles.enabledButtonStyle;
+    let additionalButtonStyle = null;
+    let additionalLabelStyle = null;
+    if (props.disabled || props.loading) {
+        additionalButtonStyle = styles.disabledButtonStyle;
+        additionalLabelStyle = styles.disabledLabelStyle;
+    } else if (props.type === 'primary') {
+        additionalButtonStyle = styles.primaryButtonStyle;
+        additionalLabelStyle = styles.primaryLabelStyle;
+    }
     const buttonStyle = {
         ...styles.buttonStyle,
         ...additionalButtonStyle
     };
-    const labelStyle = props.disabled || props.loading ? styles.disabledLabelStyle : styles.labelStyle;
+
+    const labelStyle = {
+        ...styles.labelStyle,
+        ...additionalLabelStyle
+    };
 
     return (
         <ButtonReactNativePaper
@@ -36,15 +51,22 @@ const Button = (props: IProps) => {
 const styles = StyleSheet.create({
     buttonStyle: {
         marginStart: 8,
-        marginEnd: 8
+        marginEnd: 8,
+        borderColor: colors.primaryColor,
+        borderWidth: 1,
     },
-    enabledButtonStyle: {
-        backgroundColor: colors.primaryColor
+    primaryButtonStyle: {
+        backgroundColor: colors.primaryColor,
+        borderWidth: 0,
     },
     disabledButtonStyle: {
-        backgroundColor: colors.lightGrey
+        backgroundColor: colors.lightGrey,
+        borderWidth: 0
     },
     labelStyle: {
+        color: colors.primaryColor
+    },
+    primaryLabelStyle: {
         color: colors.white
     },
     disabledLabelStyle: {

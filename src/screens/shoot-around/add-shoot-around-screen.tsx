@@ -104,8 +104,7 @@ const AddShootAroundScreen = () => {
                 <View style={styles.submitButtonContainerStyle}>
                     <Button
                         label='Submit'
-                        testID='add-shoot-around-submit-button'
-                        labelTestID='add-shoot-around-submit-button-label'
+                        type='primary'
                         disabled={submitDisabled}
                         loading={isLoading}
                         onPress={() => dispatch(submitShootAround())} />
