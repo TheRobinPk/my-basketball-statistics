@@ -1,13 +1,15 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import {Card, Text} from 'react-native-paper';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Card, Divider, Text} from 'react-native-paper';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import {AnimatedSection, useCollapsible} from 'reanimated-collapsible-helpers';
 import DateRangePicker, {DateRange} from '../common/date-picker/date-range-picker';
 import Switch, {ISwitchOption} from '../common/switch/switch';
+import MultiTagSelect, {ITagItem} from '../common/multi-tag-select/multi-tag-select';
 import {ShootAroundSpot} from '../../domain/shoot-around';
 import {useAppDispatch, useAppSelector} from '../../redux/store/store';
 import {DataAggregationType, setDashboardDataAggregationType, setDashboardDateRange, setDashboardShootAroundSpots} from '../../redux/reducers/dashboard/dashboard-reducer';
 import colors from '../../colors';
-import MultiTagSelect, {ITagItem} from '../common/multi-tag-select/multi-tag-select';
 
 const dataAggregationTypeItems: ISwitchOption[] = [
     {
@@ -82,6 +84,8 @@ const DashboardHeader = () => {
 
     const dispatch = useAppDispatch();
 
+    const { animatedHeight, onPress, onLayout, state } = useCollapsible();
+
     const selectedDataAggregationType = dataAggregationTypeItems.find((item) => item.key === dataAggregationType);
 
     const selectedShootAroundSpotKeys = shootAroundSpots.map((spot) => spot.toString());
@@ -105,28 +109,40 @@ const DashboardHeader = () => {
     return (
         <View style={styles.cardStyle}>
             <Card mode='elevated' elevation={5}>
-                <Card.Content>
-                    {renderFilterSection(
-                        <DateRangePicker
-                            dateRange={dateRange}
-                            onDateRangeSelected={(dateRange: DateRange) => dispatch(setDashboardDateRange(dateRange))} />,
-                        'Show data between'
-                    )}
-                    {renderFilterSection(
-                        <Switch
-                            options={dataAggregationTypeItems}
-                            value={selectedDataAggregationType?.key || ''}
-                            onPress={(value) => dispatch(setDashboardDataAggregationType(value as DataAggregationType))} />,
-                        'Group data by'
-                    )}
-                    {renderFilterSection(
-                        <MultiTagSelect
-                            items={shootAroundSpotTags}
-                            selectedItems={selectedShootAroundSpots}
-                            onChange={(selectedItems: ITagItem[]) => handleSelectedFilterSpotsChange(selectedItems)} />,
-                        'Shoot Around spots'
-                    )}
-                </Card.Content>
+                <TouchableOpacity onPress={onPress} activeOpacity={1}>
+                    <Card.Title
+                        title='Filters'
+                        right={() => (
+                            <View style={styles.filterSectionIconStyle}>
+                                <MaterialCommunityIcons name={state === 'expanded' ? 'chevron-up' : 'chevron-down'} size={24} color={colors.black} />
+                            </View>
+                        )} />
+                </TouchableOpacity>
+                <AnimatedSection onLayout={onLayout} animatedHeight={animatedHeight} state={state}>
+                    <Card.Content>
+                        <Divider />
+                        {renderFilterSection(
+                            <DateRangePicker
+                                dateRange={dateRange}
+                                onDateRangeSelected={(dateRange: DateRange) => dispatch(setDashboardDateRange(dateRange))} />,
+                            'Show data between'
+                        )}
+                        {renderFilterSection(
+                            <Switch
+                                options={dataAggregationTypeItems}
+                                value={selectedDataAggregationType?.key || ''}
+                                onPress={(value) => dispatch(setDashboardDataAggregationType(value as DataAggregationType))} />,
+                            'Group data by'
+                        )}
+                        {renderFilterSection(
+                            <MultiTagSelect
+                                items={shootAroundSpotTags}
+                                selectedItems={selectedShootAroundSpots}
+                                onChange={(selectedItems: ITagItem[]) => handleSelectedFilterSpotsChange(selectedItems)} />,
+                            'Shoot Around spots'
+                        )}
+                    </Card.Content>
+                </AnimatedSection>
             </Card>
         </View>
     );
@@ -143,6 +159,9 @@ const styles = StyleSheet.create({
     filterSectionTextStyle: {
         color: colors.darkerGrey,
         marginBottom: 4
+    },
+    filterSectionIconStyle: {
+        marginRight: 16
     }
 });
 
