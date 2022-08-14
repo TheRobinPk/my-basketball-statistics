@@ -1,14 +1,13 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Card, Text} from 'react-native-paper';
-import {DropDownItem} from '../common/dropdown/dropdown';
 import DateRangePicker, {DateRange} from '../common/date-picker/date-range-picker';
-import DropdownMultiSelect from '../common/dropdown/dropdown-multi-select';
 import Switch, {ISwitchOption} from '../common/switch/switch';
 import {ShootAroundSpot} from '../../domain/shoot-around';
 import {useAppDispatch, useAppSelector} from '../../redux/store/store';
 import {DataAggregationType, setDashboardDataAggregationType, setDashboardDateRange, setDashboardShootAroundSpots} from '../../redux/reducers/dashboard/dashboard-reducer';
 import colors from '../../colors';
+import MultiTagSelect, {ITagItem} from '../common/multi-tag-select/multi-tag-select';
 
 const dataAggregationTypeItems: ISwitchOption[] = [
     {
@@ -25,7 +24,7 @@ const dataAggregationTypeItems: ISwitchOption[] = [
     }
 ];
 
-const shootAroundSpotDropDownItems: DropDownItem[] = [
+const shootAroundSpotTags: ITagItem[] = [
     {
         key: ShootAroundSpot.FREE_THROW.toString(),
         label: 'Free Throw',
@@ -86,9 +85,9 @@ const DashboardHeader = () => {
     const selectedDataAggregationType = dataAggregationTypeItems.find((item) => item.key === dataAggregationType);
 
     const selectedShootAroundSpotKeys = shootAroundSpots.map((spot) => spot.toString());
-    const selectedShootAroundSpots = shootAroundSpotDropDownItems.filter((value) => selectedShootAroundSpotKeys.includes(value.key));
+    const selectedShootAroundSpots = shootAroundSpotTags.filter((value) => selectedShootAroundSpotKeys.includes(value.key));
 
-    const handleSelectedFilterSpotsChange = (selectedItems: DropDownItem[]) => {
+    const handleSelectedFilterSpotsChange = (selectedItems: ITagItem[]) => {
         dispatch(setDashboardShootAroundSpots(selectedItems.map(item => item.key as ShootAroundSpot)));
     };
 
@@ -120,11 +119,13 @@ const DashboardHeader = () => {
                             onPress={(value) => dispatch(setDashboardDataAggregationType(value as DataAggregationType))} />,
                         'Group data by'
                     )}
-                    <DropdownMultiSelect
-                        items={shootAroundSpotDropDownItems}
-                        label='Shoot Around spots'
-                        selectedItems={selectedShootAroundSpots}
-                        onChange={(selectedItems: DropDownItem[]) => handleSelectedFilterSpotsChange(selectedItems)} />
+                    {renderFilterSection(
+                        <MultiTagSelect
+                            items={shootAroundSpotTags}
+                            selectedItems={selectedShootAroundSpots}
+                            onChange={(selectedItems: ITagItem[]) => handleSelectedFilterSpotsChange(selectedItems)} />,
+                        'Shoot Around spots'
+                    )}
                 </Card.Content>
             </Card>
         </View>
@@ -138,8 +139,6 @@ const styles = StyleSheet.create({
     filterSectionStyle: {
         marginVertical: 8,
         flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'space-around'
     },
     filterSectionTextStyle: {
         color: colors.darkerGrey,
