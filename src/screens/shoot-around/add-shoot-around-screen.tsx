@@ -1,5 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
+import {HelperText} from 'react-native-paper';
+import ApplicationBar from '../../navigation/application-bar/application-bar';
 import BasketballCourt from '../../components/basketball-court/basketball-court';
 import Button from '../../components/common/button/button';
 import Snackbar from '../../components/common/snackbar/snackbar';
@@ -11,10 +13,9 @@ import {
     setShootAroundFormValues,
     submitShootAround
 } from '../../redux/reducers/add-shoot-around/add-shoot-around-reducer';
-import colors from '../../colors';
 import {useComponentWillUnmount} from '../../hooks/useComponentWillUnmount';
-import ApplicationBar from '../../navigation/application-bar/application-bar';
-import {HelperText} from 'react-native-paper';
+import colors from '../../static/colors';
+import i18n from '../../i18n/i18n';
 
 const AddShootAroundScreen = () => {
     const totalAttempts = useAppSelector(state => state.addShootAround.totalAttempts);
@@ -32,7 +33,7 @@ const AddShootAroundScreen = () => {
 
     return (
         <>
-            <ApplicationBar title='Add Shoot Around' showGoBack />
+            <ApplicationBar title={i18n.t('screens.dashboard.addShootAround')} showGoBack />
             <View testID='add-shoot-around-container' style={styles.container}>
                 <View>
                     <BasketballCourt
@@ -49,7 +50,7 @@ const AddShootAroundScreen = () => {
                         style={styles.basketballCourtInfoStyle}
                         visible={shootAroundSpot === undefined}>
                         <Text testID='basketball-court-info-text' style={styles.basketballCourtInfoTextStyle}>
-                            You can select a shooting spot by tapping on the spot
+                            {i18n.t('screens.addShootAround.helperText')}
                         </Text>
                     </HelperText>
                     <View style={styles.rowContainer}>
@@ -57,13 +58,13 @@ const AddShootAroundScreen = () => {
                             <Text
                                 testID='total-attempts-text-input-title'
                                 style={styles.labelTitle}>
-                                Total Attempts
+                                {i18n.t('general.totalAttempts')}
                             </Text>
                             <TextInput
                                 testID='total-attempts-text-input'
                                 style={styles.textInputStyle}
                                 editable
-                                placeholder='Total Attempts...'
+                                placeholder={`${i18n.t('general.totalAttempts')}...`}
                                 keyboardType='numeric'
                                 autoCapitalize='none'
                                 contextMenuHidden
@@ -80,13 +81,13 @@ const AddShootAroundScreen = () => {
                             <Text
                                 testID='made-attempts-text-input-title'
                                 style={styles.labelTitle}>
-                                Made Attempts
+                                {i18n.t('general.madeAttempts')}
                             </Text>
                             <TextInput
                                 testID='made-attempts-text-input'
                                 style={styles.textInputStyle}
                                 editable
-                                placeholder='Made Attempts...'
+                                placeholder={`${i18n.t('general.madeAttempts')}...`}
                                 keyboardType='numeric'
                                 autoCapitalize='none'
                                 contextMenuHidden
@@ -103,7 +104,7 @@ const AddShootAroundScreen = () => {
                 </View>
                 <View style={styles.submitButtonContainerStyle}>
                     <Button
-                        label='Submit'
+                        label={i18n.t('general.save')}
                         type='primary'
                         disabled={submitDisabled}
                         loading={isLoading}
@@ -111,7 +112,7 @@ const AddShootAroundScreen = () => {
                 </View>
             </View>
             <Snackbar
-                label='Saved successfully'
+                label={i18n.t('general.savedSuccessfully')}
                 testID='add-shoot-success-snackbar'
                 labelTestID='add-shoot-success-snackbar-label'
                 visible={submitSuccess}

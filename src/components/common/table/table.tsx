@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import {Card, DataTable} from 'react-native-paper';
 import {Dimensions, ScrollView, StyleSheet, Text, View} from 'react-native';
-import colors from '../../../colors';
 import TableItemDelete from './table-item-delete';
 import EmptyState from '../empty-state/empty-state';
+import i18n from '../../../i18n/i18n';
+import colors from '../../../static/colors';
 
 export interface ITableKey {
     key: string;
@@ -142,7 +143,7 @@ const Table = <T extends ITableKey>(props: ITableProps<T>) => {
     if (rowDelete !== undefined) {
         columnsToRender.push({
             key: 'actions',
-            title: 'Actions',
+            title: i18n.t('general.actions'),
             width: 50,
             renderColumn: (row: T) => {
                 return (
@@ -190,7 +191,7 @@ const Table = <T extends ITableKey>(props: ITableProps<T>) => {
                             page={currentPage - 1}
                             numberOfPages={Math.ceil(rows.length / pagination.pageSize)}
                             onPageChange={(page) => setCurrentPage(page + 1)}
-                            label={`Showing ${from} - ${to} of ${rows.length}`} />
+                            label={i18n.t('general.paginationLabel', { from: from, to: to, count: rows.length })} />
                     </Card.Actions>
                 ) : null}
             </Card>

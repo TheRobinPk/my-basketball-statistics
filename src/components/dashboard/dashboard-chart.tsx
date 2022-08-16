@@ -5,6 +5,7 @@ import ShootAroundChart from '../shoot-around-chart/shoot-around-chart';
 import LoadingWrapper from '../common/loading-wrapper/loading-wrapper';
 import EmptyWrapper from '../common/empty-wrapper/empty-wrapper';
 import {StyleSheet, View} from 'react-native';
+import i18n from '../../i18n/i18n';
 
 const DashboardChart = () => {
     const chartData = useAppSelector(state => state.dashboard.chartData);
@@ -17,7 +18,7 @@ const DashboardChart = () => {
                   <LoadingWrapper isLoading={isLoading}>
                       <EmptyWrapper
                           isEmpty={chartData?.dataSets.length === 0}
-                          emptyText='No result found for the selected search criteria!'>
+                          emptyText={i18n.t('screens.dashboard.noResults')}>
                           <ShootAroundChart chartData={chartData} />
                       </EmptyWrapper>
                   </LoadingWrapper>

@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Chip} from 'react-native-paper';
-import colors from '../../../colors';
+import colors from '../../../static/colors';
 
 export interface ITagItem {
     key: string;

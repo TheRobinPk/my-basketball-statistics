@@ -1,5 +1,5 @@
 import React from 'react';
-import colors from '../../../colors';
+import colors from '../../../static/colors';
 import {ActivityIndicator} from 'react-native-paper';
 import {StyleSheet, View} from 'react-native';
 

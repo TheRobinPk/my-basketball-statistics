@@ -1,35 +1,25 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Dimensions, ScrollView, View, Text, StyleSheet} from 'react-native';
 import {LineChart} from 'react-native-chart-kit';
 import {Dataset} from 'react-native-chart-kit/dist/HelperTypes';
-import colors from '../../colors';
-import randomColor from 'randomcolor';
-import {ShootAroundChartData} from '../../redux/reducers/dashboard/dashboard-reducer';
 import Legend from '../common/legend/legend';
+import {ShootAroundChartData} from '../../redux/reducers/dashboard/dashboard-reducer';
+import ShootAroundSpotMap from '../../static/shoot-around-spot-map';
+import colors from '../../static/colors';
+import {ShootAroundSpot} from '../../domain/shoot-around';
 
 interface IProps {
-    chartData: ShootAroundChartData | undefined;
+    chartData: ShootAroundChartData;
 }
 
 const ShootAroundChart = (props: IProps) => {
     const [width, setWidth] = useState<number>(0);
-    const [chartColors, setChartColors] = useState<string[]>([]);
-
-    useEffect(() => {
-        const randomColors = randomColor({
-            count: props.chartData?.dataSets.length || 10,
-            seed: 0,
-            format: 'rgb',
-            luminosity: 'dark'
-        });
-        setChartColors(randomColors);
-    }, [props.chartData]);
 
     const labels = props.chartData?.labels || [];
-    const datasets: Dataset[] = props.chartData?.dataSets.map((dataSet, i) => {
+    const datasets: Dataset[] = props.chartData.dataSets.map((dataSet) => {
         return {
             key: dataSet.spot.toString(),
-            color: () => chartColors[i],
+            color: () => ShootAroundSpotMap.get(dataSet.spot)?.color || '',
             data: dataSet.data
         };
     }) || [];
@@ -91,10 +81,11 @@ const ShootAroundChart = (props: IProps) => {
                         useShadowColorFromDataset: false
                     }} />
             </ScrollView>
-            <Legend values={datasets.map((dataSet, i) => {
+            <Legend values={datasets.map((dataSet) => {
+                const shootAroundSpotConfig = ShootAroundSpotMap.get(dataSet.key as ShootAroundSpot);
                 return {
-                  color: chartColors[i],
-                  label: dataSet.key?.toString() || ''
+                  color: shootAroundSpotConfig?.color || '',
+                  label: shootAroundSpotConfig?.translation || ''
                 };
             })} />
         </View>

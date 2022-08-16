@@ -12,7 +12,10 @@ describe('dashboard-reducer', () => {
 
         // THEN
         expect(state.isLoading).toEqual(true);
-        expect(state.chartData).toEqual(undefined);
+        expect(state.chartData).toEqual({
+            labels: [],
+            dataSets: []
+        });
     });
 
     it('should handle initDashboard correctly', () => {

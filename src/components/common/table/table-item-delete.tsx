@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import colors from '../../../colors';
 import {Dialog, IconButton, Portal} from 'react-native-paper';
 import {StyleSheet, View} from 'react-native';
 import Button from '../button/button';
+import colors from '../../../static/colors';
+import i18n from '../../../i18n/i18n';
 
 interface ITableItemDelete {
     dialogTitle: string;
@@ -34,11 +35,11 @@ const TableItemDelete = (props: ITableItemDelete) => {
                     </Dialog.Title>
                     <View style={styles.actionButtonsContainer}>
                         <Button
-                            label='Cancel'
+                            label={i18n.t('general.cancel')}
                             type='default'
                             onPress={() => setDialogVisible(false)} />
                         <Button
-                            label='Delete'
+                            label={i18n.t('general.delete')}
                             type='primary'
                             onPress={handleDelete} />
                     </View>

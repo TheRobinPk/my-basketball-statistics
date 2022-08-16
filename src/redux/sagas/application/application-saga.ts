@@ -9,7 +9,7 @@ import {ShootAroundEntity} from '../../../domain/shoot-around';
 import {createConnection} from 'typeorm';
 import {CreateShootAroundTable1657877900861} from '../../../migartions/create-shootaround-table1657877900861';
 import {CreateShootAroundTableIndex1658570828462} from '../../../migartions/create-shootaround-table-index1658570828462';
-import ENV from '../../../environmnent.config';
+import ENV from '../../../static/environmnent.config';
 
 export function* applicationMountedWatcherSaga() {
     yield takeLatest([applicationMounted.type], applicationMountedSaga);

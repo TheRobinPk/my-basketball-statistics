@@ -10,6 +10,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {initDashboard} from '../../redux/reducers/dashboard/dashboard-reducer';
 import moment from 'moment';
 import ApplicationBar from '../../navigation/application-bar/application-bar';
+import i18n from '../../i18n/i18n';
 
 type IProps = NativeStackScreenProps<ShootAroundStackNavigatorParamList, 'DashboardScreen'>;
 
@@ -28,7 +29,7 @@ const DashboardScreen = (props: IProps) => {
 
     return (
         <>
-            <ApplicationBar title='Dashboard' showDrawerToggle />
+            <ApplicationBar title={i18n.t('general.dashboard')} showDrawerToggle />
             <ScrollView contentContainerStyle={styles.scrollViewStyle}>
                 <DashboardHeader />
                 <DashboardChart />
@@ -38,7 +39,7 @@ const DashboardScreen = (props: IProps) => {
                 openIcon='close'
                 actions={[
                     {
-                        title: 'Add Shoot Around',
+                        title: i18n.t('screens.dashboard.addShootAround'),
                         icon: 'basketball-hoop',
                         pressHandler: () => props.navigation.navigate('AddShootAroundScreen')
                     }
