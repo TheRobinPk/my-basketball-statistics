@@ -38,6 +38,17 @@ export interface Translation {
             threeLeftWing: string;
             threeTopOfTheKey: string;
         };
+    };
+    screens: {
+        dashboard: {
+            addShootAround: string;
+        },
+        addShootAround: {
+            helperText: string;
+        },
+        shootArounds: {
+            deleteConfirmation: string;
+        }
     }
 }
 

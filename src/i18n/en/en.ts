@@ -35,7 +35,18 @@ const englishTranslation: Translation = {
             threeRightWing: '3pt right wing',
             threeLeftWing: '3pt left wing',
             threeTopOfTheKey: '3pt top of the key',
+        }
+    },
+    screens: {
+        dashboard: {
+            addShootAround: 'Add Shoot Around'
         },
+        addShootAround: {
+            helperText: 'You can select a shooting spot by tapping on the spot'
+        },
+        shootArounds: {
+            deleteConfirmation: 'Are you sure you want to delete the Shoot Around?'
+        }
     }
 };
 

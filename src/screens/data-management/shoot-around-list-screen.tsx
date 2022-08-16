@@ -6,6 +6,7 @@ import {useComponentDidMount} from '../../hooks/useComponentDidMount';
 import {deleteShootAround, getShootAroundListData, resetShootAroundList} from '../../redux/reducers/shoot-around-list/shoot-around-list-reducer';
 import {useComponentWillUnmount} from '../../hooks/useComponentWillUnmount';
 import ApplicationBar from '../../navigation/application-bar/application-bar';
+import i18n from '../../i18n/i18n';
 
 export interface IShootAroundListRow {
     key: string;
@@ -45,28 +46,28 @@ const ShootAroundListScreen = () => {
         {
             key: 'dateTime',
             dataKey: 'dateTime',
-            title: 'Date',
+            title: i18n.t('general.date'),
             sortFunction: (a, b) => a.dateTime.localeCompare(b.dateTime),
             width: 100
         },
         {
             key: 'totalAttempts',
             dataKey: 'totalAttempts',
-            title: 'Total Attempts',
+            title: i18n.t('general.totalAttempts'),
             sortFunction: (a, b) => parseInt(a.totalAttempts) - parseInt(b.totalAttempts),
             width: 50
         },
         {
             key: 'madeAttempts',
             dataKey: 'madeAttempts',
-            title: 'Made Attempts',
+            title: i18n.t('general.madeAttempts'),
             sortFunction: (a, b) => parseInt(a.madeAttempts) - parseInt(b.madeAttempts),
             width: 50
         },
         {
             key: 'spot',
             dataKey: 'spot',
-            title: 'Spot',
+            title: i18n.t('general.spot'),
             sortFunction: (a, b) => a.spot.localeCompare(b.spot),
             width: 150
         }
@@ -74,13 +75,13 @@ const ShootAroundListScreen = () => {
 
     return (
         <>
-            <ApplicationBar title='Shoot Around List' showDrawerToggle />
+            <ApplicationBar title={i18n.t('general.shootArounds')} showDrawerToggle />
             <LoadingWrapper isLoading={isLoading}>
                 <Table<IShootAroundListRow>
                     columns={columns}
                     rows={rows}
                     rowDelete={{
-                        dialogTitle: 'Are you sure you want to delete the Shoot Around?',
+                        dialogTitle: i18n.t('screens.shootArounds.deleteConfirmation'),
                         onDelete: (row: IShootAroundListRow) => onDeleteShootAround(row)
                     }}
                     pagination={{
