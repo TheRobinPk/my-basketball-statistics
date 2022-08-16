@@ -12,6 +12,7 @@ import {useAppDispatch, useAppSelector} from '../../redux/store/store';
 import {DataAggregationType, getDashboardChartData, setDashboardDataAggregationType, setDashboardDateRange, setDashboardShootAroundSpots} from '../../redux/reducers/dashboard/dashboard-reducer';
 import colors from '../../static/colors';
 import i18n from '../../i18n/i18n';
+import ShootAroundSpotMap from '../../static/shoot-around-spot-map';
 
 const dataAggregationTypeItems: ISwitchOption[] = [
     {
@@ -28,56 +29,12 @@ const dataAggregationTypeItems: ISwitchOption[] = [
     }
 ];
 
-const shootAroundSpotTags: ITagItem[] = [
-    {
-        key: ShootAroundSpot.PAINT.toString(),
-        label: i18n.t('general.shootAroundSpotLabels.paint'),
-    },
-    {
-        key: ShootAroundSpot.FREE_THROW.toString(),
-        label: i18n.t('general.shootAroundSpotLabels.freeThrow'),
-    },
-    {
-        key: ShootAroundSpot.MID_RANGE_RIGHT_CORNER.toString(),
-        label: i18n.t('general.shootAroundSpotLabels.midRightCorner'),
-    },
-    {
-        key: ShootAroundSpot.MID_RANGE_LEFT_CORNER.toString(),
-        label: i18n.t('general.shootAroundSpotLabels.midLeftCorner'),
-    },
-    {
-        key: ShootAroundSpot.MID_RANGE_RIGHT_WING.toString(),
-        label: i18n.t('general.shootAroundSpotLabels.midRightWing'),
-    },
-    {
-        key: ShootAroundSpot.MID_RANGE_LEFT_WING.toString(),
-        label: i18n.t('general.shootAroundSpotLabels.midLeftWing'),
-    },
-    {
-        key: ShootAroundSpot.MID_RANGE_HIGH_POST.toString(),
-        label: i18n.t('general.shootAroundSpotLabels.midHighPost'),
-    },
-    {
-        key: ShootAroundSpot.THREE_POINT_RIGHT_CORNER.toString(),
-        label: i18n.t('general.shootAroundSpotLabels.threeRightCorner'),
-    },
-    {
-        key: ShootAroundSpot.THREE_POINT_LEFT_CORNER.toString(),
-        label: i18n.t('general.shootAroundSpotLabels.threeLeftCorner'),
-    },
-    {
-        key: ShootAroundSpot.THREE_POINT_RIGHT_WING.toString(),
-        label: i18n.t('general.shootAroundSpotLabels.threeRightWing'),
-    },
-    {
-        key: ShootAroundSpot.THREE_POINT_LEFT_WING.toString(),
-        label: i18n.t('general.shootAroundSpotLabels.threeLeftWing'),
-    },
-    {
-        key: ShootAroundSpot.THREE_POINT_TOP_OF_THE_KEY.toString(),
-        label: i18n.t('general.shootAroundSpotLabels.threeTopOfTheKey'),
-    },
-];
+const shootAroundSpotTags: ITagItem[] = Array.from(ShootAroundSpotMap.values()).map((shootAroundSpot) => {
+   return {
+       key: shootAroundSpot.spot.toString(),
+       label: shootAroundSpot.translation
+   };
+});
 
 const DashboardHeader = () => {
     const dateRange = useAppSelector(state => state.dashboard.dateRange);

@@ -20,7 +20,7 @@ export interface DashboardState {
     dateRange: DateRange,
     dataAggregationType: DataAggregationType | undefined,
     shootAroundSpots: ShootAroundSpot[];
-    chartData: ShootAroundChartData | undefined;
+    chartData: ShootAroundChartData;
 }
 
 type DashboardInit = Pick<DashboardState, 'dateRange' | 'dataAggregationType'>;
@@ -33,7 +33,10 @@ export const initialState: DashboardState = {
     },
     dataAggregationType: undefined,
     shootAroundSpots: [],
-    chartData: undefined
+    chartData: {
+        labels: [],
+        dataSets: []
+    }
 };
 
 const dashboardSlice = createSlice({

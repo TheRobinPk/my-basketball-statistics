@@ -49,7 +49,6 @@
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.3.7",
     "moment": "^2.29.4",
-    "randomcolor": "^0.6.2",
     "i18n-js": "^4.0.2",
     "metro-minify-terser": "^0.71.3",
     "patch-package": "^6.4.7"
