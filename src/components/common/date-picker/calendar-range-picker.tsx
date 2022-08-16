@@ -6,6 +6,7 @@ import {DateRange} from './date-range-picker';
 import Button from '../button/button';
 import moment from 'moment/moment';
 import colors from '../../../colors';
+import i18n from '../../../i18n/i18n';
 
 type DateRangeType = 'start' | 'end';
 
@@ -70,7 +71,7 @@ const CalendarRangePicker = (props: IProps) => {
         <Portal>
             <Modal
                 visible
-                dismissable={false}>
+                onDismiss={() => setCalendarVisible(false)}>
                 <View style={styles.modalContentContainerStyle}>
                     <Calendar
                         markingType='period'
@@ -80,11 +81,11 @@ const CalendarRangePicker = (props: IProps) => {
                     <Divider />
                     <View style={styles.actionButtonsContainer}>
                         <Button
-                            label='Cancel'
+                            label={i18n.t('general.cancel')}
                             type='default'
                             onPress={() => setCalendarVisible(false)} />
                         <Button
-                            label='Apply'
+                            label={i18n.t('general.apply')}
                             type='primary'
                             disabled={dateRangeTypeSelection === 'end'}
                             onPress={handleApply} />

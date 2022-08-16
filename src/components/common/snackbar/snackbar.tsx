@@ -2,6 +2,7 @@ import React from 'react';
 import {Snackbar as SnackbarReactNativePaper} from 'react-native-paper';
 import {StyleSheet, Text} from 'react-native';
 import colors from '../../../colors';
+import i18n from '../../../i18n/i18n';
 
 interface IProps {
     label: string;
@@ -21,7 +22,7 @@ const Snackbar = (props: IProps) => {
             duration={props.duration}
             style={styles.snackbarStyle}
             action={{
-                label: 'Hide',
+                label: i18n.t('general.hide'),
                 labelStyle: styles.labelStyle,
                 onPress: props.onDismiss
             }}

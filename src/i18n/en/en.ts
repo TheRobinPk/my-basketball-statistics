@@ -11,6 +11,7 @@ const englishTranslation: Translation = {
         madeAttempts: 'Made Attempts',
         save: 'Save',
         cancel: 'Cancel',
+        hide: 'Hide',
         apply: 'Apply',
         delete: 'Delete',
         edit: 'Edit',
@@ -22,6 +23,7 @@ const englishTranslation: Translation = {
         month: 'Month',
         filters: 'Filters',
         noResult: 'No results found',
+        paginationLabel: 'Showing %{from} - %{to} of %{count}',
         shootAroundSpots: {
             paint: 'Paint',
             freeThrow: 'Free Throw',

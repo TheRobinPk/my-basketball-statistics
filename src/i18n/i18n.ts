@@ -13,6 +13,7 @@ export interface Translation {
         madeAttempts: string;
         save: string;
         cancel: string;
+        hide: string;
         apply: string;
         delete: string;
         edit: string;
@@ -24,6 +25,7 @@ export interface Translation {
         month: string;
         filters: string;
         noResult: string;
+        paginationLabel: string;
         shootAroundSpots: {
             paint: string;
             freeThrow: string;
