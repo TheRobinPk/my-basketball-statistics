@@ -4,6 +4,7 @@ import {Drawer} from 'react-native-paper';
 import {DrawerContentComponentProps, DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import colors from '../../colors';
+import i18n from '../../i18n/i18n';
 
 interface IProps {
     drawerContentProps: DrawerContentComponentProps
@@ -16,7 +17,6 @@ interface DrawerItemIcon {
 }
 
 const ApplicationDrawer = (props: IProps) => {
-
     const getActiveRouteState = (routes: any, index: any, name: any) => {
         return routes[index].name.toLowerCase().indexOf(name.toLowerCase()) >= 0;
     };
@@ -49,7 +49,7 @@ const ApplicationDrawer = (props: IProps) => {
                 </View>
                 <Drawer.Section>
                     {renderDrawerItem(
-                        'Dashboard',
+                        i18n.t('general.dashboard'),
                         'ShootAroundDashboardStackNavigator',
                         (props: DrawerItemIcon) => (
                             <MaterialCommunityIcons
@@ -59,7 +59,7 @@ const ApplicationDrawer = (props: IProps) => {
                         )
                     )}
                     {renderDrawerItem(
-                        'Shoot Arounds',
+                        i18n.t('general.shootArounds'),
                         'ShootAroundListScreen',
                         (props: DrawerItemIcon) => (
                             <MaterialCommunityIcons
