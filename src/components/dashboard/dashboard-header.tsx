@@ -6,75 +6,76 @@ import {AnimatedSection, useCollapsible} from 'reanimated-collapsible-helpers';
 import DateRangePicker, {DateRange} from '../common/date-picker/date-range-picker';
 import Switch, {ISwitchOption} from '../common/switch/switch';
 import MultiTagSelect, {ITagItem} from '../common/multi-tag-select/multi-tag-select';
+import Button from '../common/button/button';
 import {ShootAroundSpot} from '../../domain/shoot-around';
 import {useAppDispatch, useAppSelector} from '../../redux/store/store';
 import {DataAggregationType, getDashboardChartData, setDashboardDataAggregationType, setDashboardDateRange, setDashboardShootAroundSpots} from '../../redux/reducers/dashboard/dashboard-reducer';
 import colors from '../../colors';
-import Button from '../common/button/button';
+import i18n from '../../i18n/i18n';
 
 const dataAggregationTypeItems: ISwitchOption[] = [
     {
         key: 'day',
-        label: 'Day'
+        label: i18n.t('general.day')
     },
     {
         key: 'week',
-        label: 'Week'
+        label: i18n.t('general.week')
     },
     {
         key: 'month',
-        label: 'Month'
+        label: i18n.t('general.month')
     }
 ];
 
 const shootAroundSpotTags: ITagItem[] = [
     {
+        key: ShootAroundSpot.PAINT.toString(),
+        label: i18n.t('general.shootAroundSpotLabels.paint'),
+    },
+    {
         key: ShootAroundSpot.FREE_THROW.toString(),
-        label: 'Free Throw',
+        label: i18n.t('general.shootAroundSpotLabels.freeThrow'),
     },
     {
         key: ShootAroundSpot.MID_RANGE_RIGHT_CORNER.toString(),
-        label: 'Mid right corner',
+        label: i18n.t('general.shootAroundSpotLabels.midRightCorner'),
     },
     {
         key: ShootAroundSpot.MID_RANGE_LEFT_CORNER.toString(),
-        label: 'Mid left corner',
-    },
-    {
-        key: ShootAroundSpot.MID_RANGE_LEFT_WING.toString(),
-        label: 'Mid left wing',
+        label: i18n.t('general.shootAroundSpotLabels.midLeftCorner'),
     },
     {
         key: ShootAroundSpot.MID_RANGE_RIGHT_WING.toString(),
-        label: 'Mid right wing',
+        label: i18n.t('general.shootAroundSpotLabels.midRightWing'),
+    },
+    {
+        key: ShootAroundSpot.MID_RANGE_LEFT_WING.toString(),
+        label: i18n.t('general.shootAroundSpotLabels.midLeftWing'),
     },
     {
         key: ShootAroundSpot.MID_RANGE_HIGH_POST.toString(),
-        label: 'Mid high post',
-    },
-    {
-        key: ShootAroundSpot.PAINT.toString(),
-        label: 'Paint',
+        label: i18n.t('general.shootAroundSpotLabels.midHighPost'),
     },
     {
         key: ShootAroundSpot.THREE_POINT_RIGHT_CORNER.toString(),
-        label: '3pt right corner',
+        label: i18n.t('general.shootAroundSpotLabels.threeRightCorner'),
     },
     {
         key: ShootAroundSpot.THREE_POINT_LEFT_CORNER.toString(),
-        label: '3pt left corner',
+        label: i18n.t('general.shootAroundSpotLabels.threeLeftCorner'),
     },
     {
         key: ShootAroundSpot.THREE_POINT_RIGHT_WING.toString(),
-        label: '3pt right wing',
+        label: i18n.t('general.shootAroundSpotLabels.threeRightWing'),
     },
     {
         key: ShootAroundSpot.THREE_POINT_LEFT_WING.toString(),
-        label: '3pt left wing',
+        label: i18n.t('general.shootAroundSpotLabels.threeLeftWing'),
     },
     {
         key: ShootAroundSpot.THREE_POINT_TOP_OF_THE_KEY.toString(),
-        label: '3pt top of the key',
+        label: i18n.t('general.shootAroundSpotLabels.threeTopOfTheKey'),
     },
 ];
 
@@ -112,7 +113,7 @@ const DashboardHeader = () => {
             <Card mode='elevated' elevation={5}>
                 <TouchableOpacity onPress={onPress} activeOpacity={1}>
                     <Card.Title
-                        title='Filters'
+                        title={i18n.t('general.filters')}
                         right={() => (
                             <View style={styles.filterSectionIconStyle}>
                                 <MaterialCommunityIcons name={state === 'expanded' ? 'chevron-up' : 'chevron-down'} size={24} color={colors.black} />
@@ -126,26 +127,26 @@ const DashboardHeader = () => {
                             <DateRangePicker
                                 dateRange={dateRange}
                                 onDateRangeSelected={(dateRange: DateRange) => dispatch(setDashboardDateRange(dateRange))} />,
-                            'Show data between'
+                            i18n.t('screens.dashboard.showDataBetween')
                         )}
                         {renderFilterSection(
                             <Switch
                                 options={dataAggregationTypeItems}
                                 value={selectedDataAggregationType?.key || ''}
                                 onPress={(value) => dispatch(setDashboardDataAggregationType(value as DataAggregationType))} />,
-                            'Group data by'
+                            i18n.t('screens.dashboard.groupDataBy')
                         )}
                         {renderFilterSection(
                             <MultiTagSelect
                                 items={shootAroundSpotTags}
                                 selectedItems={selectedShootAroundSpots}
                                 onChange={(selectedItems: ITagItem[]) => handleSelectedFilterSpotsChange(selectedItems)} />,
-                            'Shoot Around spots'
+                            i18n.t('general.shootAroundSpots')
                         )}
                         <Divider />
                         <View style={styles.applyButtonStyle}>
                             <Button
-                                label='Apply'
+                                label={i18n.t('general.apply')}
                                 type='primary'
                                 onPress={() => dispatch(getDashboardChartData())} />
                         </View>

@@ -6,6 +6,7 @@ const englishTranslation: Translation = {
         shootAround: 'Shoot Around',
         shootArounds: 'Shoot Arounds',
         shootAroundSpot: 'Shoot Around Spot',
+        shootAroundSpots: 'Shoot Around Spots',
         spot: 'Spot',
         totalAttempts: 'Total Attempts',
         madeAttempts: 'Made Attempts',
@@ -24,7 +25,7 @@ const englishTranslation: Translation = {
         filters: 'Filters',
         noResult: 'No results found',
         paginationLabel: 'Showing %{from} - %{to} of %{count}',
-        shootAroundSpots: {
+        shootAroundSpotLabels: {
             paint: 'Paint',
             freeThrow: 'Free Throw',
             midRightCorner: 'Midrange right corner',
@@ -41,7 +42,10 @@ const englishTranslation: Translation = {
     },
     screens: {
         dashboard: {
-            addShootAround: 'Add Shoot Around'
+            addShootAround: 'Add Shoot Around',
+            noResults: 'No result found for the selected search criteria!',
+            showDataBetween: '',
+            groupDataBy: ''
         },
         addShootAround: {
             helperText: 'You can select a shooting spot by tapping on the spot'

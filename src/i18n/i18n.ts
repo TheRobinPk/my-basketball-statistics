@@ -8,6 +8,7 @@ export interface Translation {
         shootAround: string;
         shootArounds: string;
         shootAroundSpot: string;
+        shootAroundSpots: string;
         spot: string;
         totalAttempts: string;
         madeAttempts: string;
@@ -26,7 +27,7 @@ export interface Translation {
         filters: string;
         noResult: string;
         paginationLabel: string;
-        shootAroundSpots: {
+        shootAroundSpotLabels: {
             paint: string;
             freeThrow: string;
             midRightCorner: string;
@@ -44,6 +45,9 @@ export interface Translation {
     screens: {
         dashboard: {
             addShootAround: string;
+            noResults: string;
+            showDataBetween: string;
+            groupDataBy: string;
         },
         addShootAround: {
             helperText: string;
