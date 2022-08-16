@@ -1,9 +1,9 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import {Drawer} from 'react-native-paper';
 import {DrawerContentComponentProps, DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import colors from '../../colors';
-import {Divider} from 'react-native-paper';
 
 interface IProps {
     drawerContentProps: DrawerContentComponentProps
@@ -44,31 +44,31 @@ const ApplicationDrawer = (props: IProps) => {
     return (
         <View style={styles.container}>
             <DrawerContentScrollView {...props.drawerContentProps}>
-                <View style={styles.drawerHeaderStyle}>
+                <View>
                     <Text style={styles.drawerHeaderTextStyle}>My Basketball Statistics</Text>
                 </View>
-                {renderDrawerItem(
-                    'Dashboard',
-                    'ShootAroundDashboardStackNavigator',
-                    (props: DrawerItemIcon) => (
-                        <MaterialCommunityIcons
-                            name='basketball-hoop'
-                            size={24}
-                            color={props.focused ? colors.primaryColor : colors.inactiveGrey} />
-                    )
-                )}
-                <Divider bold style={styles.dividerStyle} />
-                {renderDrawerItem(
-                    'Shoot Around List',
-                    'ShootAroundListScreen',
-                    (props: DrawerItemIcon) => (
-                        <MaterialCommunityIcons
-                            name='database'
-                            size={24}
-                            color={props.focused ? colors.primaryColor : colors.inactiveGrey} />
-                    )
-                )}
-                <Divider bold style={styles.dividerStyle} />
+                <Drawer.Section>
+                    {renderDrawerItem(
+                        'Dashboard',
+                        'ShootAroundDashboardStackNavigator',
+                        (props: DrawerItemIcon) => (
+                            <MaterialCommunityIcons
+                                name='basketball-hoop'
+                                size={24}
+                                color={props.focused ? colors.primaryColor : colors.inactiveGrey} />
+                        )
+                    )}
+                    {renderDrawerItem(
+                        'Shoot Arounds',
+                        'ShootAroundListScreen',
+                        (props: DrawerItemIcon) => (
+                            <MaterialCommunityIcons
+                                name='database'
+                                size={24}
+                                color={props.focused ? colors.primaryColor : colors.inactiveGrey} />
+                        )
+                    )}
+                </Drawer.Section>
             </DrawerContentScrollView>
         </View>
     );
@@ -78,21 +78,15 @@ const styles = StyleSheet.create({
     container: {
         flex: 1
     },
-    drawerHeaderStyle: {
-        backgroundColor: colors.primaryColor
-    },
     drawerHeaderTextStyle: {
-        color: colors.white,
+        color: colors.primaryColor,
         fontSize: 24,
         flexWrap: 'wrap',
         margin: 16
     },
     drawerItemStyle: {
-        borderRadius: 16
-    },
-    dividerStyle: {
-        marginTop: 8,
-        marginBottom: 8
+        borderRadius: 32,
+        padding: 4
     }
 });
 

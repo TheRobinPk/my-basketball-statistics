@@ -2,7 +2,7 @@
   "name": "basketball-shoot-around-app",
   "version": "1.0.0",
   "scripts": {
-    "start": "expo start --dev-client",
+    "start": "ENVIRONMENT=develop expo start --dev-client",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx src/",
     "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx src/ --fix",
     "test": "jest --forceExit",
