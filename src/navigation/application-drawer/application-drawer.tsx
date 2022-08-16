@@ -3,7 +3,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import {Drawer} from 'react-native-paper';
 import {DrawerContentComponentProps, DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import colors from '../../colors';
+import colors from '../../static/colors';
 import i18n from '../../i18n/i18n';
 
 interface IProps {

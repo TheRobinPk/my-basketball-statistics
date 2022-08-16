@@ -10,7 +10,7 @@ import Button from '../common/button/button';
 import {ShootAroundSpot} from '../../domain/shoot-around';
 import {useAppDispatch, useAppSelector} from '../../redux/store/store';
 import {DataAggregationType, getDashboardChartData, setDashboardDataAggregationType, setDashboardDateRange, setDashboardShootAroundSpots} from '../../redux/reducers/dashboard/dashboard-reducer';
-import colors from '../../colors';
+import colors from '../../static/colors';
 import i18n from '../../i18n/i18n';
 
 const dataAggregationTypeItems: ISwitchOption[] = [

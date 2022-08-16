@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, TextStyle, View, ViewStyle} from 'react-native';
 import {ToggleButton} from 'react-native-paper';
-import colors from '../../../colors';
+import colors from '../../../static/colors';
 
 export interface ISwitchOption {
     key: string;

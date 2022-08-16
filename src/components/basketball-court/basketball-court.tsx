@@ -1,6 +1,6 @@
 import React from 'react';
 import Svg, {Path, Rect} from 'react-native-svg';
-import colors from '../../colors';
+import colors from '../../static/colors';
 import {ShootAroundSpot} from '../../domain/shoot-around';
 import { Dimensions } from 'react-native';
 import {Color} from 'react-native-svg/lib/typescript/lib/extract/types';

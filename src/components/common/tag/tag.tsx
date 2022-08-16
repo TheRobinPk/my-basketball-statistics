@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
-import colors from '../../../colors';
+import colors from '../../../static/colors';
 
 interface IProps {
     label: string;

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Snackbar as SnackbarReactNativePaper} from 'react-native-paper';
 import {StyleSheet, Text} from 'react-native';
-import colors from '../../../colors';
+import colors from '../../../static/colors';
 import i18n from '../../../i18n/i18n';
 
 interface IProps {

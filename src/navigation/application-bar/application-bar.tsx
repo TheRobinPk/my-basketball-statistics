@@ -1,5 +1,5 @@
 import React from 'react';
-import colors from '../../colors';
+import colors from '../../static/colors';
 import {Appbar} from 'react-native-paper';
 import {DrawerActions, useNavigation} from '@react-navigation/native';
 import {StyleSheet} from 'react-native';

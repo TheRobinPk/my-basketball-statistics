@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Dimensions, ScrollView, View, Text, StyleSheet} from 'react-native';
 import {LineChart} from 'react-native-chart-kit';
 import {Dataset} from 'react-native-chart-kit/dist/HelperTypes';
-import colors from '../../colors';
+import colors from '../../static/colors';
 import randomColor from 'randomcolor';
 import {ShootAroundChartData} from '../../redux/reducers/dashboard/dashboard-reducer';
 import Legend from '../common/legend/legend';

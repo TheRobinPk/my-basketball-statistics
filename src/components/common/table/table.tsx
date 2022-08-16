@@ -4,7 +4,7 @@ import {Dimensions, ScrollView, StyleSheet, Text, View} from 'react-native';
 import TableItemDelete from './table-item-delete';
 import EmptyState from '../empty-state/empty-state';
 import i18n from '../../../i18n/i18n';
-import colors from '../../../colors';
+import colors from '../../../static/colors';
 
 export interface ITableKey {
     key: string;

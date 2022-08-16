@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import colors from '../../../colors';
+import colors from '../../../static/colors';
 import i18n from '../../../i18n/i18n';
 
 interface IProps {

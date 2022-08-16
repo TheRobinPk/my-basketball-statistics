@@ -14,7 +14,7 @@ import {
     submitShootAround
 } from '../../redux/reducers/add-shoot-around/add-shoot-around-reducer';
 import {useComponentWillUnmount} from '../../hooks/useComponentWillUnmount';
-import colors from '../../colors';
+import colors from '../../static/colors';
 import i18n from '../../i18n/i18n';
 
 const AddShootAroundScreen = () => {

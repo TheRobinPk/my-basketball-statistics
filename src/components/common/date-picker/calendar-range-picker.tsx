@@ -5,7 +5,7 @@ import {Calendar, DateData} from 'react-native-calendars';
 import {DateRange} from './date-range-picker';
 import Button from '../button/button';
 import moment from 'moment/moment';
-import colors from '../../../colors';
+import colors from '../../../static/colors';
 import i18n from '../../../i18n/i18n';
 
 type DateRangeType = 'start' | 'end';

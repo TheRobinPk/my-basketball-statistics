@@ -3,7 +3,7 @@ import {Moment} from 'moment/moment';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import {Text} from 'react-native-paper';
 import CalendarRangePicker from './calendar-range-picker';
-import colors from '../../../colors';
+import colors from '../../../static/colors';
 
 export type DateRange = {
     start: Moment;

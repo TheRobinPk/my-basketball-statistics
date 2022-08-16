@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {Portal, Provider, FAB as FloatingActionButtonRn} from 'react-native-paper';
 import {StyleSheet} from 'react-native';
-import colors from '../../../colors';
+import colors from '../../../static/colors';
 
 interface FloatingActionButtonAction {
     icon: string;
