@@ -51,6 +51,7 @@
     "typeorm": "^0.3.7",
     "moment": "^2.29.4",
     "i18n-js": "^4.0.2",
+    "immer": "^9.0.15",
     "metro-minify-terser": "^0.71.3",
     "patch-package": "^6.4.7"
   },
