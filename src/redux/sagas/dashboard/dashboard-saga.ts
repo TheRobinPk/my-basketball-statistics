@@ -9,13 +9,11 @@ import {
 import {ShootAround, ShootAroundSpot} from '../../../domain/shoot-around';
 import ShootAroundChartService from '../../../service/shoot-around-chart-service';
 import {DateRange} from '../../../components/common/date-picker/date-range-picker';
-import {shootAroundSubmitSuccess} from '../../reducers/add-shoot-around/add-shoot-around-reducer';
 
 export function* getDashboardChartDataWatcherSaga() {
     yield takeLatest([
         initDashboard.type,
-        getDashboardChartData.type,
-        shootAroundSubmitSuccess.type
+        getDashboardChartData.type
     ], getDashboardChartDataSaga);
 }
 
