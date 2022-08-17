@@ -1,7 +1,7 @@
 import {ShootAroundSpot} from '../../domain/shoot-around';
 import produce from 'immer';
 
-export interface IAddShootAroundState {
+export interface AddShootAroundState {
     totalAttempts: string;
     madeAttempts: string;
     shootAroundSpot?: ShootAroundSpot;
@@ -15,10 +15,10 @@ export type AddShootAroundAction =
     | { type: 'setFormValues'; payload: ShootAroundForm }
     | { type: 'reset' };
 
-type ShootAroundValidationResult = Omit<IAddShootAroundState, 'totalAttempts' | 'madeAttempts' | 'isLoading' | 'submitSuccess'>
-type ShootAroundForm = Pick<IAddShootAroundState, 'totalAttempts' | 'madeAttempts' | 'shootAroundSpot'>;
+type ShootAroundValidationResult = Omit<AddShootAroundState, 'totalAttempts' | 'madeAttempts' | 'isLoading' | 'submitSuccess'>
+type ShootAroundForm = Pick<AddShootAroundState, 'totalAttempts' | 'madeAttempts' | 'shootAroundSpot'>;
 
-export const initialState: IAddShootAroundState = {
+export const initialState: AddShootAroundState = {
     totalAttempts: '',
     madeAttempts: '',
     shootAroundSpot: undefined,
@@ -56,7 +56,7 @@ const validateShootAround = (totalAttempts: string, madeAttempts: string, shootA
     }
 };
 
-export const addShootAroundReducer = produce((state: IAddShootAroundState, action: AddShootAroundAction) => {
+export const addShootAroundReducer = produce((state: AddShootAroundState, action: AddShootAroundAction) => {
     switch (action.type) {
         case 'setLoading' : {
             state.isLoading = action.payload;

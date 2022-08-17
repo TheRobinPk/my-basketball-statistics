@@ -6,13 +6,11 @@ import {AnimatedSection, useCollapsible} from 'reanimated-collapsible-helpers';
 import DateRangePicker, {DateRange} from '../common/date-picker/date-range-picker';
 import Switch, {ISwitchOption} from '../common/switch/switch';
 import MultiTagSelect, {ITagItem} from '../common/multi-tag-select/multi-tag-select';
-import Button from '../common/button/button';
 import {ShootAroundSpot} from '../../domain/shoot-around';
-import {useAppDispatch, useAppSelector} from '../../redux/store/store';
-import {DataAggregationType, getDashboardChartData, setDashboardDataAggregationType, setDashboardDateRange, setDashboardShootAroundSpots} from '../../redux/reducers/dashboard/dashboard-reducer';
 import colors from '../../static/colors';
 import i18n from '../../i18n/i18n';
 import ShootAroundSpotMap from '../../static/shoot-around-spot-map';
+import {DataAggregationType} from '../../reducers/dashboard/dashboard-reducer';
 
 const dataAggregationTypeItems: ISwitchOption[] = [
     {
@@ -36,12 +34,17 @@ const shootAroundSpotTags: ITagItem[] = Array.from(ShootAroundSpotMap.values()).
    };
 });
 
-const DashboardHeader = () => {
-    const dateRange = useAppSelector(state => state.dashboard.dateRange);
-    const dataAggregationType = useAppSelector(state => state.dashboard.dataAggregationType);
-    const shootAroundSpots = useAppSelector(state => state.dashboard.shootAroundSpots);
+interface IProps {
+    dateRange: DateRange,
+    dataAggregationType: DataAggregationType | undefined,
+    shootAroundSpots: ShootAroundSpot[];
+    setDashboardDateRange: (dateRange: DateRange) => void;
+    setDashboardDataAggregationType: (dataAggregationType: DataAggregationType) => void;
+    setDashboardShootAroundSpots: (spots: ShootAroundSpot[]) => void;
+}
 
-    const dispatch = useAppDispatch();
+const DashboardHeader = (props: IProps) => {
+    const { dateRange, dataAggregationType, shootAroundSpots } = props;
 
     const { animatedHeight, onPress, onLayout, state } = useCollapsible();
 
@@ -51,7 +54,7 @@ const DashboardHeader = () => {
     const selectedShootAroundSpots = shootAroundSpotTags.filter((value) => selectedShootAroundSpotKeys.includes(value.key));
 
     const handleSelectedFilterSpotsChange = (selectedItems: ITagItem[]) => {
-        dispatch(setDashboardShootAroundSpots(selectedItems.map(item => item.key as ShootAroundSpot)));
+        props.setDashboardShootAroundSpots(selectedItems.map(item => item.key as ShootAroundSpot));
     };
 
     const renderFilterSection = (children: React.ReactNode, title: string) => {
@@ -83,14 +86,14 @@ const DashboardHeader = () => {
                         {renderFilterSection(
                             <DateRangePicker
                                 dateRange={dateRange}
-                                onDateRangeSelected={(dateRange: DateRange) => dispatch(setDashboardDateRange(dateRange))} />,
+                                onDateRangeSelected={props.setDashboardDateRange} />,
                             i18n.t('screens.dashboard.showDataBetween')
                         )}
                         {renderFilterSection(
                             <Switch
                                 options={dataAggregationTypeItems}
                                 value={selectedDataAggregationType?.key || ''}
-                                onPress={(value) => dispatch(setDashboardDataAggregationType(value as DataAggregationType))} />,
+                                onPress={(value) => props.setDashboardDataAggregationType(value as DataAggregationType)} />,
                             i18n.t('screens.dashboard.groupDataBy')
                         )}
                         {renderFilterSection(
@@ -101,12 +104,6 @@ const DashboardHeader = () => {
                             i18n.t('general.shootAroundSpots')
                         )}
                         <Divider />
-                        <View style={styles.applyButtonStyle}>
-                            <Button
-                                label={i18n.t('general.apply')}
-                                type='primary'
-                                onPress={() => dispatch(getDashboardChartData())} />
-                        </View>
                     </Card.Content>
                 </AnimatedSection>
             </Card>
@@ -128,9 +125,6 @@ const styles = StyleSheet.create({
     },
     filterSectionIconStyle: {
         marginRight: 16
-    },
-    applyButtonStyle: {
-        marginVertical: 8
     }
 });
 

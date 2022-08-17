@@ -1,4 +1,4 @@
-import {addShootAroundReducer, IAddShootAroundState, initialState,} from './add-shoot-around-reducer';
+import {addShootAroundReducer, AddShootAroundState, initialState,} from './add-shoot-around-reducer';
 import {ShootAroundSpot} from '../../domain/shoot-around';
 
 describe('add-shoot-around-reducer', () => {
@@ -180,7 +180,7 @@ describe('add-shoot-around-reducer', () => {
         });
 
         // THEN
-        const expectedState: IAddShootAroundState = {
+        const expectedState: AddShootAroundState = {
             totalAttempts: '',
             madeAttempts: '',
             shootAroundSpot: undefined,

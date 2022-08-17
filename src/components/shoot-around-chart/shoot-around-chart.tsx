@@ -3,10 +3,10 @@ import {Dimensions, ScrollView, View, Text, StyleSheet} from 'react-native';
 import {LineChart} from 'react-native-chart-kit';
 import {Dataset} from 'react-native-chart-kit/dist/HelperTypes';
 import Legend from '../common/legend/legend';
-import {ShootAroundChartData} from '../../redux/reducers/dashboard/dashboard-reducer';
 import ShootAroundSpotMap from '../../static/shoot-around-spot-map';
 import colors from '../../static/colors';
 import {ShootAroundSpot} from '../../domain/shoot-around';
+import {ShootAroundChartData} from '../../reducers/dashboard/dashboard-reducer';
 
 interface IProps {
     chartData: ShootAroundChartData;

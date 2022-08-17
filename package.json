@@ -6,7 +6,7 @@
     "compile": "tsc --noEmit",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx src/",
     "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx src/ --fix",
-    "test": "jest --forceExit",
+    "test": "jest",
     "build": "npm run compile && npm run lint && npm run test",
     "build:android:develop": "npm run build && eas build --platform android --profile development --non-interactive",
     "build:android:preview": "npm run build && eas build --platform android --profile preview --non-interactive",

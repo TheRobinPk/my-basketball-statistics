@@ -1,27 +1,27 @@
 import React from 'react';
 import {Card} from 'react-native-paper';
-import {useAppSelector} from '../../redux/store/store';
 import ShootAroundChart from '../shoot-around-chart/shoot-around-chart';
-import LoadingWrapper from '../common/loading-wrapper/loading-wrapper';
 import EmptyWrapper from '../common/empty-wrapper/empty-wrapper';
 import {StyleSheet, View} from 'react-native';
 import i18n from '../../i18n/i18n';
+import {ShootAroundChartData} from '../../reducers/dashboard/dashboard-reducer';
 
-const DashboardChart = () => {
-    const chartData = useAppSelector(state => state.dashboard.chartData);
-    const isLoading = useAppSelector(state => state.dashboard.isLoading);
+interface IProps {
+    chartData: ShootAroundChartData;
+}
+
+const DashboardChart = (props: IProps) => {
+    const { chartData } = props;
 
   return (
       <View style={styles.cardStyle}>
           <Card mode='elevated' elevation={5}>
               <Card.Content>
-                  <LoadingWrapper isLoading={isLoading}>
-                      <EmptyWrapper
-                          isEmpty={chartData?.dataSets.length === 0}
-                          emptyText={i18n.t('screens.dashboard.noResults')}>
-                          <ShootAroundChart chartData={chartData} />
-                      </EmptyWrapper>
-                  </LoadingWrapper>
+                  <EmptyWrapper
+                      isEmpty={chartData?.dataSets.length === 0}
+                      emptyText={i18n.t('screens.dashboard.noResults')}>
+                      <ShootAroundChart chartData={chartData} />
+                  </EmptyWrapper>
               </Card.Content>
           </Card>
       </View>

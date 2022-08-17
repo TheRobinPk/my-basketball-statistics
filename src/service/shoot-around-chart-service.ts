@@ -1,6 +1,6 @@
 import {ShootAround, ShootAroundSpot} from '../domain/shoot-around';
 import {DateRange} from '../components/common/date-picker/date-range-picker';
-import {DataAggregationType, ShootAroundChartData, ShootAroundDataSet} from '../redux/reducers/dashboard/dashboard-reducer';
+import {DataAggregationType, ShootAroundChartData, ShootAroundDataSet} from '../reducers/dashboard/dashboard-reducer';
 
 const LABEL_FORMAT_MAP: Map<DataAggregationType, string> = new Map<DataAggregationType, string>([
     ['day', 'YYYY-MM-DD'],
