@@ -8,8 +8,8 @@ type ButtonType = 'default' | 'primary';
 interface IProps {
     label: string;
     type: ButtonType;
-    testID?: string;
-    labelTestID?: string;
+    testID: string;
+    labelTestID: string;
     disabled?: boolean;
     loading?: boolean;
     onPress: () => void;

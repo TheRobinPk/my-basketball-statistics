@@ -83,11 +83,15 @@ const CalendarRangePicker = (props: IProps) => {
                         <Button
                             label={i18n.t('general.cancel')}
                             type='default'
+                            testID='calendar-range-picker-cancel-button'
+                            labelTestID='calendar-range-picker-cancel-button-text'
                             onPress={() => setCalendarVisible(false)} />
                         <Button
                             label={i18n.t('general.apply')}
                             type='primary'
                             disabled={dateRangeTypeSelection === 'end'}
+                            testID='calendar-range-picker-apply-button'
+                            labelTestID='calendar-range-picker-apply-button-text'
                             onPress={handleApply} />
                     </View>
                 </View>

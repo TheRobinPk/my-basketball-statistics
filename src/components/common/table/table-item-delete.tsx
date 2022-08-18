@@ -37,10 +37,14 @@ const TableItemDelete = (props: ITableItemDelete) => {
                         <Button
                             label={i18n.t('general.cancel')}
                             type='default'
+                            testID='table-item-delete-cancel-button'
+                            labelTestID='table-item-delete-cancel-button-text'
                             onPress={() => setDialogVisible(false)} />
                         <Button
                             label={i18n.t('general.delete')}
                             type='primary'
+                            testID='table-item-delete-button'
+                            labelTestID='table-item-delete-button-text'
                             onPress={handleDelete} />
                     </View>
                 </Dialog>

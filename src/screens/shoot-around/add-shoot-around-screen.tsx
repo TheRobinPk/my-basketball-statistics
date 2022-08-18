@@ -137,6 +137,8 @@ const AddShootAroundScreen = () => {
                         type='primary'
                         disabled={submitDisabled}
                         loading={isLoading}
+                        testID='add-shoot-around-button'
+                        labelTestID='add-shoot-around-button-text'
                         onPress={submitShootAround} />
                 </View>
             </View>
