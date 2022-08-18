@@ -1,12 +1,13 @@
-import React from 'react';
-import Table, {ITableColumn} from '../../components/common/table/table';
-import {useAppDispatch, useAppSelector} from '../../redux/store/store';
-import LoadingWrapper from '../../components/common/loading-wrapper/loading-wrapper';
-import {useComponentDidMount} from '../../hooks/useComponentDidMount';
-import {deleteShootAround, getShootAroundListData, resetShootAroundList} from '../../redux/reducers/shoot-around-list/shoot-around-list-reducer';
-import {useComponentWillUnmount} from '../../hooks/useComponentWillUnmount';
+import React, {useCallback, useState} from 'react';
+import Table, {ITableColumn} from '../../ui-components/table/table';
 import ApplicationBar from '../../navigation/application-bar/application-bar';
+import LoadingWrapper from '../../ui-components/loading-wrapper/loading-wrapper';
+import {useComponentDidMount} from '../../hooks/use-component-did-mount';
+import { useFocusEffect } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import i18n from '../../i18n/i18n';
+import {ShootAround} from '../../domain/shoot-around';
+import {useApplicationContext} from '../../context/application-context';
 
 export interface IShootAroundListRow {
     key: string;
@@ -17,20 +18,35 @@ export interface IShootAroundListRow {
 }
 
 const ShootAroundListScreen = () => {
-    const dispatch = useAppDispatch();
-    const isLoading = useAppSelector(state => state.shootAroundList.isLoading);
-    const data = useAppSelector(state => state.shootAroundList.data);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [data, setData] = useState<ShootAround[]>([]);
+    const applicationContext = useApplicationContext();
+    const { shootAroundService } = applicationContext;
+    const navigation = useNavigation();
 
-    useComponentDidMount(() => {
-       dispatch(getShootAroundListData());
+    useFocusEffect(
+        useCallback(() => {
+            shootAroundService?.findAll()
+                .then((result) => {
+                    setData(result);
+                    setIsLoading(false);
+                });
+        }, [])
+    );
+
+    useComponentDidMount(async () => {
+        navigation.addListener('blur', () => {
+            setData([]);
+            setIsLoading(true);
+        });
     });
 
-    useComponentWillUnmount(() => {
-        dispatch(resetShootAroundList());
-    });
-
-    const onDeleteShootAround = (shootAroundRow: IShootAroundListRow) => {
-        dispatch(deleteShootAround(parseInt(shootAroundRow.key)));
+    const onDeleteShootAround = async (shootAroundRow: IShootAroundListRow) => {
+        await shootAroundService?.delete(parseInt(shootAroundRow.key));
+        shootAroundService?.findAll()
+            .then((result) => {
+               setData(result);
+            });
     };
 
     const rows: IShootAroundListRow[] = data.map((shootAround) => {
@@ -80,6 +96,7 @@ const ShootAroundListScreen = () => {
                 <Table<IShootAroundListRow>
                     columns={columns}
                     rows={rows}
+                    tableTestID='shoot-arounds-table'
                     rowDelete={{
                         dialogTitle: i18n.t('screens.shootArounds.deleteConfirmation'),
                         onDelete: (row: IShootAroundListRow) => onDeleteShootAround(row)

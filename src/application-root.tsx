@@ -1,18 +1,15 @@
 import React, {useCallback} from 'react';
 import {StyleSheet, SafeAreaView} from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
-import {useComponentDidMount} from './hooks/useComponentDidMount';
-import {useAppDispatch, useAppSelector} from './redux/store/store';
-import {applicationMounted} from './redux/reducers/application/application-reducer';
+import {useComponentDidMount} from './hooks/use-component-did-mount';
 import ApplicationNavigator from './navigation/application-navigator';
+import {useApplicationContext} from './context/application-context';
 
 const ApplicationRoot = () => {
-    const applicationInitialized = useAppSelector(state => state.application.applicationInitialized);
-
-    const dispatch = useAppDispatch();
+    const applicationContext = useApplicationContext();
+    const { applicationInitialized } = applicationContext;
 
     useComponentDidMount(async () => {
-        dispatch(applicationMounted());
         await SplashScreen.preventAutoHideAsync();
     });
 

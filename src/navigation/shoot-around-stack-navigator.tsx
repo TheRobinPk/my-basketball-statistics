@@ -1,10 +1,10 @@
 import React from 'react';
-import DashboardScreen from '../screens/shoot-around/dashboard-screen';
-import AddShootAroundScreen from '../screens/shoot-around/add-shoot-around-screen';
+import ShootAroundDashboardScreen from '../screens/shoot-around/shoot-around-dashboard/shoot-around-dashboard-screen';
+import AddShootAroundScreen from '../screens/shoot-around/add-shoot-around/add-shoot-around-screen';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 export type ShootAroundStackNavigatorParamList = {
-    DashboardScreen: undefined;
+    ShootAroundDashboardScreen: undefined;
     AddShootAroundScreen: undefined;
 };
 
@@ -18,8 +18,8 @@ const ShootAroundDashboardStackNavigator = () => {
                 animation: 'slide_from_right'
         }}>
             <Stack.Screen
-                name='DashboardScreen'
-                component={DashboardScreen} />
+                name='ShootAroundDashboardScreen'
+                component={ShootAroundDashboardScreen} />
             <Stack.Screen
                 name='AddShootAroundScreen'
                 component={AddShootAroundScreen} />

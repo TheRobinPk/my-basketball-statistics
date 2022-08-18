@@ -44,8 +44,8 @@ const englishTranslation: Translation = {
         dashboard: {
             addShootAround: 'Add Shoot Around',
             noResults: 'No result found for the selected search criteria!',
-            showDataBetween: '',
-            groupDataBy: ''
+            showDataBetween: 'Show data between',
+            groupDataBy: 'Group data by'
         },
         addShootAround: {
             helperText: 'You can select a shooting spot by tapping on the spot'
