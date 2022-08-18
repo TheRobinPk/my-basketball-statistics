@@ -1,6 +1,6 @@
 import React, {createContext, useContext, useReducer} from 'react';
 import {applicationReducer, ApplicationState, initialState} from '../reducers/application/application-reducer';
-import {useComponentDidMount} from '../hooks/useComponentDidMount';
+import {useComponentDidMount} from '../hooks/use-component-did-mount';
 import {createConnection, DataSource} from 'typeorm';
 import ENV from '../static/environmnent.config';
 import {ShootAroundEntity} from '../domain/shoot-around';

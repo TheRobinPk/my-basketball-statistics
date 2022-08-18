@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react';
 import {StyleSheet, SafeAreaView} from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
-import {useComponentDidMount} from './hooks/useComponentDidMount';
+import {useComponentDidMount} from './hooks/use-component-did-mount';
 import ApplicationNavigator from './navigation/application-navigator';
 import {useApplicationContext} from './context/application-context';
 

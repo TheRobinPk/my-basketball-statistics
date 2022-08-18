@@ -1,8 +1,8 @@
 import React, {useCallback, useState} from 'react';
-import Table, {ITableColumn} from '../../components/common/table/table';
+import Table, {ITableColumn} from '../../ui-components/table/table';
 import ApplicationBar from '../../navigation/application-bar/application-bar';
-import LoadingWrapper from '../../components/common/loading-wrapper/loading-wrapper';
-import {useComponentDidMount} from '../../hooks/useComponentDidMount';
+import LoadingWrapper from '../../ui-components/loading-wrapper/loading-wrapper';
+import {useComponentDidMount} from '../../hooks/use-component-did-mount';
 import { useFocusEffect } from '@react-navigation/native';
 import {useNavigation} from '@react-navigation/native';
 import i18n from '../../i18n/i18n';

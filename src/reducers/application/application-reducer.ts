@@ -1,6 +1,6 @@
 import {DataSource} from 'typeorm';
-import ShootAroundService from '../../service/shoot-around-service';
-import ShootAroundChartService from '../../service/shoot-around-chart-service';
+import ShootAroundService from '../../service/shoot-around/shoot-around-service';
+import ShootAroundChartService from '../../service/shoot-around/shoot-around-chart-service';
 import produce from 'immer';
 import {ShootAroundEntity} from '../../domain/shoot-around';
 
