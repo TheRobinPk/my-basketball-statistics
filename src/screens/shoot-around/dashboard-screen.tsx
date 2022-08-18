@@ -1,23 +1,26 @@
-import React, {useCallback, useEffect, useReducer} from 'react';
+import React, {useCallback, useReducer} from 'react';
 import {ScrollView, StyleSheet} from 'react-native';
 import ApplicationBar from '../../navigation/application-bar/application-bar';
 import FloatingActionButton from '../../components/common/floating-action-button/floating-action-button';
 import DashboardHeader from '../../components/dashboard/dashboard-header';
 import DashboardChart from '../../components/dashboard/dashboard-chart';
 import {ShootAroundStackNavigatorParamList} from '../../navigation/shoot-around-stack-navigator';
-import {useAppSelector} from '../../redux/store/store';
 import {useComponentDidMount} from '../../hooks/useComponentDidMount';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import moment from 'moment';
 import i18n from '../../i18n/i18n';
-import {dashboardReducer, initialState, ShootAroundChartData} from '../../reducers/dashboard/dashboard-reducer';
+import {dashboardReducer, DataAggregationType, initialState, ShootAroundChartData} from '../../reducers/dashboard/dashboard-reducer';
+import {useFocusEffect} from '@react-navigation/native';
+import {DateRange} from '../../components/common/date-picker/date-range-picker';
+import {ShootAroundSpot} from '../../domain/shoot-around';
+import {useApplicationContext} from '../../context/application-context';
 
 type IProps = NativeStackScreenProps<ShootAroundStackNavigatorParamList, 'DashboardScreen'>;
 
 const DashboardScreen = (props: IProps) => {
     const [state, dispatch] = useReducer(dashboardReducer, initialState);
-    const shootAroundService = useAppSelector(state => state.application.shootAroundService);
-    const shootAroundChartService = useAppSelector(state => state.application.shootAroundChartService);
+    const applicationContext = useApplicationContext();
+    const { shootAroundService, shootAroundChartService } = applicationContext;
     const { dateRange, dataAggregationType, shootAroundSpots, chartData } = state;
 
     useComponentDidMount(() => {
@@ -33,11 +36,13 @@ const DashboardScreen = (props: IProps) => {
         });
     });
 
-    useEffect(() => {
-        getChartData();
-    }, [dateRange, dataAggregationType, shootAroundSpots]);
+    useFocusEffect(
+        useCallback(() => {
+            getChartData(dateRange, dataAggregationType, shootAroundSpots);
+        }, [dateRange, dataAggregationType, shootAroundSpots])
+    );
 
-    const getChartData = async () => {
+    const getChartData = async (dateRange: DateRange, dataAggregationType: DataAggregationType, shootAroundSpots: ShootAroundSpot[]) => {
         const shootArounds = await shootAroundService?.findBetweenAndWithinSpots(dateRange.start, dateRange.end, shootAroundSpots);
         const chartData: ShootAroundChartData | undefined = shootAroundChartService?.calculateShootAroundChartData(shootArounds || [], dataAggregationType, dateRange);
 
@@ -57,15 +62,15 @@ const DashboardScreen = (props: IProps) => {
                     dateRange={dateRange}
                     dataAggregationType={dataAggregationType}
                     shootAroundSpots={shootAroundSpots}
-                    setDashboardDateRange={(dateRange) => dispatch({
+                    onDateRangeChanged={(dateRange) => dispatch({
                         type: 'setDateRange',
                         payload: dateRange
                     })}
-                    setDashboardDataAggregationType={(dataAggregationType) => dispatch({
+                    onDataAggregationTypeChanged={(dataAggregationType) => dispatch({
                         type: 'setDataAggregationType',
                         payload: dataAggregationType
                     })}
-                    setDashboardShootAroundSpots={(shootAroundSpots) => dispatch({
+                    onShootAroundSpotsChanged={(shootAroundSpots) => dispatch({
                         type: 'setShootAroundSpots',
                         payload: shootAroundSpots
                     })} />

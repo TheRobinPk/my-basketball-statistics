@@ -3,11 +3,11 @@ import Table, {ITableColumn} from '../../components/common/table/table';
 import ApplicationBar from '../../navigation/application-bar/application-bar';
 import LoadingWrapper from '../../components/common/loading-wrapper/loading-wrapper';
 import {useComponentDidMount} from '../../hooks/useComponentDidMount';
-import {useAppSelector} from '../../redux/store/store';
 import { useFocusEffect } from '@react-navigation/native';
 import {useNavigation} from '@react-navigation/native';
 import i18n from '../../i18n/i18n';
 import {ShootAround} from '../../domain/shoot-around';
+import {useApplicationContext} from '../../context/application-context';
 
 export interface IShootAroundListRow {
     key: string;
@@ -20,7 +20,8 @@ export interface IShootAroundListRow {
 const ShootAroundListScreen = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [data, setData] = useState<ShootAround[]>([]);
-    const shootAroundService = useAppSelector(state => state.application.shootAroundService);
+    const applicationContext = useApplicationContext();
+    const { shootAroundService } = applicationContext;
     const navigation = useNavigation();
 
     useFocusEffect(

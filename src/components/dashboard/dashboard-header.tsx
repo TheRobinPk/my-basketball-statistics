@@ -38,9 +38,9 @@ interface IProps {
     dateRange: DateRange,
     dataAggregationType: DataAggregationType | undefined,
     shootAroundSpots: ShootAroundSpot[];
-    setDashboardDateRange: (dateRange: DateRange) => void;
-    setDashboardDataAggregationType: (dataAggregationType: DataAggregationType) => void;
-    setDashboardShootAroundSpots: (spots: ShootAroundSpot[]) => void;
+    onDateRangeChanged: (dateRange: DateRange) => void;
+    onDataAggregationTypeChanged: (dataAggregationType: DataAggregationType) => void;
+    onShootAroundSpotsChanged: (spots: ShootAroundSpot[]) => void;
 }
 
 const DashboardHeader = (props: IProps) => {
@@ -54,7 +54,7 @@ const DashboardHeader = (props: IProps) => {
     const selectedShootAroundSpots = shootAroundSpotTags.filter((value) => selectedShootAroundSpotKeys.includes(value.key));
 
     const handleSelectedFilterSpotsChange = (selectedItems: ITagItem[]) => {
-        props.setDashboardShootAroundSpots(selectedItems.map(item => item.key as ShootAroundSpot));
+        props.onShootAroundSpotsChanged(selectedItems.map(item => item.key as ShootAroundSpot));
     };
 
     const renderFilterSection = (children: React.ReactNode, title: string) => {
@@ -86,14 +86,14 @@ const DashboardHeader = (props: IProps) => {
                         {renderFilterSection(
                             <DateRangePicker
                                 dateRange={dateRange}
-                                onDateRangeSelected={props.setDashboardDateRange} />,
+                                onDateRangeSelected={props.onDateRangeChanged} />,
                             i18n.t('screens.dashboard.showDataBetween')
                         )}
                         {renderFilterSection(
                             <Switch
                                 options={dataAggregationTypeItems}
                                 value={selectedDataAggregationType?.key || ''}
-                                onPress={(value) => props.setDashboardDataAggregationType(value as DataAggregationType)} />,
+                                onPress={(value) => props.onDataAggregationTypeChanged(value as DataAggregationType)} />,
                             i18n.t('screens.dashboard.groupDataBy')
                         )}
                         {renderFilterSection(

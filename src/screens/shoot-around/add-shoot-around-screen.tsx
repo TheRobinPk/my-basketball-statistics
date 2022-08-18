@@ -11,12 +11,13 @@ import i18n from '../../i18n/i18n';
 import {addShootAroundReducer, initialState} from '../../reducers/add-shoot-around/add-shoot-around-reducer';
 import {useNavigation} from '@react-navigation/native';
 import {useComponentDidMount} from '../../hooks/useComponentDidMount';
-import {useAppSelector} from '../../redux/store/store';
 import moment from 'moment';
+import {useApplicationContext} from '../../context/application-context';
 
 const AddShootAroundScreen = () => {
     const [state, dispatch] = useReducer(addShootAroundReducer, initialState);
-    const shootAroundService = useAppSelector(state => state.application.shootAroundService);
+    const applicationContext = useApplicationContext();
+    const { shootAroundService } = applicationContext;
     const navigation = useNavigation();
 
     const { totalAttempts, madeAttempts, shootAroundSpot, isLoading, submitDisabled, submitSuccess } = state;
