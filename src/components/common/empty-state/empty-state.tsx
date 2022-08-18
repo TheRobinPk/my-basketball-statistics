@@ -1,5 +1,6 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import {Text} from 'react-native-paper';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import colors from '../../../static/colors';
 import i18n from '../../../i18n/i18n';
@@ -11,10 +12,13 @@ interface IProps {
 const EmptyState = (props: IProps) => {
     return (
         <View style={styles.container}>
-            <View style={styles.contentWrapper}>
-                <MaterialCommunityIcons name='database-remove' size={96} color={colors.darkerGrey} />
-                <Text style={styles.textStyle}>{props.text || i18n.t('general.noResult')}</Text>
-            </View>
+            <MaterialCommunityIcons name='database-remove' size={96} color={colors.darkerGrey} />
+            <Text
+                testID='empty-state-text'
+                style={styles.textStyle}
+                variant='headlineLarge'>
+                {props.text || i18n.t('general.noResult')}
+            </Text>
         </View>
     );
 };
@@ -25,12 +29,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
-    contentWrapper: {
-        alignItems: 'center'
-    },
     textStyle: {
         color: colors.darkerGrey,
-        fontSize: 24
     }
 });
 

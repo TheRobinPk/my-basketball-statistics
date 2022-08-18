@@ -11,13 +11,14 @@ import i18n from '../../../i18n/i18n';
 type DateRangeType = 'start' | 'end';
 
 interface IProps {
-    setCalendarVisible: (visible: boolean) => void;
     dateRange: DateRange;
+    setCalendarVisible: (visible: boolean) => void;
+    calendarTestId: string;
     onDateRangeSelected: (dateRange: DateRange) => void;
 }
 
 const CalendarRangePicker = (props: IProps) => {
-    const { dateRange, onDateRangeSelected, setCalendarVisible } = props;
+    const { dateRange, onDateRangeSelected, calendarTestId, setCalendarVisible } = props;
     const [dateRangeTypeSelection, setDateRangeTypeSelection] = useState<DateRangeType>('start');
     const [selectedDateRange, setSelectedDateRange] = useState<DateRange>(dateRange);
 
@@ -74,6 +75,7 @@ const CalendarRangePicker = (props: IProps) => {
                 onDismiss={() => setCalendarVisible(false)}>
                 <View style={styles.modalContentContainerStyle}>
                     <Calendar
+                        testID={calendarTestId}
                         markingType='period'
                         markedDates={markedDates}
                         onDayPress={handleDayPress}

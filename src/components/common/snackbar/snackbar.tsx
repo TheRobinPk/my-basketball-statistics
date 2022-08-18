@@ -1,6 +1,6 @@
 import React from 'react';
-import {Snackbar as SnackbarReactNativePaper} from 'react-native-paper';
-import {StyleSheet, Text} from 'react-native';
+import {StyleSheet} from 'react-native';
+import {Snackbar as SnackbarReactNativePaper, Text} from 'react-native-paper';
 import colors from '../../../static/colors';
 import i18n from '../../../i18n/i18n';
 
@@ -23,6 +23,7 @@ const Snackbar = (props: IProps) => {
             style={styles.snackbarStyle}
             action={{
                 label: i18n.t('general.hide'),
+                testID: 'snackbar-hide',
                 labelStyle: styles.labelStyle,
                 onPress: props.onDismiss
             }}

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {Card, DataTable} from 'react-native-paper';
-import {Dimensions, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {Dimensions, ScrollView, StyleSheet, View} from 'react-native';
+import {Card, DataTable, Text} from 'react-native-paper';
 import TableItemDelete from './table-item-delete';
 import EmptyState from '../empty-state/empty-state';
 import i18n from '../../../i18n/i18n';
@@ -31,6 +31,7 @@ export interface ITablePaginationProps {
 export interface ITableProps<T> {
     columns: ITableColumn<T>[];
     rows: T[];
+    tableTestID: string;
     rowDelete?: ITableDeleteProps<T>;
     pagination?: ITablePaginationProps;
 }
@@ -45,7 +46,7 @@ interface ISort {
 const Table = <T extends ITableKey>(props: ITableProps<T>) => {
     const [currentPage, setCurrentPage] = useState<number>(1); // starting from 1, like what we'd like to display
     const [sort, setSort] = useState<ISort | undefined>(undefined);
-    const { rows, columns, rowDelete, pagination } = props;
+    const { rows, columns, tableTestID, rowDelete, pagination } = props;
 
     if (rows.length === 0) {
         return (
@@ -168,7 +169,7 @@ const Table = <T extends ITableKey>(props: ITableProps<T>) => {
                         showsHorizontalScrollIndicator
                         persistentScrollbar
                         indicatorStyle='black'>
-                        <DataTable>
+                        <DataTable testID={tableTestID}>
                             <DataTable.Header>
                                 {columnsToRender.map((column) => {
                                     return renderColumnHeader(column);

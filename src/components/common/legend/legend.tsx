@@ -1,9 +1,11 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import {Text} from 'react-native-paper';
 
 export interface ILegendValue {
     label: string;
     color: string;
+    testID: string;
 }
 
 interface IProps {
@@ -26,7 +28,7 @@ const Legend = (props: IProps) => {
                 return (
                     <View key={value.label} style={styles.legendItemStyle}>
                         <View style={legendColorIndicatorStyle(value.color)} />
-                        <Text>{value.label}</Text>
+                        <Text testID={value.testID}>{value.label}</Text>
                     </View>
                 );
             })}

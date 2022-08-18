@@ -22,14 +22,19 @@ const DateRangePicker = (props: IProps) => {
     return (
         <>
             <TouchableOpacity
+                testID='date-range-picker'
                 onPress={() => setCalendarVisible(true)}>
-                <Text variant='headlineSmall' style={styles.dateRangeLabelTextStyle}>
+                <Text
+                    variant='headlineSmall'
+                    testID='date-range-picker-text'
+                    style={styles.dateRangeLabelTextStyle}>
                     {dateRange.start.format('YYYY-MM-DD')} - {dateRange.end.format('YYYY-MM-DD')}
                 </Text>
             </TouchableOpacity>
             {calendarVisible && (
                 <CalendarRangePicker
                     dateRange={dateRange}
+                    calendarTestId='date-range-picker-calendar'
                     onDateRangeSelected={onDateRangeSelected}
                     setCalendarVisible={setCalendarVisible} />
             )}

@@ -84,8 +84,9 @@ const ShootAroundChart = (props: IProps) => {
             <Legend values={datasets.map((dataSet) => {
                 const shootAroundSpotConfig = ShootAroundSpotMap.get(dataSet.key as ShootAroundSpot);
                 return {
-                  color: shootAroundSpotConfig?.color || '',
-                  label: shootAroundSpotConfig?.translation || ''
+                    color: shootAroundSpotConfig?.color || '',
+                    label: shootAroundSpotConfig?.translation || '',
+                    testID: `legend-${shootAroundSpotConfig?.spot.toString().toLowerCase() || ''}`
                 };
             })} />
         </View>

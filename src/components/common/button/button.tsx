@@ -1,6 +1,6 @@
 import React from 'react';
-import {StyleSheet, Text} from 'react-native';
-import {Button as ButtonReactNativePaper} from 'react-native-paper';
+import {StyleSheet} from 'react-native';
+import {Button as ButtonReactNativePaper, Text} from 'react-native-paper';
 import colors from '../../../static/colors';
 
 type ButtonType = 'default' | 'primary';

@@ -15,22 +15,26 @@ import {DataAggregationType} from '../../reducers/dashboard/dashboard-reducer';
 const dataAggregationTypeItems: ISwitchOption[] = [
     {
         key: 'day',
-        label: i18n.t('general.day')
+        label: i18n.t('general.day'),
+        testID: 'option-day'
     },
     {
         key: 'week',
-        label: i18n.t('general.week')
+        label: i18n.t('general.week'),
+        testID: 'option-week'
     },
     {
         key: 'month',
-        label: i18n.t('general.month')
+        label: i18n.t('general.month'),
+        testID: 'option-month'
     }
 ];
 
 const shootAroundSpotTags: ITagItem[] = Array.from(ShootAroundSpotMap.values()).map((shootAroundSpot) => {
    return {
        key: shootAroundSpot.spot.toString(),
-       label: shootAroundSpot.translation
+       label: shootAroundSpot.translation,
+       testID: `option-${shootAroundSpot.spot.toString().toLowerCase()}`
    };
 });
 

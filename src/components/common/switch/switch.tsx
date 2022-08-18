@@ -1,11 +1,12 @@
 import React from 'react';
-import {StyleSheet, Text, TextStyle, View, ViewStyle} from 'react-native';
-import {ToggleButton} from 'react-native-paper';
+import {StyleSheet, TextStyle, View, ViewStyle} from 'react-native';
+import {ToggleButton, Text} from 'react-native-paper';
 import colors from '../../../static/colors';
 
 export interface ISwitchOption {
     key: string;
     label: string;
+    testID: string;
 }
 
 interface IProps {
@@ -44,7 +45,11 @@ const Switch = (props: IProps) => {
                     style={getToggleButtonStyle(option)}
                     icon={() => (
                         <View style={styles.optionStyle}>
-                            <Text style={getToggleButtonTextStyle(option)}>{option.label}</Text>
+                            <Text
+                                style={getToggleButtonTextStyle(option)}
+                                testID={option.testID}>
+                                {option.label}
+                            </Text>
                         </View>
                     )}
                     value={option.key} />

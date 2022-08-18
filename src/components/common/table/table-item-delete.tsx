@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {Dialog, IconButton, Portal} from 'react-native-paper';
 import {StyleSheet, View} from 'react-native';
+import {Dialog, IconButton, Portal} from 'react-native-paper';
 import Button from '../button/button';
 import colors from '../../../static/colors';
 import i18n from '../../../i18n/i18n';
