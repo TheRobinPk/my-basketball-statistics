@@ -75,7 +75,7 @@ const ShootAroundDashboardHeader = (props: IProps) => {
     return (
         <View style={styles.cardStyle}>
             <Card mode='elevated' elevation={5}>
-                <TouchableOpacity onPress={onPress} activeOpacity={1}>
+                <TouchableOpacity testID='shoot-around-dashboard-filters-header' onPress={onPress} activeOpacity={1}>
                     <Card.Title
                         title={i18n.t('general.filters')}
                         right={() => (

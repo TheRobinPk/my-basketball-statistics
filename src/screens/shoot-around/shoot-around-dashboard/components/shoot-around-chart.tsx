@@ -30,6 +30,7 @@ const ShootAroundChart = (props: IProps) => {
     return (
         <View>
             <ScrollView
+                testID='shoot-around-chart-scroll-view'
                 style={styles.scrollViewStyle}
                 horizontal
                 showsHorizontalScrollIndicator
