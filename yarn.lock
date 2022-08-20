@@ -1120,7 +1120,7 @@
   dependencies:
     regexp-match-indices "1.0.2"
 
-"@cucumber/cucumber@^8.5.1":
+"@cucumber/cucumber@*", "@cucumber/cucumber@^8.5.1":
   version "8.5.1"
   resolved "https://registry.yarnpkg.com/@cucumber/cucumber/-/cucumber-8.5.1.tgz#d7c3640b641182cf3b263f15b4cf444f12b0e011"
   integrity sha512-BwuGLcDy2ZnbSQkU/49zm5cGgwWgP+fgCQpdtFfgQ9KMV8wKumrpFE0EFQtUviBLP5qCK5CEbLKMwCRTNFmkIg==
@@ -2395,6 +2395,13 @@
     "@types/keyv" "*"
     "@types/node" "*"
     "@types/responselike" "*"
+
+"@types/cucumber@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@types/cucumber/-/cucumber-7.0.0.tgz#941b25135a0212e315380ab39f7f674c66711b0b"
+  integrity sha512-cr5NN8/jmbw3vDKTQfGW0cSzDtkvxixu9bUD6po9U6OEF04XLuukTDldFG34ccDscLkA8bYnZ7VjxP79cIC7tg==
+  dependencies:
+    "@cucumber/cucumber" "*"
 
 "@types/graceful-fs@^4.1.2", "@types/graceful-fs@^4.1.3":
   version "4.1.5"
