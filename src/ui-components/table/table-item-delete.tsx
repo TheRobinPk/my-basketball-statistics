@@ -22,6 +22,7 @@ const TableItemDelete = (props: ITableItemDelete) => {
         <>
             <IconButton
                 icon='delete'
+                testID='delete'
                 iconColor={colors.primaryColor}
                 size={20}
                 onPress={() => setDialogVisible(true)} />

@@ -142,7 +142,7 @@ const Table = <T extends ITableKey>(props: ITableProps<T>) => {
     const rowsToRender = getCurrentPageData();
 
     if (rowDelete !== undefined) {
-        columnsToRender.push({
+        columnsToRender.unshift({
             key: 'actions',
             title: i18n.t('general.actions'),
             width: 50,
