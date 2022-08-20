@@ -1,8 +1,8 @@
 import React from 'react';
-import colors from '../../static/colors';
+import {StyleSheet} from 'react-native';
 import {Appbar} from 'react-native-paper';
 import {DrawerActions, useNavigation} from '@react-navigation/native';
-import {StyleSheet} from 'react-native';
+import colors from '../../static/colors';
 
 interface IProps {
     title: string;
@@ -17,12 +17,14 @@ const ApplicationBar = (props: IProps) => {
         <Appbar style={styles.appBarStyle} mode='small'>
             {props.showGoBack && (
                 <Appbar.Action
+                    testID='go-back'
                     icon='arrow-left'
                     iconColor={colors.white}
                     onPress={() => navigation.goBack()} />
             )}
             {props.showDrawerToggle && (
                 <Appbar.Action
+                    testID='menu'
                     icon='menu'
                     iconColor={colors.white}
                     onPress={() => navigation.dispatch(DrawerActions.toggleDrawer)} />

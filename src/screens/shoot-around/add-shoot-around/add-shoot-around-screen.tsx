@@ -144,8 +144,8 @@ const AddShootAroundScreen = () => {
             </View>
             <Snackbar
                 label={i18n.t('general.savedSuccessfully')}
-                testID='add-shoot-success-snackbar'
-                labelTestID='add-shoot-success-snackbar-label'
+                testID='add-shoot-around-success-snackbar'
+                labelTestID='add-shoot-around-success-snackbar-label'
                 visible={submitSuccess}
                 duration={2000}
                 onDismiss={() => dispatch({
