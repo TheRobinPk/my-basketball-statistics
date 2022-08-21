@@ -4,7 +4,7 @@ import {getElementByClassName, getElementByResourceId, getElementByText} from '.
 import {androidConfig} from '../config/e2e-config';
 import {expectHasText} from '../utils/expect';
 
-setDefaultTimeout(60 * 1000);
+setDefaultTimeout(120000);
 
 let driver: any;
 

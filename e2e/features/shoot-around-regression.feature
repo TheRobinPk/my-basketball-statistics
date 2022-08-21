@@ -22,9 +22,13 @@ Feature: Shoot Around Regression
     And I tap on "Apply" text
     And I tap on "Week" text
     And I tap on "Midrange left wing" text
-    And I tap on "Filters" text
     Given I wait for 1000 milliseconds
     Then I except "android.widget.HorizontalScrollView" view type exists
+    When I tap on "Midrange left wing" text
+    And I tap on "Filters" text
+    And I tap on "Filters" text
+    Given I wait for 1000 milliseconds
+    Then I expect "No result found for the selected search criteria!" text is visible
 
   Scenario: Able to manage Shoot Arounds
     Given I wait for 1000 milliseconds

@@ -46,7 +46,7 @@ const ShootAroundDashboardScreen = (props: IProps) => {
         const shootArounds = await shootAroundService?.findBetweenAndWithinSpots(dateRange.start, dateRange.end, shootAroundSpots);
         const chartData: ShootAroundChartData | undefined = shootAroundChartService?.calculateShootAroundChartData(shootArounds || [], dataAggregationType, dateRange);
 
-        if (chartData && chartData.dataSets.length > 0) {
+        if (chartData) {
             dispatch({
                 type: 'setChartData',
                 payload: chartData
