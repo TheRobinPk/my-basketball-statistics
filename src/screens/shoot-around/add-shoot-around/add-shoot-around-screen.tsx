@@ -54,7 +54,7 @@ const AddShootAroundScreen = () => {
     return (
         <>
             <ApplicationBar title={i18n.t('screens.dashboard.addShootAround')} showGoBack />
-            <View testID='add-shoot-around-container' style={styles.container}>
+            <View style={styles.container}>
                 <View>
                     <BasketballCourt
                         selectedSpot={shootAroundSpot}
@@ -72,14 +72,13 @@ const AddShootAroundScreen = () => {
                         type='info'
                         style={styles.basketballCourtInfoStyle}
                         visible={shootAroundSpot === undefined}>
-                        <Text testID='basketball-court-info-text' style={styles.basketballCourtInfoTextStyle}>
+                        <Text style={styles.basketballCourtInfoTextStyle}>
                             {i18n.t('screens.addShootAround.helperText')}
                         </Text>
                     </HelperText>
                     <View style={styles.rowContainer}>
                         <View style={styles.columnContainer}>
                             <Text
-                                testID='total-attempts-text-input-title'
                                 style={styles.labelTitle}>
                                 {i18n.t('general.totalAttempts')}
                             </Text>
@@ -105,7 +104,6 @@ const AddShootAroundScreen = () => {
                         </View>
                         <View style={styles.columnContainer}>
                             <Text
-                                testID='made-attempts-text-input-title'
                                 style={styles.labelTitle}>
                                 {i18n.t('general.madeAttempts')}
                             </Text>
@@ -137,15 +135,11 @@ const AddShootAroundScreen = () => {
                         type='primary'
                         disabled={submitDisabled}
                         loading={isLoading}
-                        testID='add-shoot-around-button'
-                        labelTestID='add-shoot-around-button-text'
                         onPress={submitShootAround} />
                 </View>
             </View>
             <Snackbar
                 label={i18n.t('general.savedSuccessfully')}
-                testID='add-shoot-around-success-snackbar'
-                labelTestID='add-shoot-around-success-snackbar-label'
                 visible={submitSuccess}
                 duration={2000}
                 onDismiss={() => dispatch({

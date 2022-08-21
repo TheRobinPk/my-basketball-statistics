@@ -13,7 +13,7 @@ const LoadingWrapper = (props: IProps) => {
         <>
             {props.isLoading ? (
                 <View style={styles.container}>
-                    <ActivityIndicator testID='activity-indicator' animating color={colors.primaryColor} />
+                    <ActivityIndicator animating color={colors.primaryColor} />
                 </View>
             ) : props.children}
         </>

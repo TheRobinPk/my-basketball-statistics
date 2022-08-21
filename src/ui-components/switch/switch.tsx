@@ -6,7 +6,6 @@ import colors from '../../static/colors';
 export interface ISwitchOption {
     key: string;
     label: string;
-    testID: string;
 }
 
 interface IProps {
@@ -42,12 +41,11 @@ const Switch = (props: IProps) => {
             {options.map((option) => (
                 <ToggleButton
                     key={option.key}
+                    status={option.key === value ? 'checked' : 'unchecked'}
                     style={getToggleButtonStyle(option)}
                     icon={() => (
                         <View style={styles.optionStyle}>
-                            <Text
-                                style={getToggleButtonTextStyle(option)}
-                                testID={option.testID}>
+                            <Text style={getToggleButtonTextStyle(option)}>
                                 {option.label}
                             </Text>
                         </View>

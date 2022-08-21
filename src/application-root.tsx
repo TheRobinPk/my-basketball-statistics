@@ -25,7 +25,6 @@ const ApplicationRoot = () => {
 
     return (
         <SafeAreaView
-            testID='application-container'
             onLayout={onLayoutRootView}
             style={styles.content}>
             <ApplicationNavigator />

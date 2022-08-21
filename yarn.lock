@@ -2328,6 +2328,24 @@
   resolved "https://registry.yarnpkg.com/@teppeis/multimaps/-/multimaps-2.0.0.tgz#2114ee964b702f9777d0e07899087ad9cd89a0de"
   integrity sha512-TL1adzq1HdxUf9WYduLcQ/DNGYiz71U31QRgbnr0Ef1cPyOUOsBojxHVWpFeOSUucB6Lrs0LxFRA14ntgtkc9w==
 
+"@testing-library/jest-native@^4.0.11":
+  version "4.0.11"
+  resolved "https://registry.yarnpkg.com/@testing-library/jest-native/-/jest-native-4.0.11.tgz#6e471bcdb3fae6ed485149d0b0fd18357cf746b4"
+  integrity sha512-HQ4uopoSL7DlBLNk59mXohehzczD3deGATyMFfpUo1rkVlI7MRaKv7ZMI89PX3OwJ/3dMoeBJXR7XTuGnK1x4w==
+  dependencies:
+    chalk "^4.1.2"
+    jest-diff "^28.1.3"
+    jest-matcher-utils "^28.1.3"
+    pretty-format "^28.1.3"
+    redent "^2.0.0"
+
+"@testing-library/react-native@^11.0.0":
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/@testing-library/react-native/-/react-native-11.0.0.tgz#604cd14a42331ce01f2b3695aeb9abf73940183b"
+  integrity sha512-2WZF8P8YYXO5Ka1yzj3TZUg4x6noKU5RuCpx4oAhKBkxkVbrRl1pMCvRIozdTPSiru4rNBmAi074ZJjm2OED5g==
+  dependencies:
+    pretty-format "^28.1.3"
+
 "@tsconfig/node10@^1.0.7":
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/@tsconfig/node10/-/node10-1.0.9.tgz#df4907fc07a886922637b15e02d4cebc4c0021b2"
@@ -6033,6 +6051,11 @@ imurmurhash@^0.1.4:
   resolved "https://registry.yarnpkg.com/imurmurhash/-/imurmurhash-0.1.4.tgz#9218b9b2b928a238b13dc4fb6b6d576f231453ea"
   integrity sha512-JmXMZ6wuvDmLiHEml9ykzqO6lwFbof0GG4IkcGaENdCRDDmMVnny7s5HsIgHCbaq0w2MyPhDqkhTUgS2LU2PHA==
 
+indent-string@^3.0.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/indent-string/-/indent-string-3.2.0.tgz#4a5fd6d27cc332f37e5419a504dbb837105c9289"
+  integrity sha512-BYqTHXTGUIvg7t1r4sJNKcbDZkL92nkXA8YtRpbjFHRHGDL/NtUeiBJMeE60kIFN/Mg8ESaWQvftaYMGJzQZCQ==
+
 indent-string@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/indent-string/-/indent-string-4.0.0.tgz#624f8f4497d619b2d9768531d58f4122854d7251"
@@ -8727,7 +8750,7 @@ pretty-bytes@5.6.0:
   resolved "https://registry.yarnpkg.com/pretty-bytes/-/pretty-bytes-5.6.0.tgz#356256f643804773c82f64723fe78c92c62beaeb"
   integrity sha512-FFw039TmrBqFK8ma/7OL3sDz/VytdtJr044/QUJtH0wK9lb9jLq9tJyIxUwtQJHwar2BqtiA4iCWSwo9JLkzFg==
 
-pretty-format@^26.0.1, pretty-format@^26.5.2, pretty-format@^26.6.2:
+pretty-format@^26.5.2, pretty-format@^26.6.2:
   version "26.6.2"
   resolved "https://registry.yarnpkg.com/pretty-format/-/pretty-format-26.6.2.tgz#e35c2705f14cb7fe2fe94fa078345b444120fc93"
   integrity sha512-7AeGuCYNGmycyQbCqd/3PWH4eOoX/OiCa0uphp57NVTeAGdJGaAliecxwBDHYQCIvrW7aDBZCYeNTP/WX69mkg==
@@ -9056,13 +9079,6 @@ react-native-swipe-gestures@^1.0.5:
   resolved "https://registry.yarnpkg.com/react-native-swipe-gestures/-/react-native-swipe-gestures-1.0.5.tgz#a172cb0f3e7478ccd681fd36b8bfbcdd098bde7c"
   integrity sha512-Ns7Bn9H/Tyw278+5SQx9oAblDZ7JixyzeOczcBK8dipQk2pD7Djkcfnf1nB/8RErAmMLL9iXgW0QHqiII8AhKw==
 
-react-native-testing-library@2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/react-native-testing-library/-/react-native-testing-library-2.2.0.tgz#f118897671d7dfeb6d30c5897f1edff94cf4c259"
-  integrity sha512-3otPjDYnDRh/c2HtcTRDtyAJLWZmKRdUylNZeiE0i8j8fP+Cz74yp6Nnn6E2W85Sk2MZuCuvSpaYeZLoFhuqsQ==
-  dependencies:
-    pretty-format "^26.0.1"
-
 react-native-web@0.17.7:
   version "0.17.7"
   resolved "https://registry.yarnpkg.com/react-native-web/-/react-native-web-0.17.7.tgz#038899dbc94467a0ca0be214b88a30e0c117b176"
@@ -9210,6 +9226,14 @@ recyclerlistview@^3.0.5:
     lodash.debounce "4.0.8"
     prop-types "15.5.8"
     ts-object-utils "0.0.5"
+
+redent@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/redent/-/redent-2.0.0.tgz#c1b2007b42d57eb1389079b3c8333639d5e1ccaa"
+  integrity sha512-XNwrTx77JQCEMXTeb8movBKuK75MgH0RZkujNuDKCezemx/voapl9i2gCSi8WWm8+ox5ycJi1gxF22fR7c0Ciw==
+  dependencies:
+    indent-string "^3.0.0"
+    strip-indent "^2.0.0"
 
 reflect-metadata@0.1.13, reflect-metadata@^0.1.13:
   version "0.1.13"
@@ -10054,6 +10078,11 @@ strip-final-newline@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/strip-final-newline/-/strip-final-newline-2.0.0.tgz#89b852fb2fcbe936f6f4b3187afb0a12c1ab58ad"
   integrity sha512-BrpvfNAE3dcvq7ll3xVumzjKjZQ5tI1sEUIKr3Uoks0XUl45St3FlatVqef9prk4jRDzhW6WZg+3bk93y6pLjA==
+
+strip-indent@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/strip-indent/-/strip-indent-2.0.0.tgz#5ef8db295d01e6ed6cbf7aab96998d7822527b68"
+  integrity sha512-RsSNPLpq6YUL7QYy44RnPVTn/lcVZtb48Uof3X5JLbF4zD/Gs7ZFDv2HWol+leoQN2mT86LAzSshGfkTlSOpsA==
 
 strip-json-comments@^3.1.0, strip-json-comments@^3.1.1:
   version "3.1.1"

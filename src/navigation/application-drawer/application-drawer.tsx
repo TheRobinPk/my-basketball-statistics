@@ -22,29 +22,26 @@ const ApplicationDrawer = (props: IProps) => {
     };
 
     const renderDrawerItem = (
-        testID: string,
         label: string,
         routeName: string,
         icon: (props: DrawerItemIcon) => React.ReactNode
     ) => {
         return (
-            <View testID={testID}>
-                <DrawerItem
-                    label={label}
-                    key={routeName}
-                    focused={getActiveRouteState(
-                        props.drawerContentProps.state.routes,
-                        props.drawerContentProps.state.index,
-                        routeName
-                    )}
-                    style={styles.drawerItemStyle}
-                    activeTintColor={colors.primaryColor}
-                    activeBackgroundColor={colors.primaryColorWithOpacity}
-                    inactiveTintColor={colors.inactiveGrey}
-                    pressColor={colors.primaryColor}
-                    icon={icon}
-                    onPress={() => props.drawerContentProps.navigation.navigate(routeName)} />
-            </View>
+            <DrawerItem
+                label={label}
+                key={routeName}
+                focused={getActiveRouteState(
+                    props.drawerContentProps.state.routes,
+                    props.drawerContentProps.state.index,
+                    routeName
+                )}
+                style={styles.drawerItemStyle}
+                activeTintColor={colors.primaryColor}
+                activeBackgroundColor={colors.primaryColorWithOpacity}
+                inactiveTintColor={colors.inactiveGrey}
+                pressColor={colors.primaryColor}
+                icon={icon}
+                onPress={() => props.drawerContentProps.navigation.navigate(routeName)} />
         );
     };
 
@@ -56,7 +53,6 @@ const ApplicationDrawer = (props: IProps) => {
                 </View>
                 <Drawer.Section>
                     {renderDrawerItem(
-                        'shoot-around-dashboard-menu-item',
                         i18n.t('general.dashboard'),
                         'ShootAroundDashboardStackNavigator',
                         (props: DrawerItemIcon) => (
@@ -67,7 +63,6 @@ const ApplicationDrawer = (props: IProps) => {
                         )
                     )}
                     {renderDrawerItem(
-                        'shoot-around-list-menu-item',
                         i18n.t('general.shootArounds'),
                         'ShootAroundListScreen',
                         (props: DrawerItemIcon) => (

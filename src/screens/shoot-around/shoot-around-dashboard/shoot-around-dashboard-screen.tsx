@@ -83,7 +83,6 @@ const ShootAroundDashboardScreen = (props: IProps) => {
                     {
                         title: i18n.t('screens.dashboard.addShootAround'),
                         icon: 'basketball-hoop',
-                        testID: 'add-shoot-around-option',
                         pressHandler: () => props.navigation.navigate('AddShootAroundScreen')
                     }
                 ]} />
