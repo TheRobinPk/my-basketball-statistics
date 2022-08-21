@@ -14,7 +14,6 @@ const EmptyState = (props: IProps) => {
         <View style={styles.container}>
             <MaterialCommunityIcons name='database-remove' size={96} color={colors.darkerGrey} />
             <Text
-                testID='empty-state-text'
                 style={styles.textStyle}
                 variant='headlineLarge'>
                 {props.text || i18n.t('general.noResult')}

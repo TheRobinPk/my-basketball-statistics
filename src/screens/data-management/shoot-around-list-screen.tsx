@@ -96,7 +96,6 @@ const ShootAroundListScreen = () => {
                 <Table<IShootAroundListRow>
                     columns={columns}
                     rows={rows}
-                    tableTestID='shoot-arounds-table'
                     rowDelete={{
                         dialogTitle: i18n.t('screens.shootArounds.deleteConfirmation'),
                         onDelete: (row: IShootAroundListRow) => onDeleteShootAround(row)

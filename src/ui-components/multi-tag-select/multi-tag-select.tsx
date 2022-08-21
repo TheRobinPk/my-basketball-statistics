@@ -6,7 +6,6 @@ import colors from '../../static/colors';
 export interface ITagItem {
     key: string;
     label: string;
-    testID: string;
 }
 
 interface IProps {
@@ -36,7 +35,6 @@ const MultiTagSelect = (props: IProps) => {
                     <View key={item.key} style={styles.tagItemContainerStyle}>
                         <Chip
                             style={chipStyle}
-                            testID={item.testID}
                             textStyle={styles.tagTextStyle}
                             selectedColor={colors.white}
                             selected={isSelected}

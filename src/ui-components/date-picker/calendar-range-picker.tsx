@@ -13,12 +13,11 @@ type DateRangeType = 'start' | 'end';
 interface IProps {
     dateRange: DateRange;
     setCalendarVisible: (visible: boolean) => void;
-    calendarTestId: string;
     onDateRangeSelected: (dateRange: DateRange) => void;
 }
 
 const CalendarRangePicker = (props: IProps) => {
-    const { dateRange, onDateRangeSelected, calendarTestId, setCalendarVisible } = props;
+    const { dateRange, onDateRangeSelected, setCalendarVisible } = props;
     const [dateRangeTypeSelection, setDateRangeTypeSelection] = useState<DateRangeType>('start');
     const [selectedDateRange, setSelectedDateRange] = useState<DateRange>(dateRange);
 
@@ -75,7 +74,6 @@ const CalendarRangePicker = (props: IProps) => {
                 onDismiss={() => setCalendarVisible(false)}>
                 <View style={styles.modalContentContainerStyle}>
                     <Calendar
-                        testID={calendarTestId}
                         markingType='period'
                         markedDates={markedDates}
                         onDayPress={handleDayPress}
@@ -85,15 +83,11 @@ const CalendarRangePicker = (props: IProps) => {
                         <Button
                             label={i18n.t('general.cancel')}
                             type='default'
-                            testID='calendar-range-picker-cancel-button'
-                            labelTestID='calendar-range-picker-cancel-button-text'
                             onPress={() => setCalendarVisible(false)} />
                         <Button
                             label={i18n.t('general.apply')}
                             type='primary'
                             disabled={dateRangeTypeSelection === 'end'}
-                            testID='calendar-range-picker-apply-button'
-                            labelTestID='calendar-range-picker-apply-button-text'
                             onPress={handleApply} />
                     </View>
                 </View>

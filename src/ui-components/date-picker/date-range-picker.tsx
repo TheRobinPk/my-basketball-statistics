@@ -26,7 +26,6 @@ const DateRangePicker = (props: IProps) => {
                 onPress={() => setCalendarVisible(true)}>
                 <Text
                     variant='headlineSmall'
-                    testID='date-range-picker-text'
                     style={styles.dateRangeLabelTextStyle}>
                     {dateRange.start.format('YYYY-MM-DD')} - {dateRange.end.format('YYYY-MM-DD')}
                 </Text>
@@ -34,7 +33,6 @@ const DateRangePicker = (props: IProps) => {
             {calendarVisible && (
                 <CalendarRangePicker
                     dateRange={dateRange}
-                    calendarTestId='date-range-picker-calendar'
                     onDateRangeSelected={onDateRangeSelected}
                     setCalendarVisible={setCalendarVisible} />
             )}

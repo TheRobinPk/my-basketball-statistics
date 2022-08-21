@@ -30,6 +30,7 @@ const ShootAroundChart = (props: IProps) => {
     return (
         <View>
             <ScrollView
+                testID='shoot-around-chart-scroll-view'
                 style={styles.scrollViewStyle}
                 horizontal
                 showsHorizontalScrollIndicator
@@ -85,8 +86,7 @@ const ShootAroundChart = (props: IProps) => {
                 const shootAroundSpotConfig = ShootAroundSpotMap.get(dataSet.key as ShootAroundSpot);
                 return {
                     color: shootAroundSpotConfig?.color || '',
-                    label: shootAroundSpotConfig?.translation || '',
-                    testID: `legend-${shootAroundSpotConfig?.spot.toString().toLowerCase() || ''}`
+                    label: shootAroundSpotConfig?.translation || ''
                 };
             })} />
         </View>

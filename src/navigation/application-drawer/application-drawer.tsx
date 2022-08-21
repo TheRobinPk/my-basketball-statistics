@@ -21,7 +21,11 @@ const ApplicationDrawer = (props: IProps) => {
         return routes[index].name.toLowerCase().indexOf(name.toLowerCase()) >= 0;
     };
 
-    const renderDrawerItem = (label: string, routeName: string, icon: (props: DrawerItemIcon) => React.ReactNode) => {
+    const renderDrawerItem = (
+        label: string,
+        routeName: string,
+        icon: (props: DrawerItemIcon) => React.ReactNode
+    ) => {
         return (
             <DrawerItem
                 label={label}

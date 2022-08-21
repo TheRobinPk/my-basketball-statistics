@@ -6,7 +6,6 @@ import colors from '../../static/colors';
 interface FloatingActionButtonAction {
     icon: string;
     title: string;
-    testID: string;
     pressHandler: () => void;
 }
 
@@ -32,7 +31,6 @@ const FloatingActionButton = (props: IProps) => {
                     icon={open ? openIcon : icon}
                     actions={actions.map((action) => {
                         return {
-                            testID: action.testID,
                             icon: action.icon,
                             label: action.title,
                             color: colors.white,

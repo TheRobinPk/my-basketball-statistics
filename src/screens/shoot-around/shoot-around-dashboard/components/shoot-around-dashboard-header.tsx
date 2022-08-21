@@ -15,26 +15,22 @@ import {ShootAroundDataAggregationType} from '../../../../reducers/shoot-around/
 const dataAggregationTypeItems: ISwitchOption[] = [
     {
         key: 'day',
-        label: i18n.t('general.day'),
-        testID: 'option-day'
+        label: i18n.t('general.day')
     },
     {
         key: 'week',
-        label: i18n.t('general.week'),
-        testID: 'option-week'
+        label: i18n.t('general.week')
     },
     {
         key: 'month',
-        label: i18n.t('general.month'),
-        testID: 'option-month'
+        label: i18n.t('general.month')
     }
 ];
 
 const shootAroundSpotTags: ITagItem[] = Array.from(ShootAroundSpotMap.values()).map((shootAroundSpot) => {
    return {
        key: shootAroundSpot.spot.toString(),
-       label: shootAroundSpot.translation,
-       testID: `option-${shootAroundSpot.spot.toString().toLowerCase()}`
+       label: shootAroundSpot.translation
    };
 });
 

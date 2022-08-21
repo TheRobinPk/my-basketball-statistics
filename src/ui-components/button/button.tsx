@@ -8,8 +8,6 @@ type ButtonType = 'default' | 'primary';
 interface IProps {
     label: string;
     type: ButtonType;
-    testID: string;
-    labelTestID: string;
     disabled?: boolean;
     loading?: boolean;
     onPress: () => void;
@@ -35,13 +33,18 @@ const Button = (props: IProps) => {
         ...additionalLabelStyle
     };
 
+    const handlePress = () => {
+      if (!props.loading && !props.loading) {
+          props.onPress();
+      }
+    };
+
     return (
         <ButtonReactNativePaper
-            testID={props.testID}
             style={buttonStyle}
             disabled={props.disabled}
             loading={props.loading}
-            onPress={props.onPress}>
+            onPress={handlePress}>
             <Text style={labelStyle}>{props.loading ? '' : props.label}</Text>
         </ButtonReactNativePaper>
     );

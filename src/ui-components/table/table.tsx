@@ -31,7 +31,6 @@ export interface ITablePaginationProps {
 export interface ITableProps<T> {
     columns: ITableColumn<T>[];
     rows: T[];
-    tableTestID: string;
     rowDelete?: ITableDeleteProps<T>;
     pagination?: ITablePaginationProps;
 }
@@ -46,7 +45,7 @@ interface ISort {
 const Table = <T extends ITableKey>(props: ITableProps<T>) => {
     const [currentPage, setCurrentPage] = useState<number>(1); // starting from 1, like what we'd like to display
     const [sort, setSort] = useState<ISort | undefined>(undefined);
-    const { rows, columns, tableTestID, rowDelete, pagination } = props;
+    const { rows, columns, rowDelete, pagination } = props;
 
     if (rows.length === 0) {
         return (
@@ -142,7 +141,7 @@ const Table = <T extends ITableKey>(props: ITableProps<T>) => {
     const rowsToRender = getCurrentPageData();
 
     if (rowDelete !== undefined) {
-        columnsToRender.push({
+        columnsToRender.unshift({
             key: 'actions',
             title: i18n.t('general.actions'),
             width: 50,
@@ -169,7 +168,7 @@ const Table = <T extends ITableKey>(props: ITableProps<T>) => {
                         showsHorizontalScrollIndicator
                         persistentScrollbar
                         indicatorStyle='black'>
-                        <DataTable testID={tableTestID}>
+                        <DataTable>
                             <DataTable.Header>
                                 {columnsToRender.map((column) => {
                                     return renderColumnHeader(column);
