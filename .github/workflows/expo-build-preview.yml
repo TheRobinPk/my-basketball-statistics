@@ -1,4 +1,4 @@
-name: EAS Android Build - development
+name: EAS Android Build - preview
 
 on:
   push:
