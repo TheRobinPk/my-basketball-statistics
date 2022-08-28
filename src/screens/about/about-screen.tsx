@@ -21,9 +21,9 @@ const AboutScreen = () => {
                         {i18n.t('screens.about.appVersion')}: {Constants.manifest?.version}
                     </Text>
                 </View>
-                <Anchor href='https://cszoltan422.github.io/basketball-shootaround-app/privacy' label={i18n.t('screens.about.privacyPolicy')} />
-                <Anchor href='https://cszoltan422.github.io/basketball-shootaround-app/terms' label={i18n.t('screens.about.termsAndConditions')} />
-                <Anchor href='https://cszoltan422.github.io/basketball-shootaround-app/third-party-licenses' label={i18n.t('screens.about.thirdPartyLicenses')} />
+                <Anchor href='https://cszoltan422.github.io/my-basketball-statistics/privacy' label={i18n.t('screens.about.privacyPolicy')} />
+                <Anchor href='https://cszoltan422.github.io/my-basketball-statistics/terms' label={i18n.t('screens.about.termsAndConditions')} />
+                <Anchor href='https://cszoltan422.github.io/my-basketball-statistics/third-party-licenses' label={i18n.t('screens.about.thirdPartyLicenses')} />
             </View>
         </>
     );
