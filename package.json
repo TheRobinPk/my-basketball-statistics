@@ -1,7 +1,16 @@
 {
-  "name": "basketball-shoot-around-app",
+  "name": "my-basketball-statistics",
   "version": "1.0.0",
-  "license": "MIT",
+  "license": "GPL",
+  "homepage": "https://cszoltan422.github.io/my-basketball-statistics/",
+  "bugs": {
+    "email": "cszoltan422@gmail.com",
+    "url": "https://github.com/cszoltan422/my-basketball-statistics/issues"
+  },
+  "author": {
+    "name": "Zoltan Csenyi",
+    "email": "cszoltan422@gmail.com"
+  },
   "scripts": {
     "start": "ENVIRONMENT=develop expo start --dev-client",
     "compile": "tsc --noEmit",
