@@ -2,9 +2,11 @@ import {Translation} from '../i18n';
 
 const englishTranslation: Translation = {
     general: {
+        appName: 'My Basketball Statistics',
         dashboard: 'Dashboard',
         shootAround: 'Shoot Around',
         shootArounds: 'Shoot Arounds',
+        about: 'About',
         shootAroundSpot: 'Shoot Around Spot',
         shootAroundSpots: 'Shoot Around Spots',
         spot: 'Spot',
@@ -52,6 +54,12 @@ const englishTranslation: Translation = {
         },
         shootArounds: {
             deleteConfirmation: 'Are you sure you want to delete the Shoot Around?'
+        },
+        about: {
+            appVersion: 'App version',
+            privacyPolicy: 'Privacy Policy',
+            termsAndConditions: 'Terms and Conditions',
+            thirdPartyLicenses: 'Third Party Licenses'
         }
     }
 };

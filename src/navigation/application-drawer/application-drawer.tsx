@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Drawer} from 'react-native-paper';
 import {DrawerContentComponentProps, DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import colors from '../../static/colors';
 import i18n from '../../i18n/i18n';
 
@@ -49,7 +49,7 @@ const ApplicationDrawer = (props: IProps) => {
         <View style={styles.container}>
             <DrawerContentScrollView {...props.drawerContentProps}>
                 <View>
-                    <Text style={styles.drawerHeaderTextStyle}>My Basketball Statistics</Text>
+                    <Text style={styles.drawerHeaderTextStyle}>{i18n.t('general.appName')}</Text>
                 </View>
                 <Drawer.Section>
                     {renderDrawerItem(
@@ -68,6 +68,16 @@ const ApplicationDrawer = (props: IProps) => {
                         (props: DrawerItemIcon) => (
                             <MaterialCommunityIcons
                                 name='database'
+                                size={24}
+                                color={props.focused ? colors.primaryColor : colors.inactiveGrey} />
+                        )
+                    )}
+                    {renderDrawerItem(
+                        i18n.t('general.about'),
+                        'AboutScreen',
+                        (props: DrawerItemIcon) => (
+                            <MaterialIcons
+                                name='info'
                                 size={24}
                                 color={props.focused ? colors.primaryColor : colors.inactiveGrey} />
                         )

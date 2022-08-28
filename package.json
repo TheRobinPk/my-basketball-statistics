@@ -1,7 +1,16 @@
 {
-  "name": "basketball-shoot-around-app",
+  "name": "my-basketball-statistics",
   "version": "1.0.0",
-  "license": "MIT",
+  "license": "GPL",
+  "homepage": "https://cszoltan422.github.io/my-basketball-statistics/",
+  "bugs": {
+    "email": "cszoltan422@gmail.com",
+    "url": "https://github.com/cszoltan422/my-basketball-statistics/issues"
+  },
+  "author": {
+    "name": "Zoltan Csenyi",
+    "email": "cszoltan422@gmail.com"
+  },
   "scripts": {
     "start": "ENVIRONMENT=develop expo start --dev-client",
     "compile": "tsc --noEmit",
@@ -10,10 +19,14 @@
     "test": "jest /src --config jest-config.ts",
     "e2e:android": "cucumber-js",
     "build": "npm run compile && npm run lint && npm run test",
-    "build:android:develop": "npm run build && eas build --platform android --profile development --non-interactive --local",
-    "build:android:preview": "npm run build && eas build --platform android --profile preview --non-interactive --local",
-    "build:android:production": "npm run build && eas build --platform android --profile production --non-interactive --local",
+    "build:android:develop:local": "npm run build && eas build --platform android --profile development --non-interactive --local",
+    "build:android:preview:local": "npm run build && eas build --platform android --profile preview --non-interactive --local",
+    "build:android:production:local": "npm run build && eas build --platform android --profile production --non-interactive --local",
+    "build:android:develop": "npm run build && eas build --platform android --profile development --non-interactive",
+    "build:android:preview": "npm run build && eas build --platform android --profile preview --non-interactive",
+    "build:android:production": "npm run build && eas build --platform android --profile production --non-interactive",
     "typeorm": "typeorm-ts-node-commonjs",
+    "generate-licenses": "generate-license-file --input package.json --output docs/third-party-licenses.md --overwrite",
     "postinstall": "patch-package"
   },
   "dependencies": {
@@ -42,6 +55,7 @@
     "expo-status-bar": "~1.3.0",
     "expo-updates": "^0.13.3",
     "expo-localization": "~13.0.0",
+    "expo-web-browser": "~10.2.1",
     "@react-navigation/native": "^6.0.11",
     "@react-navigation/native-stack": "^6.7.0",
     "@react-navigation/drawer": "^6.4.3",

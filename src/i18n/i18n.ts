@@ -4,9 +4,11 @@ import englishTranslation from './en/en';
 
 export interface Translation {
     general: {
+        appName: string,
         dashboard: string;
         shootAround: string;
         shootArounds: string;
+        about: string;
         shootAroundSpot: string;
         shootAroundSpots: string;
         spot: string;
@@ -54,6 +56,12 @@ export interface Translation {
         },
         shootArounds: {
             deleteConfirmation: string;
+        },
+        about: {
+            appVersion: string;
+            privacyPolicy: string;
+            termsAndConditions: string;
+            thirdPartyLicenses: string;
         }
     }
 }

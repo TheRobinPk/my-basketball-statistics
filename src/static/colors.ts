@@ -1,6 +1,7 @@
 export default {
     primaryColor: '#2c698d',
     primaryColorWithOpacity: '#2c698d66',
+    anchor: '#1559b7',
     white: '#ffffff',
     lightGrey: '#e3e3e3',
     darkerGrey: '#6d6d6d',
