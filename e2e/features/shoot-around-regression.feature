@@ -1,6 +1,8 @@
 Feature: Shoot Around Regression
 
   Scenario: Able to save a Shoot Around
+    When I tap on "menu"
+    And I tap on "Dashboard" text
     Given I wait for 1000 milliseconds
     When I tap on "floating-action-button"
     And I tap on "Add Shoot Around" text
