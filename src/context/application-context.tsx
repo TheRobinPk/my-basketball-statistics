@@ -9,7 +9,9 @@ import {CreateShootAroundTableIndex1658570828462} from '../migartions/create-sho
 import {CreateBasketballSeasonTable1661867877921} from '../migartions/create-basketball-season-table1661867877921';
 import {CreateBasketballTeamTable1661872258299} from '../migartions/create-basketball-team-table1661872258299';
 import {CreateBasketballGameTable1661872303691} from '../migartions/create-basketball-game-table1661872303691';
-import {BasketballGameEntity, BasketballSeasonEntity, BasketballTeamEntity} from '../domain/basketball-game';
+import {BasketballGameEntity} from '../domain/basketball-game';
+import {BasketballSeasonEntity} from '../domain/basketball-season';
+import {BasketballTeamEntity} from '../domain/basketball-team';
 
 const ApplicationContext = createContext<ApplicationState>(initialState);
 

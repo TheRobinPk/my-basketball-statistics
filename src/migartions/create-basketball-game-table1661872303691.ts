@@ -129,12 +129,22 @@ export class CreateBasketballGameTable1661872303691 implements MigrationInterfac
                         isNullable: false,
                     },
                     {
+                        name: 'season_id',
+                        type: 'integer',
+                        isNullable: false,
+                    },
+                    {
                         name: 'team_id',
                         type: 'integer',
                         isNullable: false,
                     },
                 ],
                 foreignKeys: [
+                    {
+                        referencedTableName: 'basketball_season',
+                        columnNames: ['season_id'],
+                        referencedColumnNames: ['id']
+                    },
                     {
                         referencedTableName: 'basketball_team',
                         columnNames: ['team_id'],

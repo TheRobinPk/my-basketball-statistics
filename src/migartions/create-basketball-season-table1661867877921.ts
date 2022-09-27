@@ -23,17 +23,7 @@ export class CreateBasketballSeasonTable1661867877921 implements MigrationInterf
                         name: 'name',
                         type: 'string',
                         isNullable: false,
-                    },
-                    {
-                        name: 'start_date',
-                        type: 'int',
-                        isNullable: false,
-                    },
-                    {
-                        name: 'end_date',
-                        type: 'int',
-                        isNullable: false,
-                    },
+                    }
                 ]
             }),
         );

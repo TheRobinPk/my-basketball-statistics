@@ -1,4 +1,6 @@
-import {Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn} from 'typeorm';
+import {Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from 'typeorm';
+import {BasketballTeamEntity} from './basketball-team';
+import {BasketballSeasonEntity} from './basketball-season';
 
 export enum BasketballGameType {
     BASIC,
@@ -8,50 +10,6 @@ export enum BasketballGameType {
 export enum BasketballGameOutcome {
     WON,
     LOST
-}
-
-@Entity('basketball_season')
-export class BasketballSeasonEntity {
-    @PrimaryGeneratedColumn()
-    id!: number;
-
-    @Column({ nullable: false, name: 'timestamp' })
-    timestamp!: number;
-
-    @Column({ nullable: false, name: 'name' })
-    name!: string;
-
-    @Column({ nullable: false, name: 'start_date' })
-    startDate!: number;
-
-    @Column({ nullable: false, name: 'end_date' })
-    endDate!: number;
-
-    @OneToMany(() => BasketballTeamEntity, (basketballTeam) => basketballTeam.season, {
-        cascade: true
-    })
-    teams!: BasketballTeamEntity[];
-}
-
-@Entity('basketball_team')
-export class BasketballTeamEntity {
-    @PrimaryGeneratedColumn()
-    id!: number;
-
-    @Column({ nullable: false, name: 'timestamp' })
-    timestamp!: number;
-
-    @Column({ nullable: false, name: 'name' })
-    name!: string;
-
-    @JoinColumn({ name: 'season_id' })
-    @ManyToOne(() => BasketballSeasonEntity, (basketballSeason) => basketballSeason.teams)
-    season!: BasketballSeasonEntity;
-
-    @OneToMany(() => BasketballGameEntity, (basketballGame) => basketballGame.team, {
-        cascade: true
-    })
-    games!: BasketballGameEntity[];
 }
 
 @Entity('basketball_game')
@@ -128,7 +86,11 @@ export class BasketballGameEntity {
     @Column({ nullable: false, name: 'pts' })
     points!: number;
 
+    @JoinColumn({ name: 'season_id' })
+    @ManyToOne(() => BasketballSeasonEntity)
+    season!: BasketballSeasonEntity;
+
     @JoinColumn({ name: 'team_id' })
-    @ManyToOne(() => BasketballTeamEntity, (basketballTeam) => basketballTeam.games)
+    @ManyToOne(() => BasketballTeamEntity)
     team!: BasketballTeamEntity;
 }
