@@ -1,4 +1,4 @@
-import {Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from 'typeorm';
+import {Column, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from 'typeorm';
 import {BasketballTeamEntity} from './basketball-team';
 import {BasketballSeasonEntity} from './basketball-season';
 import {Moment} from 'moment';
@@ -43,6 +43,9 @@ export interface BasketballGame {
 }
 
 @Entity('basketball_game')
+@Index('idx_bgame_timestamp', { synchronize: false })
+@Index('idx_bgame_season', { synchronize: false })
+@Index('idx_bgame_team', { synchronize: false })
 export class BasketballGameEntity {
     @PrimaryGeneratedColumn()
     id!: number;

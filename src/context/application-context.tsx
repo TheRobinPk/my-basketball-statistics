@@ -9,6 +9,7 @@ import {CreateShootAroundTableIndex1658570828462} from '../migartions/create-sho
 import {CreateBasketballSeasonTable1661867877921} from '../migartions/create-basketball-season-table1661867877921';
 import {CreateBasketballTeamTable1661872258299} from '../migartions/create-basketball-team-table1661872258299';
 import {CreateBasketballGameTable1661872303691} from '../migartions/create-basketball-game-table1661872303691';
+import {CreateBasketballGameTableIndex1661872303691} from '../migartions/create-basketball-game-table-index1661872303691';
 import {BasketballGameEntity} from '../domain/basketball-game';
 import {BasketballSeasonEntity} from '../domain/basketball-season';
 import {BasketballTeamEntity} from '../domain/basketball-team';
@@ -44,7 +45,8 @@ const ApplicationProvider = (props: IProps) => {
                 CreateShootAroundTableIndex1658570828462,
                 CreateBasketballSeasonTable1661867877921,
                 CreateBasketballTeamTable1661872258299,
-                CreateBasketballGameTable1661872303691
+                CreateBasketballGameTable1661872303691,
+                CreateBasketballGameTableIndex1661872303691
             ],
             logging: ENV.SHOULD_LOG_SQL
         });
