@@ -1,6 +1,7 @@
 import {Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from 'typeorm';
 import {BasketballTeamEntity} from './basketball-team';
 import {BasketballSeasonEntity} from './basketball-season';
+import {Moment} from 'moment';
 
 export enum BasketballGameType {
     BASIC,
@@ -10,6 +11,35 @@ export enum BasketballGameType {
 export enum BasketballGameOutcome {
     WON,
     LOST
+}
+
+export interface BasketballGame {
+    id?: number;
+    dateTime: Moment;
+    gameType: BasketballGameType;
+    opponentName: string;
+    gameOutcome: BasketballGameOutcome;
+    finalScore: number;
+    finalScoreOpponent: number;
+    played: boolean;
+    started: boolean;
+    minutesPlayed: number;
+    fieldGoalAttempts: number;
+    fieldGoalsMade: number;
+    fieldGoalAttemptsThree: number;
+    fieldGoalsMadeThree: number;
+    freeThrowAttempts: number;
+    freeThrowsMade: number;
+    offensiveRebounds: number;
+    defensiveRebounds: number;
+    assists: number;
+    blocks: number;
+    steals: number;
+    turnovers: number;
+    fouls: number;
+    points: number;
+    seasonId: number;
+    teamId: number;
 }
 
 @Entity('basketball_game')
