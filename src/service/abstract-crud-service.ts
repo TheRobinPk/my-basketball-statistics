@@ -36,21 +36,6 @@ export abstract class AbstractCrudService<E, T> {
         });
     }
 
-    async findById(id: number): Promise<T | undefined> {
-        let result = undefined;
-        const entity = await this.repository.findOne({
-            where: {
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                id: id
-            }
-        });
-        if (entity) {
-            result = this.mapEntityToType(entity);
-        }
-        return result;
-    }
-
     async findEntityById(id: number): Promise<E | undefined> {
         const entity = await this.repository.findOne({
             where: {
