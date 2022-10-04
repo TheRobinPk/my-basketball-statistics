@@ -2,57 +2,37 @@ import {ShootAround, ShootAroundEntity, ShootAroundSpot} from '../../domain/shoo
 import {Repository} from 'typeorm/repository/Repository';
 import moment, {Moment} from 'moment';
 import {Between, In} from 'typeorm';
+import {AbstractCrudService} from '../abstract-crud-service';
+import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
-export default class ShootAroundService {
-    private repository: Repository<ShootAroundEntity>;
-
+export default class ShootAroundService extends AbstractCrudService<ShootAroundEntity, ShootAround> {
     constructor(repository: Repository<ShootAroundEntity>) {
-        this.repository = repository;
+        super(repository);
     }
 
-    insert(shootAround: ShootAround) {
-        return new Promise<void>((resolve) => {
-            const entity = new ShootAroundEntity();
-            entity.spot = shootAround.spot.toString();
-            entity.madeAttempts = shootAround.madeAttempts;
-            entity.totalAttempts = shootAround.totalAttempts;
-            entity.timestamp = shootAround.dateTime.unix();
-            this.repository.insert(entity)
-                .then(() => {
-                    resolve();
-                });
-        });
+    protected mapTypeToEntity(shootAround: ShootAround): ShootAroundEntity {
+        const entity = new ShootAroundEntity();
+        entity.spot = shootAround.spot.toString();
+        entity.madeAttempts = shootAround.madeAttempts;
+        entity.totalAttempts = shootAround.totalAttempts;
+        entity.timestamp = shootAround.dateTime.unix();
+        return entity;
     }
-
-    update(id: number, shootAround: ShootAround): Promise<void> {
-        return new Promise<void>((resolve) => {
-            this.repository.update(id, {
-                totalAttempts: shootAround.totalAttempts,
-                madeAttempts: shootAround.madeAttempts,
-                spot: shootAround.spot.toString()
-            })
-                .then(() => {
-                    resolve();
-                });
-        });
+    protected mapEntityToType(entity: ShootAroundEntity): ShootAround {
+        return {
+            id: entity.id,
+            dateTime: moment.unix(entity.timestamp),
+            totalAttempts: entity.totalAttempts,
+            madeAttempts: entity.madeAttempts,
+            spot: entity.spot as ShootAroundSpot
+        };
     }
-
-    delete(id: number): Promise<void> {
-        return new Promise<void>((resolve) => {
-            this.repository.delete(id)
-                .then(() => {
-                    resolve();
-                });
-        });
-    }
-
-    async findAll(): Promise<ShootAround[]> {
-        const entities = await this.repository.find({
-            order: {
-                timestamp: 'DESC'
-            }
-        });
-        return entities.map(this.mapShootAroundEntity);
+    protected getPartialEntity(shootAround: ShootAround): QueryDeepPartialEntity<ShootAroundEntity> {
+        return {
+            totalAttempts: shootAround.totalAttempts,
+            madeAttempts: shootAround.madeAttempts,
+            spot: shootAround.spot.toString()
+        };
     }
 
     async findBetweenAndWithinSpots(start: Moment, end: Moment, spots: ShootAroundSpot[]): Promise<ShootAround[]> {
@@ -64,16 +44,6 @@ export default class ShootAroundService {
                 spot: In([...spots.map((spot) => spot.toString())])
             },
         });
-        return entities.map(this.mapShootAroundEntity);
-    }
-
-    private mapShootAroundEntity(entity: ShootAroundEntity): ShootAround {
-        return {
-            id: entity.id,
-            dateTime: moment.unix(entity.timestamp),
-            totalAttempts: entity.totalAttempts,
-            madeAttempts: entity.madeAttempts,
-            spot: entity.spot as ShootAroundSpot
-        };
+        return entities.map(this.mapEntityToType);
     }
 }

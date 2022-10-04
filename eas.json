@@ -25,9 +25,6 @@
       "releaseChannel": "production",
       "env": {
         "ENVIRONMENT": "production"
-      },
-      "android": {
-        "gradleCommand": ":app:assembleRelease"
       }
     }
   }
